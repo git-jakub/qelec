@@ -1,0 +1,66 @@
+﻿.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1E3D65;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo img {
+    width: 350px; /* Dopasuj rozmiar loga */
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.service-option {
+    background-color: #5e2f1b; /* Brązowy kolor */
+    color: white;
+    display: flex;
+    flex-direction: column; /* Układ pionowy dla ikony i tekstu */
+    align-items: center; /* Wyśrodkowanie poziome */
+    justify-content: center; /* Wyśrodkowanie pionowe */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0;
+    min-height: 75px; /* Ustawienie minimalnej wysokości boxa */
+    transition: background-color 0.3s;
+}
+
+    .service-option img {
+        margin-bottom: 10px; /* Odstęp między ikoną a tekstem */
+        max-width: 50px; /* Ustawienie maksymalnej szerokości dla ikony */
+        max-height: 50px; /* Ustawienie maksymalnej wysokości dla ikony */
+    }
+
+    .service-option p {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        margin: 0;
+    }
+
+    .service-option:hover {
+        background-color: #4c2715; /* Zmiana koloru po najechaniu */
+    }
+.book-now-btn {
+    background-color: #E84848;
+    color: white;
+    padding:20px 65px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+    .book-now-btn:hover {
+        background-color: #d62828; /* Ciemniejszy czerwony po najechaniu */
+    }
+
+

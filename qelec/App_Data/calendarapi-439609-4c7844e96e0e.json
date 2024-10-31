@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "calendarapi-439609",
+  "private_key_id": "4c7844e96e0ea62acb0c2d4649e258f39f4f909b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDp+KRPXO6K/6ta\n8MHvmiFb3zdRG1EwRvSoI/L51+JUOoucMium8ZhMoQfT46aHAxEUOkf8Fgr6JvEi\n/dtpraB712A+FYaKUKtVHvbQsxCZ1T9VVuhO9w4MHvBc6A8YjWZoVcUNYajse4hY\nYPdFke5B8RIUoDLgg4R2YxGaWPTZPZElM/4TowMbHHpWTp5+SXT+x3IiFh4EiDpV\n1jKs6GVqwCKiB/Efy7Hid17jMjyY41u6Xon7+c8T0EvjfWlvS3PH5+K5eqdNTDTu\nhfG/UC/1jukF4JMaaRkkrV5bK8l8loDKn/wURRffN1ctrG27yr0P9O2aLXRmv//b\nVzXjT0ZlAgMBAAECggEAONxDWkI0erVNuIkgKJGln8UslVp1La1g0egCqbNMfrnH\nqgsLTsQSBjVwSI9frhoRsX/EdMAKpOaH3cAh7ZnTkaUy74OdscmPCd2/j9Kkqy4G\n+T9or6Ac2tc+BOYknQvoIl0NyYW9XtNavFe8YDzp0T677SVNmAB+VaMX6RHLV2vG\n9xLvG8a0oJik9t6Gg6XCHl/1YJGpHAvAMOG+fM1nqMA3rq31nH1kTUFhSO6ECwB8\nSuQnZlTjWaI0K9FALaDLXWPYjpNejUvYM+bv/AaJpj5rQUKou7+d2g7BHuciqgMe\nz2XuLeAgphOW5+6V8K+FOzEG6uAhPmILqhOFJnCzAQKBgQD6/MyjMcRGCOBCoe7v\nA8xq2kTEQH6jO3JCJTH/RrChFTE+vNMTHZZBNomZI7wT7xrILOKOJ9b/qLn9qNXo\niDKAZDdizgSmvGoiA2sN1/kuw65t9Wwoh9jJt1vY4j7haxk5SDTo+AXKO/TvXWK/\nqD9rMCcweA8ilEvD1uVzvyT/QQKBgQDupNhY/YTqDj6iuom+Q15cAIFEzSVU/FiO\nuQI1MNLudb0sqTXkKFGORK3GnGBtl+rjYgPMeAPbrINFFULN3SHnWPcUG/B2gFp0\nhQ2dkT4g3OFGwC+XIydftuyww2vUGlVKrwKGPytxvDON1bJV5MeMRfYtdI7MhIaf\nH6MyQN/iJQKBgGmbpZ+leSje4z4mVRtNRd5QKU9Ks/6LLPCYJgl7/SZKfIYhfc81\nS9v0zsEZQDJDEcnY2RtnuBerL1eEiz1k0ZskkAmLFnnyHdZiCdGxZrA+tk6eTfxf\n7OAzvvnrePnwzpRDxb+hXQ5TXCS77qkmakj34gWK/xNVwuuMqM+jRjYBAoGBALgl\ntdg9kLG3Wjfhr2aEv6xIq3d2wabprkA7nOuEiE9/xQFQdQhg4EXi0yFeC76lqpfZ\nS0sdFQUPAqBtPoZya7YEXWxD/vLCKoqdHRuINyPOrXsV0+NROhHOqqfftDYQN96Q\nW2dSGWkDK9j3nExRZHXmioca2RIR9XuWQy0FCH2NAoGBAOAx0TAlODUubmp8DlVq\n7lphIwouXf9GrOnTrRtprubCx0qpJu7xdzjHamGN8Ea7E5qhTb7112rdpz4wHYU3\nNCDW7isv4ruxBwvzY4hJLkR3NElmF3rE16zG418SISV9fj0Jb5/Cift1vaYQQB0f\nQ+ZoO7kk2o8scMGQxqzu+GgF\n-----END PRIVATE KEY-----\n",
+  "client_email": "timeplanner-service-accoun@calendarapi-439609.iam.gserviceaccount.com",
+  "client_id": "107387328921807772179",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/timeplanner-service-accoun%40calendarapi-439609.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -1,0 +1,112 @@
+﻿.time-planner-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1E3D65;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    text-align: center;
+    position: relative; /* Dodane dla navbar */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1; /* Dodanie z-index, aby navbar był nad innymi elementami */
+}
+
+/* Inne istniejące style pozostają bez zmian */
+.mantine-date-picker,
+.mantine-time-picker {
+    margin-bottom: 20px;
+}
+
+/* Kontener na kalendarz - wyśrodkowanie w poziomie */
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Wyśrodkowanie kalendarza w poziomie */
+}
+
+/* Styl dla etykiety miesiąca i roku */
+.mantine-DatePicker-calendarHeaderLevel {
+    font-size: 18px; /* Zwiększenie rozmiaru czcionki */
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.mantine-DatePicker-calendarHeaderControl {
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    transform: rotate(0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+    .mantine-DatePicker-calendarHeaderControl:first-child {
+        transform: rotate(90deg);
+    }
+
+    .mantine-DatePicker-calendarHeaderControl:last-child {
+        transform: rotate(270deg);
+    }
+
+.time-slots-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.time-slot-button {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1 1 100px;
+    text-align: center;
+}
+
+    .time-slot-button:hover {
+        background-color: #ddd;
+    }
+
+    .time-slot-button.selected {
+        background-color: #e63946;
+        color: white;
+        border-color: #e63946;
+    }
+
+    .time-slot-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+    }
+
+.submit-button {
+    background-color: #e63946;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    top: 50px;
+}

@@ -1,0 +1,87 @@
+﻿/* Stylizacja dla formularza JobDetails */
+.job-details-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1E3D65;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+}
+
+.back-button, .next-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .back-button:hover {
+        background-color: #555;
+    }
+
+h2 {
+    text-align: left;
+    color: white;
+    font-size: 24px;
+    margin: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+label {
+    text-align: left;
+    margin-bottom: -10px;
+    font-size: 0.9rem;
+    color: #ccc; /* Kolor tekstu etykiety */
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+    input::placeholder {
+        color: #aaa;
+    }
+
+.submit-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+    .submit-button:hover {
+        background-color: #c0392b;
+    }
