@@ -39,7 +39,8 @@ namespace qelec.Controllers
             // Generate JWT token for authenticated sessions
             var token = GenerateJwtToken(user);
 
-            return Ok(new { token, userId = user.UserId });
+            // Include user role in the response
+            return Ok(new { token, userId = user.UserId, userRole = user.Role });
         }
 
         // Utility method to verify passwords using BCrypt
@@ -58,6 +59,7 @@ namespace qelec.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("role", user.Role), // Add role to claims
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

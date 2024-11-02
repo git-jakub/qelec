@@ -23,13 +23,16 @@ const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('token', data.token);          // Save token
-                localStorage.setItem('role', data.userRole || '');   // Save role, assumed returned in `data.userRole`
+                localStorage.setItem('token', data.token);             // Save token
+                localStorage.setItem('userRole', data.userRole || '');  // Save userRole
 
-                if (data.userRole === 'admin') {
-                    navigate('/adminportal');   // Redirect to admin portal if admin adminportal
+                // Check userRole and redirect accordingly
+                if (data.userRole === 'Admin') {
+                    console.log("Admin detected, navigating to /adminportal");
+                    navigate('/adminportal');
                 } else {
-                    navigate('/jobdetails');     // Redirect to other protected page if not admin protected
+                    console.log("Non-admin user, navigating to /jobdetails");
+                    navigate('/jobdetails');
                 }
             } else {
                 const errorData = await response.json();
