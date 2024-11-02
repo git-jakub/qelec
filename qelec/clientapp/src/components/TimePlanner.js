@@ -28,7 +28,7 @@ const TimePlanner = () => {
             // Convert selected date to UTC and format as ISO (YYYY-MM-DD)
             const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
             const formattedDate = utcDate.toISOString().slice(0, 10);
-            const response = await fetch(`https://api.qelectric.net/api/TimeSlots/timeslots?date=${formattedDate}`);
+            const response = await fetch(`https://localhost:7061/api/TimeSlots/timeslots?date=${formattedDate}`);
 
 
             if (!response.ok) {

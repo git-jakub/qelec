@@ -1,0 +1,22 @@
+﻿/* src/components/AdminPortal/AdminPortal.css */
+
+.admin-portal {
+    padding: 20px;
+}
+
+    .admin-portal h2 {
+        font-size: 24px;
+    }
+
+    .admin-portal nav ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .admin-portal nav ul li {
+            margin: 5px 0;
+        }
+
+    .admin-portal .admin-content {
+        margin-top: 20px;
+    }

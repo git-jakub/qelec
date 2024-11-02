@@ -13,7 +13,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+            const response = await fetch(`https://localhost:7061/api/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -23,9 +23,14 @@ const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                // Assuming a JWT token is returned in data.token
-                localStorage.setItem('token', data.token);
-                navigate('/protected'); // Redirect to protected page after successful login
+                localStorage.setItem('token', data.token);          // Save token
+                localStorage.setItem('role', data.userRole || '');   // Save role, assumed returned in `data.userRole`
+
+                if (data.userRole === 'admin') {
+                    navigate('/adminportal');   // Redirect to admin portal if admin adminportal
+                } else {
+                    navigate('/jobdetails');     // Redirect to other protected page if not admin protected
+                }
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || 'Failed to login');

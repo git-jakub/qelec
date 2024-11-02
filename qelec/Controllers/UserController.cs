@@ -1,7 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using qelec.Models; 
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using qelec.Models;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace qelec.Controllers
 {
@@ -10,17 +15,19 @@ namespace qelec.Controllers
     public class UserController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public UserController(AppDbContext context)
+        public UserController(AppDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // POST: api/user/login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
-            // Find user by email (or username, if applicable)
+            // Find user by email
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
 
@@ -29,24 +36,40 @@ namespace qelec.Controllers
                 return Unauthorized("Invalid credentials");
             }
 
-            // (Optional) Generate a token for authenticated sessions
-            var token = GenerateJwtToken(user); // Placeholder function
+            // Generate JWT token for authenticated sessions
+            var token = GenerateJwtToken(user);
 
             return Ok(new { token, userId = user.UserId });
         }
 
-        // Utility method to verify passwords
+        // Utility method to verify passwords using BCrypt
         private bool VerifyPassword(string enteredPassword, string storedPasswordHash)
         {
-            // Add password verification logic here (e.g., hashing comparison)
-            return enteredPassword == storedPasswordHash; // Placeholder for simplicity
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, storedPasswordHash);
         }
 
-        // Utility method to generate JWT tokens (optional for session handling)
+        // Utility method to generate JWT tokens
         private string GenerateJwtToken(User user)
         {
-            // Implement token generation (JWT)
-            return "sample_token"; // Placeholder
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
