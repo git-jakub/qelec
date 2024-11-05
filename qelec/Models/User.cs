@@ -19,6 +19,6 @@ namespace qelec.Models
 
         public string FullName { get; set; } // Optional full name
 
-        public string Role { get; set; } = "Customer"; // Default role as Customer
+        public string Role { get; set; } // 
     }
 }

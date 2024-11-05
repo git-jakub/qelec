@@ -2,7 +2,9 @@
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
 import emailjs from 'emailjs-com';
+import './SharedStyles.css';
 import './OrderSummary.css';
+
 
 const OrderSummary = () => {
     const navigate = useNavigate();
@@ -26,8 +28,7 @@ const OrderSummary = () => {
         console.log("Order Payload:", orderPayload); // Debug payload
 
         try {
-            const response = await fetch(`https://api.qelectric.net/api/orders`, {
-
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -35,18 +36,20 @@ const OrderSummary = () => {
                 body: JSON.stringify(orderPayload)
             });
 
+
             console.log("Response Status:", response.status); // Debug response status
 
-            if (response.ok) {
-                const savedOrder = await response.json();
-                setOrderId(savedOrder.orderId);
-                sendEmail(savedOrder.orderId);
-                alert("Order saved successfully!");
-            } else {
+            if (!response.ok) {
                 const errorText = await response.text();
                 console.error("Failed to save order:", errorText); // Log error details
                 alert("Failed to save order.");
+                return;
             }
+
+            const savedOrder = await response.json();
+            setOrderId(savedOrder.orderId);
+            sendEmail(savedOrder.orderId);
+            alert("Order saved successfully!");
         } catch (error) {
             console.error("Error saving order:", error);
             alert("An error occurred while saving the order.");
@@ -84,7 +87,7 @@ const OrderSummary = () => {
             <div className="navbar">
                 <button onClick={() => navigate('/invoice')} className="back-button">Back</button>
                 <h2>Summary of your Order</h2>
-                <button onClick={() => navigate('/')} className="skip-button">Next</button>
+                <button onClick={() => navigate('/')} className="next-button">Next</button>
             </div>
 
             {orderId && (

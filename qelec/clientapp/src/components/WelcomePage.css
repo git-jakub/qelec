@@ -4,14 +4,21 @@
     align-items: center;
     background-color: #1E3D65;
     color: white;
-    height: 100vh;
+    min-height: 100vh;
     padding: 20px;
     text-align: center;
+    top: 0px;
+    min-height: 100vh;
 }
+/* Navbar styling */
+
+
 
 .logo img {
+    margin: 50px;
     width: 350px; /* Dopasuj rozmiar loga */
     margin-bottom: 20px;
+    top: 0px;
 }
 
 .title {
@@ -49,10 +56,11 @@
     .service-option:hover {
         background-color: #4c2715; /* Zmiana koloru po najechaniu */
     }
+
 .book-now-btn {
     background-color: #E84848;
     color: white;
-    padding:20px 65px;
+    padding: 20px 65px;
     border: none;
     border-radius: 5px;
     font-size: 1.1rem;
@@ -62,5 +70,3 @@
     .book-now-btn:hover {
         background-color: #d62828; /* Ciemniejszy czerwony po najechaniu */
     }
-
-
