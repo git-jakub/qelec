@@ -4,81 +4,33 @@
     align-items: center;
     background-color: #1E3D65;
     color: white;
-    height: 100vh;
+    min-height: 100vh;
     padding: 20px;
     text-align: center;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: black;
-    padding: 10px 15px;
-    color: white;
-    border-radius: 8px 8px 0 0;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    right: 0;
-}
-
-    .navbar h2 {
-        margin: 0 auto;
-        color: white;
+    .invoice-form form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 50px;
     }
 
-.back-button, .next-button {
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-    .back-button:hover, .next-button:hover {
-        background-color: #e0e0e0;
-    }
-
-.invoice-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 50px;
-   
-}
-
-.invoice-form label {
-    text-align: left;
-    margin-bottom: -10px;
-    font-size: 0.9rem;
-    color: #ccc; /* Kolor tekstu etykiety */
-}
-
-.invoice-form input {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
-    outline: none;
-   
-}
-
-    .invoice-form input::placeholder {
+    .invoice-form label {
+        text-align: left;
+        margin-bottom: -10px;
+        font-size: 0.9rem;
         color: #ccc;
     }
 
-.submit-button {
-    background-color: #E84848;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-
-    .submit-button:hover {
-        background-color: #d63737;
+    .invoice-form input {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 1rem;
+        outline: none;
     }
+
+        .invoice-form input::placeholder {
+            color: #ccc;
+        }

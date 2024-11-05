@@ -7,8 +7,9 @@ import WelcomePage from './components/WelcomePage';
 import JobDetails from './components/JobDetails';
 import TimePlanner from './components/TimePlanner';
 import OrderSummary from './components/OrderSummary';
-import AdminPortal from './components/AdminPortal/AdminPortal'; // Import AdminPortal component
-import PrivateRouteAdmin from './components/Auth/PrivateRouteAdmin'; // Import PrivateRouteAdmin for protected route
+import AdminPortal from './components/AdminPortal/AdminPortal';
+import TimeSetter from './components/AdminPortal/TimeSetter'; // Import TimeSetter component
+import PrivateRouteAdmin from './components/Auth/PrivateRouteAdmin';
 import Login from './components/Auth/Login';
 import './App.css';
 
@@ -40,7 +41,10 @@ function App() {
                                     <AdminPortal />
                                 </PrivateRouteAdmin>
                             }
-                        />
+                        >
+                            {/* Nested Routes under AdminPortal */}
+                            <Route path="timesetter" element={<TimeSetter />} /> {/* Add TimeSetter route */}
+                        </Route>
                     </Routes>
                 </Router>
             </OrderProvider>

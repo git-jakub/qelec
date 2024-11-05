@@ -1,7 +1,9 @@
 ﻿import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';  // Import OrderContext for shared state
+import './SharedStyles.css';
 import './InvoiceRecipient.css';
+
 
 const InvoiceRecipient = () => {
     const navigate = useNavigate();

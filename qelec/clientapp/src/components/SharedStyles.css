@@ -1,0 +1,45 @@
+﻿/* SharedStyles.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    position: sticky; /*Zmiana na sticky */
+    top: 0;
+    width: 100%; /* Pełna szerokość okna przeglądarki */
+    margin: 0; /* Upewnienie się, że nie ma marginesów */
+    box-sizing: border-box;
+}
+
+.back-button, .next-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: #e63946;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 600px;
+}
+
+ /*Responsive design settings */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;  /*Dostosowanie paddingu na mniejszych ekranach */
+    }
+}

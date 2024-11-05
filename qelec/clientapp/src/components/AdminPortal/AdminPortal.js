@@ -9,7 +9,7 @@ const AdminPortal = () => {
             <h2>Admin Portal</h2>
             <nav>
                 <ul>
-                    <li><Link to="timeplanner">Time Planner</Link></li>
+                    <li><Link to="timesetter">Time Setter</Link></li>
                     <li><Link to="manage-users">Manage Users</Link></li>
                     {/* Add more admin links as needed */}
                 </ul>

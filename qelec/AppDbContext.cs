@@ -10,23 +10,40 @@ public class AppDbContext : DbContext
 
     public DbSet<TimeSlot> TimeSlot { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<User> Users { get; set; }  // Add this line for the User model
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Seed data for TimeSlot for October and November...
+        // Seed data for TimeSlot with StartDate and EndDate including time
         modelBuilder.Entity<TimeSlot>().HasData(
-            new TimeSlot { TimeSlotId = 1, Date = DateTime.SpecifyKind(new DateTime(2024, 10, 28), DateTimeKind.Utc), Time = "10:00", IsAvailable = true },
-            new TimeSlot { TimeSlotId = 2, Date = DateTime.SpecifyKind(new DateTime(2024, 10, 28), DateTimeKind.Utc), Time = "11:00", IsAvailable = true },
-            new TimeSlot { TimeSlotId = 3, Date = DateTime.SpecifyKind(new DateTime(2024, 10, 28), DateTimeKind.Utc), Time = "12:00", IsAvailable = false }
-            // Continue for November slots as in your original seeding logic...
+            new TimeSlot
+            {
+                TimeSlotId = 1,
+                StartDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 10, 0, 0), DateTimeKind.Utc),
+                EndDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 11, 0, 0), DateTimeKind.Utc),
+                IsAvailable = true
+            },
+            new TimeSlot
+            {
+                TimeSlotId = 2,
+                StartDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 11, 0, 0), DateTimeKind.Utc),
+                EndDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 12, 0, 0), DateTimeKind.Utc),
+                IsAvailable = true
+            },
+            new TimeSlot
+            {
+                TimeSlotId = 3,
+                StartDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 12, 0, 0), DateTimeKind.Utc),
+                EndDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 13, 0, 0), DateTimeKind.Utc),
+                IsAvailable = false
+            }
+            // Add additional slots as needed
         );
 
-        // Optional: Seed User data if necessary
-        //modelBuilder.Entity<User>().HasData(
-        //    new User { Id = 1, Email = "test@example.com", PasswordHash = "hashed_password_example" } // Replace with actual hashed password
-        //);
+         modelBuilder.Entity<User>().HasData(
+             new User { UserId = 1, Email = "admin@gmail.com", PasswordHash = "admin", FullName = "Adam", Username = "Boss", Role = "Admin"}
+         );
     }
 }

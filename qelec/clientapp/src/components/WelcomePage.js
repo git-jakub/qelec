@@ -1,16 +1,33 @@
 ﻿import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import nawigacji z React Router
-import './WelcomePage.css'; // Importujemy stylizację
+import { useNavigate } from 'react-router-dom';
+import './SharedStyles.css';
+import './WelcomePage.css';
+
 
 const WelcomePage = () => {
-    const navigate = useNavigate(); // Hook do nawigacji
+    const navigate = useNavigate();
 
     const handleBookNow = () => {
-        navigate('/timeplanner'); // Przekierowujemy użytkownika do formularza InvoiceRecipient
+        navigate('/jobdetails');
+    };
+
+    const handleBack = () => {
+        navigate('/login');
+    };
+
+    const handleNext = () => {
+        navigate('/jobdetails');
     };
 
     return (
         <div className="welcome-container">
+            {/* Navbar */}
+            <div className="navbar">
+                <button className="back-button" onClick={handleBack}>Login</button>
+                {/*<h2>Welcome</h2>*/}
+                <button className="next-button" onClick={handleNext}>Next</button>
+            </div>
+
             <div className="logo">
                 <img src="/mainlogo.png" alt="QElectric Logo" />
             </div>
@@ -29,7 +46,7 @@ const WelcomePage = () => {
                     <p>Inspection & Testing</p>
                 </div>
             </div>
-            <button className="book-now-btn" onClick={handleBookNow}> {/* Przycisk przekierowuje do formularza */}
+            <button className="book-now-btn" onClick={handleBookNow}>
                 Book Now
             </button>
         </div>

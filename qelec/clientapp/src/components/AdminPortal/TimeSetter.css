@@ -1,0 +1,20 @@
+﻿.time-setter {
+    padding: 20px;
+}
+
+    .time-setter h2 {
+        font-size: 24px;
+    }
+
+    .time-setter nav ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .time-setter nav ul li {
+            margin: 5px 0;
+        }
+
+    .time-setter .timesetter-content {
+        margin-top: 20px;
+    }

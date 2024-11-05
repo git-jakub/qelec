@@ -1,16 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace qelec.Models
 {
     public class TimeSlot
     {
         [Key]
-        public int TimeSlotId { get; set; }  // Klucz główny
+        public int TimeSlotId { get; set; }  // Primary Key
 
-        public DateTime Date { get; set; }
-        public string Time { get; set; }
+        // StartDate will include both the start date and time
+        public DateTime StartDate { get; set; }
+
+        // EndDate will include both the end date and time
+        public DateTime EndDate { get; set; }
+
+        // Indicates whether the time slot is available
         public bool IsAvailable { get; set; }
-
-        // Dodaj inne właściwości, jeśli są potrzebne
     }
 }

@@ -16,17 +16,29 @@ namespace qelec.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(AppDbContext context, IConfiguration configuration)
+        public UserController(AppDbContext context, IConfiguration configuration, ILogger<UserController> logger)
         {
             _context = context;
             _configuration = configuration;
+            _logger = logger;
         }
 
         // POST: api/user/login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
+            // Tymczasowe logowanie wartości SecretKey - tylko do debugowania
+            var secretKey = _configuration["Jwt:SecretKey"];
+            if (string.IsNullOrEmpty(secretKey))
+            {
+                _logger.LogError("SecretKey dla JWT nie jest skonfigurowany.");
+                return StatusCode(500, "SecretKey dla JWT nie jest skonfigurowany.");
+            }
+
+            _logger.LogInformation("Wartość SecretKey: " + secretKey); // Loguj wartość klucza - tylko do testów
+
             // Find user by email
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
@@ -36,11 +48,20 @@ namespace qelec.Controllers
                 return Unauthorized("Invalid credentials");
             }
 
-            // Generate JWT token for authenticated sessions
-            var token = GenerateJwtToken(user);
+            try
+            {
+                // Generate JWT token for authenticated sessions
+                var token = GenerateJwtToken(user);
 
-            // Include user role in the response
-            return Ok(new { token, userId = user.UserId, userRole = user.Role });
+                // Include user role in the response
+                return Ok(new { token, userId = user.UserId, userRole = user.Role });
+            }
+            catch (Exception ex)
+            {
+                // Log error and return internal server error
+                _logger.LogError(ex, "Błąd podczas generowania tokena JWT.");
+                return StatusCode(500, "Wewnętrzny błąd serwera podczas generowania tokena");
+            }
         }
 
         // Utility method to verify passwords using BCrypt
@@ -52,7 +73,13 @@ namespace qelec.Controllers
         // Utility method to generate JWT tokens
         private string GenerateJwtToken(User user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+            var secretKey = _configuration["Jwt:SecretKey"];
+            if (string.IsNullOrEmpty(secretKey))
+            {
+                throw new ArgumentNullException("Jwt:SecretKey", "Secret key for JWT cannot be null or empty.");
+            }
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]

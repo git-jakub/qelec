@@ -53,15 +53,14 @@ namespace qelec.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TimeSlotId"));
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("TimeSlotId");
 
@@ -71,23 +70,23 @@ namespace qelec.Migrations
                         new
                         {
                             TimeSlotId = 1,
-                            Date = new DateTime(2024, 10, 28, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EndDate = new DateTime(2024, 10, 28, 11, 0, 0, 0, DateTimeKind.Utc),
                             IsAvailable = true,
-                            Time = "10:00"
+                            StartDate = new DateTime(2024, 10, 28, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             TimeSlotId = 2,
-                            Date = new DateTime(2024, 10, 28, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EndDate = new DateTime(2024, 10, 28, 12, 0, 0, 0, DateTimeKind.Utc),
                             IsAvailable = true,
-                            Time = "11:00"
+                            StartDate = new DateTime(2024, 10, 28, 11, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             TimeSlotId = 3,
-                            Date = new DateTime(2024, 10, 28, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EndDate = new DateTime(2024, 10, 28, 13, 0, 0, 0, DateTimeKind.Utc),
                             IsAvailable = false,
-                            Time = "12:00"
+                            StartDate = new DateTime(2024, 10, 28, 12, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -122,6 +121,17 @@ namespace qelec.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Email = "admin@gmail.com",
+                            FullName = "Adam",
+                            PasswordHash = "admin",
+                            Role = "Admin",
+                            Username = "Boss"
+                        });
                 });
 #pragma warning restore 612, 618
         }
