@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using qelec.Models;  // Importuj model Order
+using qelec.Models;
+using qelec.Models.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +16,7 @@ public class OrdersController : ControllerBase
         _context = context;
     }
 
-    // POST: api/orders - Dodaje nowe zamówienie
+    // POST: api/orders - Adds a new order with JobDetails and InvoiceDetails
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] Order order)
     {
@@ -23,19 +25,23 @@ public class OrdersController : ControllerBase
             return BadRequest("Invalid order data.");
         }
 
-        // Dodaj zamówienie do kontekstu bazy danych
+        // Set CreatedDate for the new order
+        order.CreatedDate = DateTime.UtcNow;
+
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 
-        // Zwróć utworzone zamówienie wraz z jego ID
         return CreatedAtAction(nameof(GetOrderById), new { id = order.OrderId }, order);
     }
 
-    // GET: api/orders/{id} - Pobiera konkretne zamówienie po ID
+    // GET: api/orders/{id} - Gets a specific order by ID, including JobDetails and InvoiceDetails
     [HttpGet("{id}")]
     public async Task<ActionResult<Order>> GetOrderById(int id)
     {
-        var order = await _context.Orders.FindAsync(id);
+        var order = await _context.Orders
+            .Include(o => o.JobDetails)
+            .Include(o => o.InvoiceDetails)
+            .FirstOrDefaultAsync(o => o.OrderId == id);
 
         if (order == null)
         {
@@ -45,23 +51,45 @@ public class OrdersController : ControllerBase
         return Ok(order);
     }
 
-    // GET: api/orders - Pobiera wszystkie zamówienia
+    // GET: api/orders - Gets all orders, including JobDetails and InvoiceDetails
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
     {
-        return await _context.Orders.ToListAsync();
+        var orders = await _context.Orders
+            .Include(o => o.JobDetails)
+            .Include(o => o.InvoiceDetails)
+            .ToListAsync();
+
+        return Ok(orders);
     }
 
-    // PUT: api/orders/{id} - Aktualizuje zamówienie
+    // PUT: api/orders/{id} - Updates an existing order
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateOrder(int id, [FromBody] Order order)
+    public async Task<IActionResult> UpdateOrder(int id, [FromBody] Order updatedOrder)
     {
-        if (id != order.OrderId)
+        if (id != updatedOrder.OrderId)
         {
             return BadRequest("Order ID mismatch.");
         }
 
-        _context.Entry(order).State = EntityState.Modified;
+        var existingOrder = await _context.Orders
+            .Include(o => o.JobDetails)
+            .Include(o => o.InvoiceDetails)
+            .FirstOrDefaultAsync(o => o.OrderId == id);
+
+        if (existingOrder == null)
+        {
+            return NotFound();
+        }
+
+        // Update fields
+        existingOrder.TimeSlotId = updatedOrder.TimeSlotId;
+        existingOrder.Status = updatedOrder.Status;
+        existingOrder.UpdatedDate = DateTime.UtcNow;  // Set UpdatedDate to the current time
+
+        // Update JobDetails and InvoiceDetails as needed
+        existingOrder.JobDetails = updatedOrder.JobDetails;
+        existingOrder.InvoiceDetails = updatedOrder.InvoiceDetails;
 
         try
         {
@@ -82,11 +110,15 @@ public class OrdersController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/orders/{id} - Usuwa zamówienie
+    // DELETE: api/orders/{id} - Deletes an order and its related details
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteOrder(int id)
     {
-        var order = await _context.Orders.FindAsync(id);
+        var order = await _context.Orders
+            .Include(o => o.JobDetails)
+            .Include(o => o.InvoiceDetails)
+            .FirstOrDefaultAsync(o => o.OrderId == id);
+
         if (order == null)
         {
             return NotFound();

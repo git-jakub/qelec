@@ -5,7 +5,6 @@ import emailjs from 'emailjs-com';
 import './SharedStyles.css';
 import './OrderSummary.css';
 
-
 const OrderSummary = () => {
     const navigate = useNavigate();
     const { orderData } = useContext(OrderContext);
@@ -14,16 +13,44 @@ const OrderSummary = () => {
     // Format date
     const formattedDate = timeSlot?.date ? new Date(timeSlot.date).toLocaleDateString() : 'N/A';
 
-    // State to store Order ID
+    // State to store Order ID and Status
     const [orderId, setOrderId] = useState(null);
+    const [status, setStatus] = useState("Scheduled");
+
+    // Handle status change
+    const handleStatusChange = (e) => {
+        setStatus(e.target.value);
+    };
 
     // Function to save order
     const saveOrder = async () => {
         const orderPayload = {
-            timeSlotId: timeSlot?.id,
-            jobDetails: JSON.stringify(jobDetails),
-            invoiceDetails: JSON.stringify(invoiceDetails)
+            timeSlotId: timeSlot?.id || 0, // Ensure it's not undefined
+            jobDetails: {
+                postcode: jobDetails?.postcode || '',
+                city: jobDetails?.city || '',
+                address: jobDetails?.address || '',
+                clientName: jobDetails?.clientName || '', // Consistent naming
+                siteAccessInfo: jobDetails?.siteAccessInfo || '',
+                mobile: jobDetails?.mobile || '',
+                clientEmail: jobDetails?.clientEmail || '',
+                serviceType: jobDetails?.serviceType || '',
+                serviceDetails: jobDetails?.serviceDetails || '',
+                propertySizeOrSpecification: jobDetails?.propertySizeOrSpecification || ''
+            },
+            invoiceDetails: {
+                recipientName: invoiceDetails?.recipientName || '',
+                companyName: invoiceDetails?.companyName || '',
+                recipientAddress: invoiceDetails?.recipientAddress || '',
+                recipientPostcode: invoiceDetails?.recipientPostcode || '',
+                recipientCity: invoiceDetails?.recipientCity || '',
+                recipientEmail: invoiceDetails?.recipientEmail || '',
+                recipientPhone: invoiceDetails?.recipientPhone || '',
+                paymentStatus: invoiceDetails?.paymentStatus || 'Unpaid' // Default if not provided
+            },
+            status
         };
+
 
         console.log("Order Payload:", orderPayload); // Debug payload
 
@@ -35,7 +62,6 @@ const OrderSummary = () => {
                 },
                 body: JSON.stringify(orderPayload)
             });
-
 
             console.log("Response Status:", response.status); // Debug response status
 
@@ -58,12 +84,12 @@ const OrderSummary = () => {
 
     // Function to send email with Order ID
     const sendEmail = (orderId) => {
-        if (jobDetails?.email) {
+        if (jobDetails?.clientEmail) {
             const templateParams = {
-                to_email: jobDetails.email,
+                to_email: jobDetails.clientEmail,
                 time_slot: `${formattedDate}, ${timeSlot ? timeSlot.time : 'N/A'}`,
                 job_address: jobDetails.address,
-                job_name: jobDetails.name,
+                job_name: jobDetails.clientName,
                 invoice_recipient: invoiceDetails.recipientName,
                 invoice_company: invoiceDetails.companyName,
                 order_id: orderId // Pass OrderId to email template
@@ -72,7 +98,7 @@ const OrderSummary = () => {
             emailjs.send('service_7n0t7bg', 'template_axl4qnw', templateParams, 'XvVzICuTNwzlzA_5x')
                 .then((response) => {
                     console.log('SUCCESS!', response.status, response.text);
-                    alert('Email sent successfully to ' + jobDetails.email);
+                    alert('Email sent successfully to ' + jobDetails.clientEmail);
                 }, (error) => {
                     console.error('FAILED...', error);
                     alert('Failed to send email.');
@@ -107,20 +133,37 @@ const OrderSummary = () => {
                 <h3>Job Details</h3>
                 <p>Post Code: {jobDetails?.postcode || 'N/A'}</p>
                 <p>Address: {jobDetails?.address || 'N/A'}</p>
-                <p>Name: {jobDetails?.name || 'N/A'}</p>
+                <p>Client Name: {jobDetails?.clientName || 'N/A'}</p>
                 <p>Site Access Info: {jobDetails?.siteAccessInfo || 'N/A'}</p>
                 <p>Mobile: {jobDetails?.mobile || 'N/A'}</p>
-                <p>Email: {jobDetails?.email || 'N/A'}</p>
+                <p>Client Email: {jobDetails?.clientEmail || 'N/A'}</p>
+                <p>Property size: {jobDetails?.propertySizeOrSpecification || 'N/A'}</p>
+                <p>Service Details: {jobDetails?.serviceDetails || 'N/A'}</p>
+                <p>Service Type: {jobDetails?.serviceType || 'N/A'}</p>
+
+          
             </div>
 
             <div className="summary-section">
                 <h3>Invoice Details</h3>
                 <p>Recipient Name: {invoiceDetails?.recipientName || 'N/A'}</p>
                 <p>Company Name: {invoiceDetails?.companyName || 'N/A'}</p>
-                <p>Address: {invoiceDetails?.address || 'N/A'}</p>
-                <p>Postcode: {invoiceDetails?.postcode || 'N/A'}</p>
-                <p>Email: {invoiceDetails?.email || 'N/A'}</p>
-                <p>Phone: {invoiceDetails?.phone || 'N/A'}</p>
+                <p>Recipient Address: {invoiceDetails?.recipientAddress || 'N/A'}</p>
+                <p>Recipient Postcode: {invoiceDetails?.recipientPostcode || 'N/A'}</p>
+                <p>Recipient City: {invoiceDetails?.recipientCity || 'N/A'}</p>
+                <p>Recipient Email: {invoiceDetails?.recipientEmail || 'N/A'}</p>
+                <p>Recipient Phone: {invoiceDetails?.recipientPhone || 'N/A'}</p>
+                <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
+            </div>
+
+            <div className="summary-section">
+                <label>Status:</label>
+                <select value={status} onChange={handleStatusChange}>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Rescheduled">Rescheduled</option>
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Completed">Completed</option>
+                </select>
             </div>
 
             <button onClick={saveOrder} className="submit-button">

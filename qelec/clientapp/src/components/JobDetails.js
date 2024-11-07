@@ -1,27 +1,33 @@
-﻿import React, { useState, useContext } from 'react';
+﻿import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
 import './SharedStyles.css';
 import './JobDetails.css';
 
-
 const JobDetails = () => {
     const navigate = useNavigate();
-    const { setOrderData } = useContext(OrderContext);
+    const { setOrderData, resetOrderData } = useContext(OrderContext);
+
+    useEffect(() => {
+        if (resetOrderData) {
+            resetOrderData();
+        }
+    }, [resetOrderData]);
 
     const [formData, setFormData] = useState({
         postcode: '',
         city: '',
         address: '',
-        name: '',
+        clientName: '', // Renamed from name to clientName
         siteAccessInfo: '',
         mobile: '',
-        email: '',
+        clientEmail: '', // Renamed from email to clientEmail
         serviceType: '',
         serviceDetails: '',
         propertySizeOrSpecification: '',
         files: []
     });
+
     const [estimatedCost, setEstimatedCost] = useState(null);
     const [estimatedTime, setEstimatedTime] = useState(null);
 
@@ -123,12 +129,18 @@ const JobDetails = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Update OrderContext with the jobDetails data and the estimated cost and time
         setOrderData((prevData) => ({
             ...prevData,
-            jobDetails: formData,
-            estimatedCost,
-            estimatedTime
+            jobDetails: {
+                ...formData,
+                estimatedCost: estimatedCost,  // Include estimated cost
+                estimatedTime: estimatedTime   // Include estimated time
+            }
         }));
+
+        // Navigate to the time planner page
         navigate('/timeplanner');
     };
 
@@ -249,13 +261,13 @@ const JobDetails = () => {
                     required
                 />
 
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="clientName">Client Name:</label>
                 <input
                     type="text"
-                    id="name"
-                    name="name"
+                    id="clientName"
+                    name="clientName"
                     placeholder="Enter your name"
-                    value={formData.name}
+                    value={formData.clientName}
                     onChange={handleChange}
                     required
                 />
@@ -282,13 +294,13 @@ const JobDetails = () => {
                     required
                 />
 
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="clientEmail">Email:</label>
                 <input
                     type="email"
-                    id="email"
-                    name="email"
+                    id="clientEmail"
+                    name="clientEmail"
                     placeholder="Enter your email"
-                    value={formData.email}
+                    value={formData.clientEmail}
                     onChange={handleChange}
                     required
                 />

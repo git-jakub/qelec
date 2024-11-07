@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using qelec.Models;
+using qelec.Models.DTOs;
 using System;
 
 public class AppDbContext : DbContext
@@ -11,6 +12,8 @@ public class AppDbContext : DbContext
     public DbSet<TimeSlot> TimeSlot { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<JobDetails> JobDetails { get; set; }
+    public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -42,8 +45,8 @@ public class AppDbContext : DbContext
             // Add additional slots as needed
         );
 
-         modelBuilder.Entity<User>().HasData(
-             new User { UserId = 1, Email = "admin@gmail.com", PasswordHash = "admin", FullName = "Adam", Username = "Boss", Role = "Admin"}
-         );
+        modelBuilder.Entity<User>().HasData(
+            new User { UserId = 1, Email = "admin@gmail.com", PasswordHash = "$2a$12$6Ck2f2SZA77ETUZ.buJG2.Ql8lo1p65fiF.JEtGZPVxDkJPhimrTm", FullName = "Adam", Username = "Boss", Role = "Admin" }
+        );
     }
 }

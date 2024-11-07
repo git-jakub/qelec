@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using qelec;
 using System.Text;
+using qelec;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,12 +29,12 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Add a CORS policy to allow requests from the frontend application
+// Configure CORS policy to allow specific frontend origins
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://qelectric.net", "https://qelectric.net", "http://www.qelectric.net", "https://www.qelectric.net")
+        policy.WithOrigins("http://localhost:3000", "http://qelectric.net", "https://qelectric.net", "http://www.qelectric.net", "https://www.qelectric.net")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -44,7 +43,7 @@ builder.Services.AddCors(options =>
 // Add the database context configuration for PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString)); // Use UseNpgsql for PostgreSQL
+    options.UseNpgsql(connectionString));
 
 // Enable Swagger for API documentation and testing
 builder.Services.AddEndpointsApiExplorer();
@@ -52,21 +51,21 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Enable Swagger for API documentation (development & production)
+// Enable Swagger UI for API testing
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Redirect HTTP to HTTPS for added security
+// Enforce HTTPS redirection for added security
 app.UseHttpsRedirection();
 
-// Enable CORS policy before routing or authorization to allow cross-origin requests
+// Apply the CORS policy before authentication and authorization
 app.UseCors("AllowFrontend");
 
-// Enable authentication and authorization
+// Enable authentication and authorization middlewares
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Map controllers to endpoint routing
+// Map controllers for API endpoints
 app.MapControllers();
 
 // Run the application

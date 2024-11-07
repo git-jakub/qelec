@@ -4,19 +4,18 @@ import { OrderContext } from '../context/OrderContext';  // Import OrderContext 
 import './SharedStyles.css';
 import './InvoiceRecipient.css';
 
-
 const InvoiceRecipient = () => {
     const navigate = useNavigate();
-    const { setOrderData } = useContext(OrderContext);  // Access OrderContext to save data
+    const { setOrderData } = useContext(OrderContext);
 
     const [formData, setFormData] = useState({
         recipientName: '',
         companyName: '',
-        address: '',
-        postcode: '',
-        city: '', // Added City field
-        email: '',
-        phone: ''
+        recipientAddress: '',
+        recipientPostcode: '',
+        recipientCity: '',
+        recipientEmail: '',
+        recipientPhone: ''
     });
 
     const handleChange = (e) => {
@@ -33,17 +32,12 @@ const InvoiceRecipient = () => {
         navigate('/jobdetails'); // Navigate to JobDetails
     };
 
-    const handleNext = () => {
-        setOrderData((prevData) => ({ ...prevData, invoiceDetails: formData })); // Save data to context
-        navigate('/ordersummary'); // Navigate to OrderSummary
-    };
-
     return (
         <div className="invoice-form">
             <div className="navbar">
                 <button className="back-button" onClick={handleBack}>Back</button>
                 <h2>Invoice Recipient</h2>
-                <button className="next-button" onClick={handleNext}>Next</button>
+                <button className="next-button" onClick={handleSubmit}>Next</button>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -69,57 +63,57 @@ const InvoiceRecipient = () => {
                     required
                 />
 
-                <label htmlFor="address">Recipient Address:</label>
+                <label htmlFor="recipientAddress">Recipient Address:</label>
                 <input
                     type="text"
-                    id="address"
-                    name="address"
+                    id="recipientAddress"
+                    name="recipientAddress"
                     placeholder="Enter recipient address"
-                    value={formData.address}
+                    value={formData.recipientAddress}
                     onChange={handleChange}
                     required
                 />
 
-                <label htmlFor="postcode">Postcode:</label>
+                <label htmlFor="recipientPostcode">Postcode:</label>
                 <input
                     type="text"
-                    id="postcode"
-                    name="postcode"
+                    id="recipientPostcode"
+                    name="recipientPostcode"
                     placeholder="Enter postcode"
-                    value={formData.postcode}
+                    value={formData.recipientPostcode}
                     onChange={handleChange}
                     required
                 />
 
-                <label htmlFor="city">City:</label> {/* New City field */}
+                <label htmlFor="recipientCity">City:</label>
                 <input
                     type="text"
-                    id="city"
-                    name="city"
+                    id="recipientCity"
+                    name="recipientCity"
                     placeholder="Enter city"
-                    value={formData.city}
+                    value={formData.recipientCity}
                     onChange={handleChange}
                     required
                 />
 
-                <label htmlFor="email">Recipient Email:</label>
+                <label htmlFor="recipientEmail">Recipient Email:</label>
                 <input
                     type="email"
-                    id="email"
-                    name="email"
+                    id="recipientEmail"
+                    name="recipientEmail"
                     placeholder="Enter recipient email"
-                    value={formData.email}
+                    value={formData.recipientEmail}
                     onChange={handleChange}
                     required
                 />
 
-                <label htmlFor="phone">Phone Number:</label>
+                <label htmlFor="recipientPhone">Phone Number:</label>
                 <input
                     type="tel"
-                    id="phone"
-                    name="phone"
+                    id="recipientPhone"
+                    name="recipientPhone"
                     placeholder="Enter phone number"
-                    value={formData.phone}
+                    value={formData.recipientPhone}
                     onChange={handleChange}
                     required
                 />
