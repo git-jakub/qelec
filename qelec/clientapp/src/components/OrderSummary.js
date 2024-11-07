@@ -22,15 +22,15 @@ const OrderSummary = () => {
         setStatus(e.target.value);
     };
 
-    // Function to save order
+    // Function to save order and generate invoice
     const saveOrder = async () => {
         const orderPayload = {
-            timeSlotId: timeSlot?.id || 0, // Ensure it's not undefined
+            timeSlotId: timeSlot?.id || 0,
             jobDetails: {
                 postcode: jobDetails?.postcode || '',
                 city: jobDetails?.city || '',
                 address: jobDetails?.address || '',
-                clientName: jobDetails?.clientName || '', // Consistent naming
+                clientName: jobDetails?.clientName || '',
                 siteAccessInfo: jobDetails?.siteAccessInfo || '',
                 mobile: jobDetails?.mobile || '',
                 clientEmail: jobDetails?.clientEmail || '',
@@ -46,13 +46,10 @@ const OrderSummary = () => {
                 recipientCity: invoiceDetails?.recipientCity || '',
                 recipientEmail: invoiceDetails?.recipientEmail || '',
                 recipientPhone: invoiceDetails?.recipientPhone || '',
-                paymentStatus: invoiceDetails?.paymentStatus || 'Unpaid' // Default if not provided
+                paymentStatus: invoiceDetails?.paymentStatus || 'Unpaid'
             },
             status
         };
-
-
-        console.log("Order Payload:", orderPayload); // Debug payload
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
@@ -63,22 +60,56 @@ const OrderSummary = () => {
                 body: JSON.stringify(orderPayload)
             });
 
-            console.log("Response Status:", response.status); // Debug response status
-
             if (!response.ok) {
                 const errorText = await response.text();
-                console.error("Failed to save order:", errorText); // Log error details
+                console.error("Failed to save order:", errorText);
                 alert("Failed to save order.");
                 return;
             }
 
             const savedOrder = await response.json();
             setOrderId(savedOrder.orderId);
+
+            // Send email with order ID
             sendEmail(savedOrder.orderId);
+
+            // Generate and download the invoice PDF
+            generateInvoicePdf(savedOrder.orderId);
+
             alert("Order saved successfully!");
         } catch (error) {
             console.error("Error saving order:", error);
             alert("An error occurred while saving the order.");
+        }
+    };
+
+    // Function to generate and download invoice PDF
+    const generateInvoicePdf = async (orderId) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/invoice/generate/${orderId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/pdf"
+                }
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Failed to generate invoice:", errorText);
+                alert("Failed to generate invoice.");
+                return;
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Invoice_${orderId}.pdf`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error generating invoice:", error);
+            alert("An error occurred while generating the invoice.");
         }
     };
 
@@ -92,7 +123,7 @@ const OrderSummary = () => {
                 job_name: jobDetails.clientName,
                 invoice_recipient: invoiceDetails.recipientName,
                 invoice_company: invoiceDetails.companyName,
-                order_id: orderId // Pass OrderId to email template
+                order_id: orderId
             };
 
             emailjs.send('service_7n0t7bg', 'template_axl4qnw', templateParams, 'XvVzICuTNwzlzA_5x')
@@ -140,8 +171,6 @@ const OrderSummary = () => {
                 <p>Property size: {jobDetails?.propertySizeOrSpecification || 'N/A'}</p>
                 <p>Service Details: {jobDetails?.serviceDetails || 'N/A'}</p>
                 <p>Service Type: {jobDetails?.serviceType || 'N/A'}</p>
-
-          
             </div>
 
             <div className="summary-section">

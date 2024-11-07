@@ -34,7 +34,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "http://qelectric.net", "https://qelectric.net", "http://www.qelectric.net", "https://www.qelectric.net")
+        policy.WithOrigins("http://qelectric.net", "https://qelectric.net", "http://www.qelectric.net", "https://www.qelectric.net")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -44,6 +44,9 @@ builder.Services.AddCors(options =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+// Register InvoiceService for Dependency Injection
+builder.Services.AddScoped<InvoiceService>();
 
 // Enable Swagger for API documentation and testing
 builder.Services.AddEndpointsApiExplorer();
