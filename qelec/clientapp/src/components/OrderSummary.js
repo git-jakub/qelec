@@ -22,6 +22,11 @@ const OrderSummary = () => {
         setStatus(e.target.value);
     };
 
+    // Navigation functions for each section
+    const editTimeSlot = () => navigate('/timeplanner');
+    const editJobDetails = () => navigate('/jobdetails');
+    const editInvoiceDetails = () => navigate('/invoice');
+
     // Function to save order and generate invoice
     const saveOrder = async () => {
         const orderPayload = {
@@ -155,6 +160,7 @@ const OrderSummary = () => {
                 <h3>Time Slot</h3>
                 <p>Date: {formattedDate}</p>
                 <p>Time: {timeSlot ? timeSlot.time : 'N/A'}</p>
+                <button onClick={editTimeSlot} className="edit-button">Edit</button>
             </div>
 
             <div className="summary-section">
@@ -168,6 +174,7 @@ const OrderSummary = () => {
                 <p>Property size: {jobDetails?.propertySizeOrSpecification || 'N/A'}</p>
                 <p>Service Details: {jobDetails?.serviceDetails || 'N/A'}</p>
                 <p>Service Type: {jobDetails?.serviceType || 'N/A'}</p>
+                <button onClick={editJobDetails} className="edit-button">Edit</button>
             </div>
 
             <div className="summary-section">
@@ -180,6 +187,7 @@ const OrderSummary = () => {
                 <p>Recipient Email: {invoiceDetails?.recipientEmail || 'N/A'}</p>
                 <p>Recipient Phone: {invoiceDetails?.recipientPhone || 'N/A'}</p>
                 <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
+                <button onClick={editInvoiceDetails} className="edit-button">Edit</button>
             </div>
 
             <div className="summary-section">

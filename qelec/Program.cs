@@ -34,7 +34,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://qelectric.net", "https://qelectric.net", "http://www.qelectric.net", "https://www.qelectric.net")
+        policy.WithOrigins("http://localhost:3000", "http://qelectric.net", "https://qelectric.net", "http://www.qelectric.net", "https://www.qelectric.net")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
