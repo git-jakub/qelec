@@ -80,8 +80,8 @@ public class InvoiceService
             document.Add(new Paragraph("Please pay via BACS transfer to:", boldFont));
             document.Add(new Paragraph("QELECTRIC LTD", regularFont));
             document.Add(new Paragraph("Jakub Solarczyk", regularFont));
-            document.Add(new Paragraph("Sort code: 20-45-45", regularFont));
-            document.Add(new Paragraph("Account number: 63753735", regularFont));
+            document.Add(new Paragraph("Sort code: 00-00-45", regularFont));
+            document.Add(new Paragraph("Account number: 54815435", regularFont));
             document.Add(new Paragraph(" ")); // Blank line
 
             document.Close();

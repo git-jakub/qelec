@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using qelec.Models;
 using qelec.Models.DTOs;
 using qelec.Services;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +15,13 @@ namespace qelec.Controllers
     {
         private readonly AppDbContext _context;
         private readonly InvoiceService _invoiceService;
+        private readonly IWebHostEnvironment _env;
 
-        public InvoiceController(AppDbContext context, InvoiceService invoiceService)
+        public InvoiceController(AppDbContext context, InvoiceService invoiceService, IWebHostEnvironment env)
         {
             _context = context;
             _invoiceService = invoiceService;
+            _env = env;
         }
 
         // POST: api/invoice - Adds new InvoiceDetails
@@ -77,9 +81,9 @@ namespace qelec.Controllers
             return Ok(invoiceDetailsDto);
         }
 
-        // Endpoint to generate invoice PDF
+        // GET: api/invoice/generate/{orderId} - Generates and saves invoice PDF, then returns the URL
         [HttpGet("generate/{orderId}")]
-        public async Task<IActionResult> GenerateInvoicePdf(int orderId)
+        public async Task<IActionResult> GenerateAndSaveInvoice(int orderId)
         {
             var order = await _context.Orders
                 .Include(o => o.JobDetails)
@@ -91,8 +95,31 @@ namespace qelec.Controllers
                 return NotFound("Order or Invoice Details not found.");
             }
 
+            // Generate PDF
             var pdfBytes = _invoiceService.GenerateInvoicePdf(order);
-            return File(pdfBytes, "application/pdf", $"Invoice_{orderId}.pdf");
+
+            // Define file path for saving the PDF using _env.WebRootPath for absolute path
+            var fileName = $"Invoice_{orderId}.pdf";
+            var filePath = Path.Combine(_env.WebRootPath, "invoices", fileName);
+
+            try
+            {
+                // Ensure the directory exists
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                // Save the PDF file
+                await System.IO.File.WriteAllBytesAsync(filePath, pdfBytes);
+                Console.WriteLine("Invoice saved at: " + filePath); // Log file path for confirmation
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving PDF file: " + ex.Message);
+                return StatusCode(500, "Failed to save the PDF file.");
+            }
+
+            // Return the URL to access the PDF
+            var fileUrl = $"{Request.Scheme}://{Request.Host}/invoices/{fileName}";
+            return Ok(new { fileUrl });
         }
 
         // PUT and DELETE endpoints as defined in your previous controller code.

@@ -70,11 +70,11 @@ const OrderSummary = () => {
             const savedOrder = await response.json();
             setOrderId(savedOrder.orderId);
 
-            // Send email with order ID
-            sendEmail(savedOrder.orderId);
+            // Generate invoice PDF and get the URL
+            const invoiceUrl = await generateInvoicePdf(savedOrder.orderId);
 
-            // Generate and download the invoice PDF
-            generateInvoicePdf(savedOrder.orderId);
+            // Send email with order ID and invoice URL as an attachment
+            sendEmail(savedOrder.orderId, invoiceUrl);
 
             alert("Order saved successfully!");
         } catch (error) {
@@ -83,13 +83,13 @@ const OrderSummary = () => {
         }
     };
 
-    // Function to generate and download invoice PDF
+    // Function to generate and get invoice PDF URL
     const generateInvoicePdf = async (orderId) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/invoice/generate/${orderId}`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/pdf"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -97,24 +97,20 @@ const OrderSummary = () => {
                 const errorText = await response.text();
                 console.error("Failed to generate invoice:", errorText);
                 alert("Failed to generate invoice.");
-                return;
+                return null;
             }
 
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Invoice_${orderId}.pdf`;
-            a.click();
-            window.URL.revokeObjectURL(url);
+            const data = await response.json();
+            return data.fileUrl; // URL of the saved PDF on the server
         } catch (error) {
             console.error("Error generating invoice:", error);
             alert("An error occurred while generating the invoice.");
+            return null;
         }
     };
 
-    // Function to send email with Order ID
-    const sendEmail = (orderId) => {
+    // Function to send email with Order ID and Invoice PDF URL
+    const sendEmail = (orderId, invoiceUrl) => {
         if (jobDetails?.clientEmail) {
             const templateParams = {
                 to_email: jobDetails.clientEmail,
@@ -123,7 +119,8 @@ const OrderSummary = () => {
                 job_name: jobDetails.clientName,
                 invoice_recipient: invoiceDetails.recipientName,
                 invoice_company: invoiceDetails.companyName,
-                order_id: orderId
+                order_id: orderId,
+                invoice_attachment: invoiceUrl // Attach the PDF URL
             };
 
             emailjs.send('service_7n0t7bg', 'template_axl4qnw', templateParams, 'XvVzICuTNwzlzA_5x')
