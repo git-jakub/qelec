@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
 
 const AdminPortal = () => {
     return (
         <div className="admin-portal">
+            <Navbar backPath="/" nextPath="/jobdetails" />
             <h2>Admin Portal</h2>
             <nav>
                 <ul>
@@ -15,6 +17,7 @@ const AdminPortal = () => {
                 </ul>
             </nav>
             <div className="admin-content">
+                
                 {/* Outlet will render nested routes */}
                 <Outlet />
             </div>

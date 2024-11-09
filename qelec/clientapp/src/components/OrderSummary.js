@@ -1,6 +1,7 @@
 ﻿import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
+import Navbar from './Navbar';
 import emailjs from 'emailjs-com';
 import './SharedStyles.css';
 import './OrderSummary.css';
@@ -10,27 +11,31 @@ const OrderSummary = () => {
     const { orderData } = useContext(OrderContext);
     const { timeSlot, jobDetails, invoiceDetails } = orderData;
 
-    // Format date
     const formattedDate = timeSlot?.date ? new Date(timeSlot.date).toLocaleDateString() : 'N/A';
 
-    // State to store Order ID and Status
     const [orderId, setOrderId] = useState(null);
     const [status, setStatus] = useState("Scheduled");
 
-    // Handle status change
     const handleStatusChange = (e) => {
         setStatus(e.target.value);
     };
 
-    // Navigation functions for each section
     const editTimeSlot = () => navigate('/timeplanner');
     const editJobDetails = () => navigate('/jobdetails');
     const editInvoiceDetails = () => navigate('/invoice');
 
-    // Function to save order and generate invoice
     const saveOrder = async () => {
+        const userId = localStorage.getItem('userId') ? Number(localStorage.getItem('userId')) : null;
+        console.log("User ID from localStorage:", userId, "Type:", typeof userId);
+        console.log("TimeSlot from context:", timeSlot); // Log the full timeSlot object for debugging
+
+        // Przekazanie tylko `timeSlotId` zamiast pełnego obiektu
+        const timeSlotId = timeSlot?.startSlot?.timeSlotId || 0;
+        console.log("Extracted TimeSlot ID:", timeSlotId, "Type:", typeof timeSlotId); // Confirm it’s a number
+
         const orderPayload = {
-            timeSlotId: timeSlot?.id || 0,
+            userId,
+            timeSlotId,
             jobDetails: {
                 postcode: jobDetails?.postcode || '',
                 city: jobDetails?.city || '',
@@ -57,11 +62,18 @@ const OrderSummary = () => {
         };
 
         try {
+            const token = localStorage.getItem('token');
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] = `Bearer ${token}`;
+            }
+
             const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers,
                 body: JSON.stringify(orderPayload)
             });
 
@@ -74,11 +86,9 @@ const OrderSummary = () => {
 
             const savedOrder = await response.json();
             setOrderId(savedOrder.orderId);
+            
 
-            // Generate invoice PDF and get the URL
             const invoiceUrl = await generateInvoicePdf(savedOrder.orderId);
-
-            // Send email with order ID and invoice URL as an attachment
             sendEmail(savedOrder.orderId, invoiceUrl);
 
             alert("Order saved successfully!");
@@ -88,14 +98,20 @@ const OrderSummary = () => {
         }
     };
 
-    // Function to generate and get invoice PDF URL
     const generateInvoicePdf = async (orderId) => {
         try {
+            const token = localStorage.getItem('token');
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if (token) {
+                headers["Authorization"] = `Bearer ${token}`;
+            }
+
             const response = await fetch(`${process.env.REACT_APP_API_URL}/invoice/generate/${orderId}`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                headers
             });
 
             if (!response.ok) {
@@ -106,7 +122,7 @@ const OrderSummary = () => {
             }
 
             const data = await response.json();
-            return data.fileUrl; // URL of the saved PDF on the server
+            return data.fileUrl;
         } catch (error) {
             console.error("Error generating invoice:", error);
             alert("An error occurred while generating the invoice.");
@@ -114,7 +130,6 @@ const OrderSummary = () => {
         }
     };
 
-    // Function to send email with Order ID and Invoice PDF URL
     const sendEmail = (orderId, invoiceUrl) => {
         if (jobDetails?.clientEmail) {
             const templateParams = {
@@ -125,7 +140,7 @@ const OrderSummary = () => {
                 invoice_recipient: invoiceDetails.recipientName,
                 invoice_company: invoiceDetails.companyName,
                 order_id: orderId,
-                invoice_attachment: invoiceUrl // Attach the PDF URL
+                invoice_attachment: invoiceUrl
             };
 
             emailjs.send('service_7n0t7bg', 'template_axl4qnw', templateParams, 'XvVzICuTNwzlzA_5x')
@@ -143,11 +158,7 @@ const OrderSummary = () => {
 
     return (
         <div className="order-summary">
-            <div className="navbar">
-                <button onClick={() => navigate('/invoice')} className="back-button">Back</button>
-                <h2>Summary of your Order</h2>
-                <button onClick={() => navigate('/')} className="next-button">Next</button>
-            </div>
+            <Navbar backPath="/invoice" nextPath="/" />
 
             {orderId && (
                 <div className="order-id-section">

@@ -1,11 +1,13 @@
 ﻿import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
+import Navbar from './Navbar'; // Import the shared Navbar component
 import './SharedStyles.css';
 import './JobDetails.css';
 
 const JobDetails = () => {
     const navigate = useNavigate();
+     
     const { setOrderData, resetOrderData } = useContext(OrderContext);
 
     useEffect(() => {
@@ -18,15 +20,17 @@ const JobDetails = () => {
         postcode: '',
         city: '',
         address: '',
-        clientName: '', // Renamed from name to clientName
+        clientName: '',
         siteAccessInfo: '',
         mobile: '',
-        clientEmail: '', // Renamed from email to clientEmail
+        clientEmail: '',
         serviceType: '',
         serviceDetails: '',
         propertySizeOrSpecification: '',
         files: []
     });
+
+   
 
     const [estimatedCost, setEstimatedCost] = useState(null);
     const [estimatedTime, setEstimatedTime] = useState(null);
@@ -81,6 +85,7 @@ const JobDetails = () => {
             { value: 'power_cut', label: 'Power Cut', cost: 75, time: '2h' }
         ]
     };
+    
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -129,31 +134,23 @@ const JobDetails = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Update OrderContext with the jobDetails data and the estimated cost and time
         setOrderData((prevData) => ({
             ...prevData,
             jobDetails: {
                 ...formData,
-                estimatedCost: estimatedCost,  // Include estimated cost
-                estimatedTime: estimatedTime   // Include estimated time
+                estimatedCost,
+                estimatedTime
             }
         }));
 
-        // Navigate to the time planner page
-        navigate('/timeplanner');
+        navigate('/timeplanner'); // Przeniesienie do strony timeplanner
+        
     };
 
     return (
         <div className="job-details-form">
-            <div className="navbar">
-                <button className="back-button" onClick={() => navigate('/')}>Back</button>
-                <h2>Fill in Your Details</h2>
-                <button className="next-button" onClick={handleSubmit}>Next</button>
-            </div>
-
+            <Navbar backPath="/" nextPath="/timeplanner" /> 
             <form onSubmit={handleSubmit}>
-                {/* Service Type Dropdown */}
                 <label htmlFor="serviceType">Select Service Type:</label>
                 <select
                     id="serviceType"
@@ -170,7 +167,6 @@ const JobDetails = () => {
                     ))}
                 </select>
 
-                {/* Service Details Dropdown */}
                 {formData.serviceType && (
                     <>
                         <label htmlFor="serviceDetails">Specify Service Details:</label>
@@ -191,7 +187,6 @@ const JobDetails = () => {
                     </>
                 )}
 
-                {/* Property Size or Specification Dropdown */}
                 {formData.serviceDetails && propertySizeOrSpecificationOptions[formData.serviceDetails] && (
                     <>
                         <label htmlFor="propertySizeOrSpecification">Specify Property Size/Specification:</label>
@@ -212,12 +207,10 @@ const JobDetails = () => {
                     </>
                 )}
 
-                {/* Display Estimated Cost and Time */}
                 {estimatedCost !== null && estimatedTime !== null && (
                     <p className="estimated-info">Estimated Cost: £{estimatedCost} | Estimated Time: {estimatedTime}</p>
                 )}
 
-                {/* File Upload Section */}
                 <label htmlFor="files">Upload Files (e.g., distribution board photos or certificates):</label>
                 <input
                     type="file"
@@ -227,7 +220,6 @@ const JobDetails = () => {
                     onChange={handleFileChange}
                 />
 
-                {/* Other form fields */}
                 <label htmlFor="postcode">Post Code:</label>
                 <input
                     type="text"
@@ -303,7 +295,7 @@ const JobDetails = () => {
                     value={formData.clientEmail}
                     onChange={handleChange}
                     required
-                />
+                /> 
 
                 <button type="submit" className="submit-button">Submit</button>
             </form>

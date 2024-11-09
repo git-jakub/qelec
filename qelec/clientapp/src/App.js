@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+﻿// App.js
+import React, { useState } from 'react';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { OrderProvider } from './context/OrderContext';
@@ -8,9 +9,11 @@ import JobDetails from './components/JobDetails';
 import TimePlanner from './components/TimePlanner';
 import OrderSummary from './components/OrderSummary';
 import AdminPortal from './components/AdminPortal/AdminPortal';
-import TimeSetter from './components/AdminPortal/TimeSetter'; // Import TimeSetter component
+import CustomerPortal from './components/CustomerPortal/CustomerPortal';
 import PrivateRouteAdmin from './components/Auth/PrivateRouteAdmin';
+import PrivateRouteCustomer from './components/Auth/PrivateRouteCustomer';
 import Login from './components/Auth/Login';
+import TimeSetter from './components/AdminPortal/TimeSetter'; // Import TimeSetter component
 import './App.css';
 
 function App() {
@@ -25,7 +28,6 @@ function App() {
             <OrderProvider>
                 <Router>
                     <Routes>
-                        {/* Public Routes */}
                         <Route path="/" element={<WelcomePage onBookNow={handleBookNow} />} />
                         <Route path="/timeplanner" element={<TimePlanner />} />
                         <Route path="/jobdetails" element={<JobDetails />} />
@@ -41,10 +43,27 @@ function App() {
                                     <AdminPortal />
                                 </PrivateRouteAdmin>
                             }
-                        >
-                            {/* Nested Routes under AdminPortal */}
-                            <Route path="timesetter" element={<TimeSetter />} /> {/* Add TimeSetter route */}
-                        </Route>
+                        />
+
+                        {/* Route for TimeSetter inside AdminPortal */}
+                        <Route
+                            path="/adminportal/timesetter"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <TimeSetter />
+                                </PrivateRouteAdmin>
+                            }
+                        />
+
+                        {/* Protected Route for CustomerPortal */}
+                        <Route
+                            path="/customerportal"
+                            element={
+                                <PrivateRouteCustomer>
+                                    <CustomerPortal />
+                                </PrivateRouteCustomer>
+                            }
+                        />
                     </Routes>
                 </Router>
             </OrderProvider>

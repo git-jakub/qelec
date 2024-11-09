@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace qelec.Models
 {
@@ -8,17 +9,19 @@ namespace qelec.Models
         public int UserId { get; set; }
 
         [Required]
-        public string Username { get; set; } // Unique username for login
+        public string Username { get; set; }
 
         [Required]
-        [EmailAddress]
-        public string Email { get; set; } // Email for notifications
+        public string Email { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; } // Hashed password for security
+        public string PasswordHash { get; set; }
 
-        public string FullName { get; set; } // Optional full name
+        public string FullName { get; set; }
 
-        public string Role { get; set; } // 
+        public string Role { get; set; }
+
+        // Navigation property for related Orders
+        public ICollection<Order> Orders { get; set; }  // Ensure this collection exists for the one-to-many relationship
     }
 }

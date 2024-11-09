@@ -1,0 +1,23 @@
+﻿/* src/components/Navbar.css */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+}
+
+.back-button, .next-button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.welcome-message {
+    margin-right: auto;
+    margin-left: 20px;
+    font-size: 16px;
+}

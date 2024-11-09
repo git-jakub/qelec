@@ -1,5 +1,7 @@
-﻿import React, { useState } from 'react';
+﻿// src/components/Auth/Login.js
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthService from './AuthService';
 import './Login.css';
 
 const Login = () => {
@@ -8,39 +10,22 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
+            // Use AuthService to handle login
+            const data = await AuthService.login(email, password);
 
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('token', data.token);             // Save token
-                localStorage.setItem('userRole', data.userRole || '');  // Save userRole
-
-                // Check userRole and redirect accordingly
-                if (data.userRole === 'Admin') {
-                    console.log("Admin detected, navigating to /adminportal");
-                    navigate('/adminportal');
-                } else {
-                    console.log("Non-admin user, navigating to /jobdetails");
-                    navigate('/jobdetails');
-                }
+            if (data.userRole === 'Admin') {
+                navigate('/adminportal'); // Redirect admin to admin portal
+            } else if (data.userRole === 'Customer') {
+                navigate('/customerportal'); // Redirect customer to cutomer portal 
             } else {
-                const errorData = await response.json();
-                setError(errorData.message || 'Failed to login');
+                setError('Invalid role');
             }
         } catch (error) {
             console.error('Login error:', error);
-            setError('An error occurred while logging in.');
+            setError(error.message || 'An error occurred while logging in.');
         }
     };
 

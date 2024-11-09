@@ -16,5 +16,7 @@ namespace qelec.Models
 
         // Indicates whether the time slot is available
         public bool IsAvailable { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

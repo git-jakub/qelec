@@ -1,6 +1,7 @@
 ﻿import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';  // Import OrderContext for shared state
+import Navbar from './Navbar';
 import './SharedStyles.css';
 import './InvoiceRecipient.css';
 
@@ -34,11 +35,7 @@ const InvoiceRecipient = () => {
 
     return (
         <div className="invoice-form">
-            <div className="navbar">
-                <button className="back-button" onClick={handleBack}>Back</button>
-                <h2>Invoice Recipient</h2>
-                <button className="next-button" onClick={handleSubmit}>Next</button>
-            </div>
+            <Navbar backPath="/timeplanner" nextPath="/ordersummary" /> 
 
             <form onSubmit={handleSubmit}>
                 <label htmlFor="recipientName">Recipient Name:</label>

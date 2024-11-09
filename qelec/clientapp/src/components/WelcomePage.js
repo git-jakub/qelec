@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar'; // Import the Navbar component
 import './SharedStyles.css';
 import './WelcomePage.css';
-
 
 const WelcomePage = () => {
     const navigate = useNavigate();
@@ -11,22 +11,10 @@ const WelcomePage = () => {
         navigate('/jobdetails');
     };
 
-    const handleBack = () => {
-        navigate('/login');
-    };
-
-    const handleNext = () => {
-        navigate('/jobdetails');
-    };
-
     return (
         <div className="welcome-container">
-            {/* Navbar */}
-            <div className="navbar">
-                <button className="back-button" onClick={handleBack}>Login</button>
-                {/*<h2>Welcome</h2>*/}
-                <button className="next-button" onClick={handleNext}>Next</button>
-            </div>
+            {/* Reusable Navbar */}
+            <Navbar backPath="/jobdetails" nextPath="/jobdetails" /> 
 
             <div className="logo">
                 <img src="/mainlogo.png" alt="QElectric Logo" />

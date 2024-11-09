@@ -19,7 +19,27 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Seed data for TimeSlot with StartDate and EndDate including time
+        // Configure the relationship between Order and User
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.User)
+            .WithMany(u => u.Orders)  // Assuming a user has many orders
+            .HasForeignKey(o => o.UserId)
+            .OnDelete(DeleteBehavior.Cascade);  // Adjust delete behavior as needed
+
+        // Configure relationships for JobDetails and InvoiceDetails
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.JobDetails)
+            .WithOne()
+            .HasForeignKey<Order>(o => o.JobDetailsId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.InvoiceDetails)
+            .WithOne()
+            .HasForeignKey<Order>(o => o.InvoiceDetailsId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Seed TimeSlot data
         modelBuilder.Entity<TimeSlot>().HasData(
             new TimeSlot
             {
@@ -42,11 +62,20 @@ public class AppDbContext : DbContext
                 EndDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 13, 0, 0), DateTimeKind.Utc),
                 IsAvailable = false
             }
-            // Add additional slots as needed
+        // Additional slots can be added here
         );
 
+        // Seed User data
         modelBuilder.Entity<User>().HasData(
-            new User { UserId = 1, Email = "admin@gmail.com", PasswordHash = "$2a$12$6Ck2f2SZA77ETUZ.buJG2.Ql8lo1p65fiF.JEtGZPVxDkJPhimrTm", FullName = "Adam", Username = "Boss", Role = "Admin" }
+            new User
+            {
+                UserId = 1,
+                Email = "admin@gmail.com",
+                PasswordHash = "$2a$12$6Ck2f2SZA77ETUZ.buJG2.Ql8lo1p65fiF.JEtGZPVxDkJPhimrTm",
+                FullName = "Adam",
+                Username = "Boss",
+                Role = "Admin"
+            }
         );
     }
 }

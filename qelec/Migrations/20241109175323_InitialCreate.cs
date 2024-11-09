@@ -104,7 +104,8 @@ namespace qelec.Migrations
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     JobDetailsId = table.Column<int>(type: "integer", nullable: false),
-                    InvoiceDetailsId = table.Column<int>(type: "integer", nullable: false)
+                    InvoiceDetailsId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -120,6 +121,18 @@ namespace qelec.Migrations
                         column: x => x.JobDetailsId,
                         principalTable: "JobDetails",
                         principalColumn: "JobDetailsId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_TimeSlot_TimeSlotId",
+                        column: x => x.TimeSlotId,
+                        principalTable: "TimeSlot",
+                        principalColumn: "TimeSlotId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -141,12 +154,24 @@ namespace qelec.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_InvoiceDetailsId",
                 table: "Orders",
-                column: "InvoiceDetailsId");
+                column: "InvoiceDetailsId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_JobDetailsId",
                 table: "Orders",
-                column: "JobDetailsId");
+                column: "JobDetailsId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_TimeSlotId",
+                table: "Orders",
+                column: "TimeSlotId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -156,16 +181,16 @@ namespace qelec.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "TimeSlot");
-
-            migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "InvoiceDetails");
 
             migrationBuilder.DropTable(
                 name: "JobDetails");
+
+            migrationBuilder.DropTable(
+                name: "TimeSlot");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

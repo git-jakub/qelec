@@ -161,11 +161,20 @@ namespace qelec.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("OrderId");
 
-                    b.HasIndex("InvoiceDetailsId");
+                    b.HasIndex("InvoiceDetailsId")
+                        .IsUnique();
 
-                    b.HasIndex("JobDetailsId");
+                    b.HasIndex("JobDetailsId")
+                        .IsUnique();
+
+                    b.HasIndex("TimeSlotId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -262,20 +271,45 @@ namespace qelec.Migrations
             modelBuilder.Entity("qelec.Models.Order", b =>
                 {
                     b.HasOne("qelec.Models.InvoiceDetails", "InvoiceDetails")
-                        .WithMany()
-                        .HasForeignKey("InvoiceDetailsId")
+                        .WithOne()
+                        .HasForeignKey("qelec.Models.Order", "InvoiceDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("qelec.Models.JobDetails", "JobDetails")
-                        .WithMany()
-                        .HasForeignKey("JobDetailsId")
+                        .WithOne()
+                        .HasForeignKey("qelec.Models.Order", "JobDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("qelec.Models.TimeSlot", "TimeSlot")
+                        .WithMany("Orders")
+                        .HasForeignKey("TimeSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("qelec.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("InvoiceDetails");
 
                     b.Navigation("JobDetails");
+
+                    b.Navigation("TimeSlot");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("qelec.Models.TimeSlot", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("qelec.Models.User", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

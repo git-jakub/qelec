@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using qelec.Models;
-using qelec.Models.DTOs;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using qelec.Models.DTOs;
+using qelec.Models;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class OrdersController : ControllerBase
 {
     private readonly AppDbContext _context;
@@ -16,27 +17,85 @@ public class OrdersController : ControllerBase
         _context = context;
     }
 
-    // POST: api/orders - Adds a new order with JobDetails and InvoiceDetails
-    [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] Order order)
+    private int? GetUserId()
     {
-        if (order == null)
+        var userIdClaim = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+        if (int.TryParse(userIdClaim, out int userId))
         {
-            return BadRequest("Invalid order data.");
+            return userId;
+        }
+        return null;
+    }
+
+    [HttpGet("userid")]
+    public IActionResult GetUserIdEndpoint()
+    {
+        var userId = GetUserId();
+        if (userId == null)
+        {
+            return Unauthorized("Invalid User ID in token.");
         }
 
-        // Set CreatedDate for the new order
+        return Ok(new { UserId = userId });
+    }
+
+    private OrderDto MapToOrderDto(Order order)
+    {
+        return new OrderDto
+        {
+            OrderId = order.OrderId,
+            TimeSlotId = order.TimeSlotId,
+            Status = order.Status,
+            CreatedDate = order.CreatedDate,
+            UpdatedDate = order.UpdatedDate,
+            StatusChangeHistory = order.StatusChangeHistory,
+            UserId = order.UserId,
+            JobDetails = order.JobDetails,
+            InvoiceDetails = order.InvoiceDetails
+        };
+    }
+    [HttpPost]
+    [AllowAnonymous]
+    public async Task<IActionResult> CreateOrder([FromBody] Order order)
+    {
+        Console.WriteLine($"Received TimeSlotId: {order.TimeSlotId}");
+
+        if (order == null || order.TimeSlotId == 0)
+        {
+            return BadRequest("Order data or TimeSlot ID is invalid.");
+        }
+
+        // Verify TimeSlot exists
+        var timeSlot = await _context.TimeSlot.FindAsync(order.TimeSlotId);
+        if (timeSlot == null)
+        {
+            return BadRequest("Invalid TimeSlot ID.");
+        }
+
+        // Assign UserId if authenticated
+        var userId = GetUserId();
+        if (userId.HasValue)
+        {
+            var user = await _context.Users.FindAsync(userId.Value);
+            if (user != null)
+            {
+                order.UserId = user.UserId;
+                order.User = user;
+            }
+        }
+
         order.CreatedDate = DateTime.UtcNow;
 
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetOrderById), new { id = order.OrderId }, order);
+        var orderDto = MapToOrderDto(order);
+        return CreatedAtAction(nameof(GetOrderById), new { id = order.OrderId }, orderDto);
     }
 
-    // GET: api/orders/{id} - Gets a specific order by ID, including JobDetails and InvoiceDetails
+
     [HttpGet("{id}")]
-    public async Task<ActionResult<Order>> GetOrderById(int id)
+    public async Task<ActionResult<OrderDto>> GetOrderById(int id)
     {
         var order = await _context.Orders
             .Include(o => o.JobDetails)
@@ -48,22 +107,35 @@ public class OrdersController : ControllerBase
             return NotFound();
         }
 
-        return Ok(order);
+        var userId = GetUserId();
+        if (userId != null && order.UserId != userId)
+        {
+            return Forbid();
+        }
+
+        var orderDto = MapToOrderDto(order);
+        return Ok(orderDto);
     }
 
-    // GET: api/orders - Gets all orders, including JobDetails and InvoiceDetails
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
+    public async Task<ActionResult<IEnumerable<OrderDto>>> GetAllOrders()
     {
+        var userId = GetUserId();
+        if (userId == null)
+        {
+            return Unauthorized("Invalid User ID in token.");
+        }
+
         var orders = await _context.Orders
+            .Where(o => o.UserId == userId)
             .Include(o => o.JobDetails)
             .Include(o => o.InvoiceDetails)
             .ToListAsync();
 
-        return Ok(orders);
+        var orderDtos = orders.Select(MapToOrderDto).ToList();
+        return Ok(orderDtos);
     }
 
-    // PUT: api/orders/{id} - Updates an existing order
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateOrder(int id, [FromBody] Order updatedOrder)
     {
@@ -82,12 +154,15 @@ public class OrdersController : ControllerBase
             return NotFound();
         }
 
-        // Update fields
+        var userId = GetUserId();
+        if (userId != null && existingOrder.UserId != userId)
+        {
+            return Forbid();
+        }
+
         existingOrder.TimeSlotId = updatedOrder.TimeSlotId;
         existingOrder.Status = updatedOrder.Status;
-        existingOrder.UpdatedDate = DateTime.UtcNow;  // Set UpdatedDate to the current time
-
-        // Update JobDetails and InvoiceDetails as needed
+        existingOrder.UpdatedDate = DateTime.UtcNow;
         existingOrder.JobDetails = updatedOrder.JobDetails;
         existingOrder.InvoiceDetails = updatedOrder.InvoiceDetails;
 
@@ -110,7 +185,6 @@ public class OrdersController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/orders/{id} - Deletes an order and its related details
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteOrder(int id)
     {
@@ -122,6 +196,12 @@ public class OrdersController : ControllerBase
         if (order == null)
         {
             return NotFound();
+        }
+
+        var userId = GetUserId();
+        if (userId != null && order.UserId != userId)
+        {
+            return Forbid();
         }
 
         _context.Orders.Remove(order);

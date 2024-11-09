@@ -2,9 +2,9 @@
 import { DatePicker } from '@mantine/dates';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
+import Navbar from './Navbar'; // Import the shared Navbar component
 import './SharedStyles.css';
 import './TimePlanner.css';
-
 
 const TimePlanner = () => {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -88,10 +88,9 @@ const TimePlanner = () => {
 
     const markTimeSlotsUnavailable = async (startDate, endDate) => {
         try {
-            // Ensure startDate and endDate are Date objects
             const start = startDate instanceof Date ? startDate : new Date(startDate);
             const end = endDate instanceof Date ? endDate : new Date(endDate);
-         
+
             const response = await fetch(`${process.env.REACT_APP_API_URL}/TimeSlots/mark-unavailable`, {
                 method: 'POST',
                 headers: {
@@ -101,7 +100,6 @@ const TimePlanner = () => {
                     startDate: start.toISOString(),
                     endDate: end.toISOString()
                 })
-
             });
 
             if (response.ok) {
@@ -113,7 +111,6 @@ const TimePlanner = () => {
             console.error("Error marking time slots as unavailable:", error);
         }
     };
-
 
     const handleNext = async () => {
         if (selectedTimeSlot) {
@@ -127,9 +124,7 @@ const TimePlanner = () => {
                 }
             }));
 
-            // Mark the selected time slots as unavailable
             await markTimeSlotsUnavailable(selectedTimeSlot.startSlot.startDate, selectedTimeSlot.endSlot.endDate);
-
             navigate('/invoice');
         } else {
             alert('Please select a time slot before proceeding.');
@@ -138,12 +133,7 @@ const TimePlanner = () => {
 
     return (
         <div className="time-planner-form">
-            <div className="navbar">
-                <button className="back-button" onClick={() => navigate('/jobdetails')}>Back</button>
-                <h2>Time Planner</h2>
-                <button className="next-button" onClick={handleNext}>Next</button>
-            </div>
-
+            <Navbar backPath="/jobdetails" nextPath="/invoice" /> 
             <div className="main-content">
                 <div className="calendar-container">
                     <h2>Choose a convenient timeslot:</h2>
