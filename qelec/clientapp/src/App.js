@@ -1,5 +1,4 @@
-﻿// App.js
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { OrderProvider } from './context/OrderContext';
@@ -13,7 +12,9 @@ import CustomerPortal from './components/CustomerPortal/CustomerPortal';
 import PrivateRouteAdmin from './components/Auth/PrivateRouteAdmin';
 import PrivateRouteCustomer from './components/Auth/PrivateRouteCustomer';
 import Login from './components/Auth/Login';
-import TimeSetter from './components/AdminPortal/TimeSetter'; // Import TimeSetter component
+import TimeSetter from './components/AdminPortal/TimeSetter';
+import ManageYourOrders from './components/CustomerPortal/ManageYourOrders';
+import EstimatesGenerator from './components/EstimatesGenerator'; // Import EstimateGenerator
 import './App.css';
 
 function App() {
@@ -34,6 +35,9 @@ function App() {
                         <Route path="/invoice" element={<InvoiceRecipient />} />
                         <Route path="/ordersummary" element={<OrderSummary />} />
                         <Route path="/login" element={<Login />} />
+
+                        {/* New Route for EstimateGenerator */}
+                        <Route path="/estimates" element={<EstimatesGenerator />} />
 
                         {/* Protected Route for AdminPortal */}
                         <Route
@@ -61,6 +65,16 @@ function App() {
                             element={
                                 <PrivateRouteCustomer>
                                     <CustomerPortal />
+                                </PrivateRouteCustomer>
+                            }
+                        />
+
+                        {/* Protected Route for ManageYourOrders */}
+                        <Route
+                            path="/manage-your-orders"
+                            element={
+                                <PrivateRouteCustomer>
+                                    <ManageYourOrders />
                                 </PrivateRouteCustomer>
                             }
                         />

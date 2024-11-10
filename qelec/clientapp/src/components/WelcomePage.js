@@ -8,13 +8,13 @@ const WelcomePage = () => {
     const navigate = useNavigate();
 
     const handleBookNow = () => {
-        navigate('/jobdetails');
+        navigate('/estimates');
     };
 
     return (
         <div className="welcome-container">
             {/* Reusable Navbar */}
-            <Navbar backPath="/jobdetails" nextPath="/jobdetails" /> 
+            <Navbar backPath="/ordersummary" nextPath="/estimates" /> 
 
             <div className="logo">
                 <img src="/mainlogo.png" alt="QElectric Logo" />

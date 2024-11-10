@@ -1,4 +1,4 @@
-﻿import { jwtDecode } from "jwt-decode"; // Named import, as this works for you
+﻿import { jwtDecode } from "jwt-decode"; // Named import
 
 class AuthService {
     static API_URL = process.env.REACT_APP_API_URL;
@@ -18,7 +18,9 @@ class AuthService {
 
             const data = await response.json();
             console.log("Token received from server:", data.token); // Debug log
-
+            console.log("Token received:", data.token);
+            console.log("User ID:", data.userId);
+            console.log("User Role:", data.userRole);
             this.setToken(data.token);
             console.log("Token saved to localStorage:", this.getToken()); // Verify token is saved
 

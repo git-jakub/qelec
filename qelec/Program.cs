@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using qelec;
+using qelec.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// Dodanie kontrolerów do kontenera usług
 builder.Services.AddControllers();
 
-// Add JWT Authentication
+// Konfiguracja uwierzytelniania JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -29,7 +30,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configure CORS policy to allow specific frontend origins
+// Konfiguracja polityki CORS, aby umożliwić dostęp z określonych źródeł frontendowych
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -40,36 +41,38 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add the database context configuration for PostgreSQL
+// Konfiguracja kontekstu bazy danych PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// Register InvoiceService for Dependency Injection
+// Rejestracja serwisu InvoiceService do Dependency Injection
 builder.Services.AddScoped<InvoiceService>();
+//Rejestracja API
+builder.Services.AddScoped<OpenAIService>();
 
-// Enable Swagger for API documentation and testing
+// Włączenie Swaggera dla dokumentacji i testowania API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Enable Swagger UI for API testing
+// Włączenie Swagger UI do testowania API
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Enforce HTTPS redirection for added security
+// Wymuszenie przekierowania na HTTPS dla dodatkowego zabezpieczenia
 app.UseHttpsRedirection();
 
-// Apply the CORS policy before authentication and authorization
+// Zastosowanie polityki CORS przed uwierzytelnianiem i autoryzacją
 app.UseCors("AllowFrontend");
 
-// Enable authentication and authorization middlewares
+// Włączenie middleware do obsługi uwierzytelniania i autoryzacji
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Map controllers for API endpoints
+// Mapowanie kontrolerów do endpointów API
 app.MapControllers();
 
-// Run the application
+// Uruchomienie aplikacji
 app.Run();
