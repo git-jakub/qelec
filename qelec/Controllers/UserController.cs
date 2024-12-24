@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using qelec.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -54,7 +55,7 @@ namespace qelec.Controllers
                 var token = GenerateJwtToken(user);
 
                 // Include user role in the response
-                return Ok(new { token, userId = user.UserId, userRole = user.Role });
+                return Ok(new { token, userId = user.UserId, userRole = user.Role, userName = user.Username });
             }
             catch (Exception ex)
             {
@@ -87,6 +88,7 @@ namespace qelec.Controllers
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("role", user.Role), // Add role to claims
+                new Claim("userName", user.Username), // Add userName to claims if available
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

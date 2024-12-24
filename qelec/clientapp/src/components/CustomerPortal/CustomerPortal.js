@@ -1,8 +1,9 @@
-﻿// src/components/AdminPortal/AdminPortal.js
+﻿
 
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
+import { jwtDecode } from "jwt-decode"; // Named import
 
 const CustomerPortal = () => {
     return (
@@ -12,7 +13,7 @@ const CustomerPortal = () => {
             <nav>
                 <ul>
                
-                    <li><Link to="manage-your-orders">Manage Orders</Link></li>
+                    <li><Link to="manageyourorders">Manage Orders</Link></li>
                     {/* Add more admin links as needed */}
                 </ul>
             </nav>

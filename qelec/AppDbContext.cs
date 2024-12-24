@@ -13,7 +13,9 @@ public class AppDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<JobDetails> JobDetails { get; set; }
+    public DbSet<JobAddress> JobAddress { get; set; } // Dodano brakujący DbSet
     public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
+    public DbSet<EstimateDetails> EstimateDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,11 +24,11 @@ public class AppDbContext : DbContext
         // Configure the relationship between Order and User
         modelBuilder.Entity<Order>()
             .HasOne(o => o.User)
-            .WithMany(u => u.Orders)  // Assuming a user has many orders
+            .WithMany(u => u.Orders) // Assuming a user has many orders
             .HasForeignKey(o => o.UserId)
-            .OnDelete(DeleteBehavior.Cascade);  // Adjust delete behavior as needed
+            .OnDelete(DeleteBehavior.Cascade); // Adjust delete behavior as needed
 
-        // Configure relationships for JobDetails and InvoiceDetails
+        // Configure relationships for JobDetails, InvoiceDetails, and JobAddress
         modelBuilder.Entity<Order>()
             .HasOne(o => o.JobDetails)
             .WithOne()
@@ -37,6 +39,12 @@ public class AppDbContext : DbContext
             .HasOne(o => o.InvoiceDetails)
             .WithOne()
             .HasForeignKey<Order>(o => o.InvoiceDetailsId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<JobDetails>()
+            .HasOne(jd => jd.JobAddress) // Ustaw relację z JobAddress
+            .WithOne()
+            .HasForeignKey<JobDetails>(jd => jd.JobAddressId)
             .OnDelete(DeleteBehavior.Cascade);
 
         // Seed TimeSlot data
@@ -62,7 +70,6 @@ public class AppDbContext : DbContext
                 EndDate = DateTime.SpecifyKind(new DateTime(2024, 10, 28, 13, 0, 0), DateTimeKind.Utc),
                 IsAvailable = false
             }
-        // Additional slots can be added here
         );
 
         // Seed User data

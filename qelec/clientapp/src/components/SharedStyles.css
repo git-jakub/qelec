@@ -1,45 +1,81 @@
-﻿/* SharedStyles.css */
-
-.navbar {
+﻿.navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Sekcje są rozmieszczone na przeciwnych końcach */
+    align-items: center; /* Wyrównanie elementów w pionie */
     background-color: black;
     padding: 10px 15px;
     color: white;
     border-radius: 8px 8px 0 0;
-    position: sticky; /*Zmiana na sticky */
+    position: sticky;
     top: 0;
     width: 100%; /* Pełna szerokość okna przeglądarki */
-    margin: 0; /* Upewnienie się, że nie ma marginesów */
+    margin: 0;
     box-sizing: border-box;
 }
 
-.back-button, .next-button {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+.navbar-left {
+    display: flex; /* Ustawienie Flexbox dla lewej sekcji */
+    align-items: center; /* Wyrównanie elementów w pionie */
+    justify-content: flex-start; /* Wyrównanie do lewej strony */
+    gap: 10px; /* Odstęp między elementami */
 }
 
-.submit-button {
-    background-color: #e63946;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    max-width: 600px;
+.navbar-right {
+    display: flex; /* Ustawienie Flexbox dla prawej sekcji */
+    justify-content: flex-end; /* Wyrównanie do prawej strony */
+    align-items: center; /* Wyrównanie elementów w pionie */
 }
 
- /*Responsive design settings */
+/* Styl dla przycisku Login/Logout */
+.login-button, .back-button, .portal-button, .next-button {
+    background-color: #0FFCB3;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem; /* Rozmiar czcionki */
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+    .login-button:hover, .back-button:hover, .portal-button:hover, .next-button:hover {
+        background-color: #106EBE; /* Niebieskie tło przy najechaniu */
+        color: white; /* Biały tekst */
+        transform: scale(1.05); /* Subtelne powiększenie */
+    }
+
+    .login-button:focus, .back-button:focus, .portal-button:focus, .next-button:focus {
+        outline: none;
+        box-shadow: 0 0 5px #0FFCB3; /* Efekt glow */
+    }
+
+.welcome-message {
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Responsywność */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;  /*Dostosowanie paddingu na mniejszych ekranach */
+        flex-direction: row; /* Nadal układ poziomy */
+    }
+
+    .navbar-left {
+        justify-content: flex-start; /* Sekcja pozostaje wyrównana do lewej */
+        flex-wrap: wrap; /* Pozwala elementom zawijać się w razie potrzeby */
+        gap: 10px;
+    }
+
+    .navbar-right {
+        justify-content: flex-end; /* Sekcja pozostaje wyrównana do prawej */
+        flex-wrap: wrap;
+    }
+
+    .login-button, .back-button, .portal-button, .next-button {
+        width: auto; /* Przycisk dostosowuje się do zawartości */
     }
 }

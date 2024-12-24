@@ -2,159 +2,131 @@
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
 import Navbar from './Navbar';
-import emailjs from 'emailjs-com';
+import OrderStatus from './OrderStatus';
+import { sendOrderEmail } from '../services/emailService';
+import { generateInvoicePdf } from '../services/pdfService';
 import './SharedStyles.css';
 import './OrderSummary.css';
 
 const OrderSummary = () => {
     const navigate = useNavigate();
     const { orderData } = useContext(OrderContext);
-    const { timeSlot, jobDetails, invoiceDetails } = orderData;
+    const { timeSlot, jobDetails, invoiceDetails, jobAddress, estimateDetails } = orderData;
 
-    const formattedDate = timeSlot?.date ? new Date(timeSlot.date).toLocaleDateString() : 'N/A';
+    // Obsługa timeSlot jako tablicy
+    const formattedDate = timeSlot?.length > 0
+        ? new Date(timeSlot[0]?.date).toLocaleDateString()
+        : 'N/A';
+
+    const formattedTime = timeSlot?.length > 0
+        ? timeSlot.map((slot) => slot.time).join(', ')
+        : 'N/A';
 
     const [orderId, setOrderId] = useState(null);
-    const [status, setStatus] = useState("Scheduled");
-
-    const handleStatusChange = (e) => {
-        setStatus(e.target.value);
-    };
+    const [status, setStatus] = useState('Scheduled');
+    const [loading, setLoading] = useState(false);
 
     const editTimeSlot = () => navigate('/timeplanner');
     const editJobDetails = () => navigate('/jobdetails');
     const editInvoiceDetails = () => navigate('/invoice');
-
     const saveOrder = async () => {
-        const userId = localStorage.getItem('userId') ? Number(localStorage.getItem('userId')) : null;
-        console.log("User ID from localStorage:", userId, "Type:", typeof userId);
-        console.log("TimeSlot from context:", timeSlot); // Log the full timeSlot object for debugging
-
-        // Przekazanie tylko `timeSlotId` zamiast pełnego obiektu
-        const timeSlotId = timeSlot?.startSlot?.timeSlotId || 0;
-        console.log("Extracted TimeSlot ID:", timeSlotId, "Type:", typeof timeSlotId); // Confirm it’s a number
-
-        const orderPayload = {
-            userId,
-            timeSlotId,
-            jobDetails: {
-                postcode: jobDetails?.postcode || '',
-                city: jobDetails?.city || '',
-                address: jobDetails?.address || '',
-                clientName: jobDetails?.clientName || '',
-                siteAccessInfo: jobDetails?.siteAccessInfo || '',
-                mobile: jobDetails?.mobile || '',
-                clientEmail: jobDetails?.clientEmail || '',
-                serviceType: jobDetails?.serviceType || '',
-                serviceDetails: jobDetails?.serviceDetails || '',
-                propertySizeOrSpecification: jobDetails?.propertySizeOrSpecification || ''
-            },
-            invoiceDetails: {
-                recipientName: invoiceDetails?.recipientName || '',
-                companyName: invoiceDetails?.companyName || '',
-                recipientAddress: invoiceDetails?.recipientAddress || '',
-                recipientPostcode: invoiceDetails?.recipientPostcode || '',
-                recipientCity: invoiceDetails?.recipientCity || '',
-                recipientEmail: invoiceDetails?.recipientEmail || '',
-                recipientPhone: invoiceDetails?.recipientPhone || '',
-                paymentStatus: invoiceDetails?.paymentStatus || 'Unpaid'
-            },
-            status
-        };
-
+        setLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            const headers = {
-                "Content-Type": "application/json"
+            const validatedOrderData = {
+                ...orderData,
+                timeSlotId: orderData.timeSlot?.[0]?.startSlot?.timeSlotId || null, // Pobranie ID wybranego przedziału czasowego
+                status: orderData.status || 'Scheduled',
+                jobDetails: {
+                    clientName: orderData.jobDetails?.clientName || 'Not entered',
+                    siteAccessInfo: orderData.jobDetails?.siteAccessInfo || 'Not entered',
+                    mobile: orderData.jobDetails?.mobile || 'Not entered',
+                    clientEmail: orderData.jobDetails?.clientEmail || 'Not entered',
+                    yourReference: orderData.jobDetails?.yourReference || 'Not entered',
+                    additionalInfo: orderData.jobDetails?.additionalInfo || 'Not entered',
+                },
+                jobAddress: {
+                    postcode: orderData.jobAddress?.postcode || 'Not entered',
+                    street: orderData.jobAddress?.street || 'Not entered',
+                    city: orderData.jobAddress?.city || 'Not entered',
+                    paidOnStreet: !!orderData.jobAddress?.paidOnStreet,
+                    visitorPermit: !!orderData.jobAddress?.visitorPermit,
+                    congestionCharge: !!orderData.jobAddress?.congestionCharge,
+                },
+                invoiceDetails: {
+                    recipientName: orderData.invoiceDetails?.recipientName || 'Not entered',
+                    recipientAddress: orderData.invoiceDetails?.recipientAddress || 'Not entered',
+                    recipientPostcode: orderData.invoiceDetails?.recipientPostcode || 'Not entered',
+                    recipientCity: orderData.invoiceDetails?.recipientCity || 'Not entered',
+                    recipientEmail: orderData.invoiceDetails?.recipientEmail || 'Not entered',
+                    recipientPhone: orderData.invoiceDetails?.recipientPhone || 'Not entered',
+                    paymentStatus: orderData.invoiceDetails?.paymentStatus || 'Unpaid',
+                    companyName: orderData.invoiceDetails?.companyName || 'Not entered',
+                },
+                estimateDetails: {
+                    jobDescription: orderData.estimateDetails?.jobDescription || 'Not entered',
+                    calculatedCost: parseFloat(orderData.estimateDetails?.calculatedCost || 0),
+                    generatedTime: orderData.estimateDetails?.generatedTime || 1,
+                    costBreakdown: {
+                        commutingCost: parseFloat(orderData.estimateDetails?.costBreakdown?.commutingCost || 0),
+                        paidOnStreet: !!orderData.estimateDetails?.costBreakdown?.paidOnStreet,
+                        visitorPermit: !!orderData.estimateDetails?.costBreakdown?.visitorPermit,
+                        congestionCharge: !!orderData.estimateDetails?.costBreakdown?.congestionCharge,
+                    },
+                    postcode: orderData.estimateDetails?.postcode || 'Not entered',
+                    multiplierDetails: orderData.estimateDetails?.multiplierDetails || {
+                        name: 'Default Multiplier',
+                        start: new Date().toISOString(),
+                        end: new Date().toISOString(),
+                        multiplier: 1.0,
+                    },
+                },
             };
-
-            if (token) {
-                headers["Authorization"] = `Bearer ${token}`;
-            }
+            console.log('Validated Order Data:', JSON.stringify(validatedOrderData, null, 2));
 
             const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
-                method: "POST",
-                headers,
-                body: JSON.stringify(orderPayload)
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(validatedOrderData),
             });
 
             if (!response.ok) {
-                const errorText = await response.text();
-                console.error("Failed to save order:", errorText);
-                alert("Failed to save order.");
-                return;
+                const errorDetails = await response.text();
+                console.error('Failed to save order:', errorDetails);
+                throw new Error('Failed to save order. Please try again.');
             }
 
             const savedOrder = await response.json();
-            setOrderId(savedOrder.orderId);
-            
+            setOrderId(savedOrder.id);
+            console.log('Order saved successfully:', savedOrder);
 
-            const invoiceUrl = await generateInvoicePdf(savedOrder.orderId);
-            sendEmail(savedOrder.orderId, invoiceUrl);
-
-            alert("Order saved successfully!");
-        } catch (error) {
-            console.error("Error saving order:", error);
-            alert("An error occurred while saving the order.");
-        }
-    };
-
-    const generateInvoicePdf = async (orderId) => {
-        try {
-            const token = localStorage.getItem('token');
-            const headers = {
-                "Content-Type": "application/json"
+            // **Define emailParams after saving the order**
+            const emailParams = {
+                recipient_name: validatedOrderData.invoiceDetails.recipientName,
+                recipient_email: validatedOrderData.invoiceDetails.recipientEmail,
+                order_id: savedOrder.id,
+                job_description: validatedOrderData.estimateDetails.jobDescription,
+                total_cost: validatedOrderData.estimateDetails.calculatedCost,
+                time_slot: timeSlot.map((slot) => slot.time).join(', '), // Assuming timeSlot is an array
+                date: formattedDate, // Use the formatted date
             };
 
-            if (token) {
-                headers["Authorization"] = `Bearer ${token}`;
+            // Send email
+            const emailResponse = await sendOrderEmail(emailParams);
+            if (!emailResponse.success) {
+                console.error('Failed to send email:', emailResponse.error);
+                alert('Order saved but email could not be sent. Please try again later.');
+            } else {
+                console.log('Email sent successfully!');
             }
-
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/invoice/generate/${orderId}`, {
-                method: "GET",
-                headers
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error("Failed to generate invoice:", errorText);
-                alert("Failed to generate invoice.");
-                return null;
-            }
-
-            const data = await response.json();
-            return data.fileUrl;
         } catch (error) {
-            console.error("Error generating invoice:", error);
-            alert("An error occurred while generating the invoice.");
-            return null;
+            console.error('Error during saveOrder:', error);
+            alert(`An error occurred: ${error.message}`);
+        } finally {
+            setLoading(false);
         }
     };
 
-    const sendEmail = (orderId, invoiceUrl) => {
-        if (jobDetails?.clientEmail) {
-            const templateParams = {
-                to_email: jobDetails.clientEmail,
-                time_slot: `${formattedDate}, ${timeSlot ? timeSlot.time : 'N/A'}`,
-                job_address: jobDetails.address,
-                job_name: jobDetails.clientName,
-                invoice_recipient: invoiceDetails.recipientName,
-                invoice_company: invoiceDetails.companyName,
-                order_id: orderId,
-                invoice_attachment: invoiceUrl
-            };
 
-            emailjs.send('service_7n0t7bg', 'template_axl4qnw', templateParams, 'XvVzICuTNwzlzA_5x')
-                .then((response) => {
-                    console.log('SUCCESS!', response.status, response.text);
-                    alert('Email sent successfully to ' + jobDetails.clientEmail);
-                }, (error) => {
-                    console.error('FAILED...', error);
-                    alert('Failed to send email.');
-                });
-        } else {
-            alert('No email address found for the client!');
-        }
-    };
 
     return (
         <div className="order-summary">
@@ -170,22 +142,40 @@ const OrderSummary = () => {
             <div className="summary-section">
                 <h3>Time Slot</h3>
                 <p>Date: {formattedDate}</p>
-                <p>Time: {timeSlot ? timeSlot.time : 'N/A'}</p>
+                <p>Time: {formattedTime}</p>
                 <button onClick={editTimeSlot} className="edit-button">Edit</button>
             </div>
 
             <div className="summary-section">
                 <h3>Job Details</h3>
-                <p>Post Code: {jobDetails?.postcode || 'N/A'}</p>
-                <p>Address: {jobDetails?.address || 'N/A'}</p>
-                <p>Client Name: {jobDetails?.clientName || 'N/A'}</p>
+                <p>Name: {jobDetails?.clientName || 'N/A'}</p>
                 <p>Site Access Info: {jobDetails?.siteAccessInfo || 'N/A'}</p>
                 <p>Mobile: {jobDetails?.mobile || 'N/A'}</p>
-                <p>Client Email: {jobDetails?.clientEmail || 'N/A'}</p>
-                <p>Property size: {jobDetails?.propertySizeOrSpecification || 'N/A'}</p>
-                <p>Service Details: {jobDetails?.serviceDetails || 'N/A'}</p>
-                <p>Service Type: {jobDetails?.serviceType || 'N/A'}</p>
+                <p>Email: {jobDetails?.clientEmail || 'N/A'}</p>
+                <p>Your Reference: {jobDetails?.yourReference || 'N/A'}</p>
+                <p>Additional Information: {jobDetails?.additionalInfo || 'N/A'}</p>
                 <button onClick={editJobDetails} className="edit-button">Edit</button>
+            </div>
+
+            <div className="summary-section">
+                <h3>Job Address</h3>
+                <p>Postcode: {jobAddress?.postcode || 'N/A'}</p>
+                <p>Street: {jobAddress?.street || 'N/A'}</p>
+                <p>City: {jobAddress?.city || 'N/A'}</p>
+                <p>Paid On Street: {jobAddress?.paidOnStreet ? 'Yes' : 'No'}</p>
+                <p>Visitor Permit: {jobAddress?.visitorPermit ? 'Yes' : 'No'}</p>
+                <p>Congestion Charge: {jobAddress?.congestionCharge ? 'Yes' : 'No'}</p>
+            </div>
+
+            <div className="summary-section">
+                <h3>Estimate Details</h3>
+                <p>Job Description: {estimateDetails?.jobDescription || 'N/A'}</p>
+                <p>Estimated Time: {estimateDetails?.generatedTime || 'N/A'} hours</p>
+                <p>Total Cost: £{estimateDetails?.calculatedCost || 'N/A'}</p>
+                <p>Labor Cost: £{estimateDetails?.costBreakdown?.laborCost || 'N/A'}</p>
+                <p>Parking Cost: £{estimateDetails?.costBreakdown?.parkingCost || 'N/A'}</p>
+                <p>Congestion Charge: £{estimateDetails?.costBreakdown?.totalCongestionCharge || 'N/A'}</p>
+                <p>Commuting Cost: £{estimateDetails?.costBreakdown?.commutingCost || 'N/A'}</p>
             </div>
 
             <div className="summary-section">
@@ -202,17 +192,11 @@ const OrderSummary = () => {
             </div>
 
             <div className="summary-section">
-                <label>Status:</label>
-                <select value={status} onChange={handleStatusChange}>
-                    <option value="Scheduled">Scheduled</option>
-                    <option value="Rescheduled">Rescheduled</option>
-                    <option value="Unpaid">Unpaid</option>
-                    <option value="Completed">Completed</option>
-                </select>
+                <OrderStatus status={status} setStatus={setStatus} />
             </div>
 
-            <button onClick={saveOrder} className="submit-button">
-                Save Order and Send Email
+            <button onClick={saveOrder} className="submit-button" disabled={loading}>
+                {loading ? 'Saving...' : 'Save Order and Send Email'}
             </button>
         </div>
     );

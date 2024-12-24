@@ -23,14 +23,20 @@ public class OpenAIService
 
     public async Task<string> GenerateChatCompletion(string input)
     {
+        // Append the specific instruction to the customer's input
+        var modifiedInput = $"Generate labor estimate for the electrical service: \"{input}\",return the following JSON structure: {{\"time\": \"<time in hours>\"}}.Only respond with plain JSON, no special characters, nothing else.";
+
+
+
         var requestBody = new
         {
-            model = "gpt-4-turbo", // Upewnij się, że używasz dostępnego modelu
+            model = "gpt-4o-mini",
             messages = new[]
             {
-                new { role = "user", content = input }
-            },
-            max_tokens = 50
+            new { role = "user", content = modifiedInput }
+        },
+            max_tokens = 3000, // limits response length
+            temperature = 0.1 // encourages factual responses
         };
 
         var jsonContent = JsonConvert.SerializeObject(requestBody);
@@ -47,7 +53,6 @@ public class OpenAIService
         var responseContent = await response.Content.ReadAsStringAsync();
         dynamic result = JsonConvert.DeserializeObject(responseContent);
 
-        // Wyodrębnij treść odpowiedzi z modelu
         return result.choices[0].message.content.ToString();
     }
 }

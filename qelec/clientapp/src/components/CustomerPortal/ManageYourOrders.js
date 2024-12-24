@@ -1,7 +1,8 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode'; // Użycie nawiasów klamrowych
+import { jwtDecode } from 'jwt-decode';
 import Navbar from '../../components/Navbar';
+import { Table, Title } from '@mantine/core'; // Mantine components
 
 const ManageYourOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -10,6 +11,7 @@ const ManageYourOrders = () => {
     useEffect(() => {
         const fetchCustomerOrders = async () => {
             const token = localStorage.getItem('token');
+            console.log("Token being sent:", token); // Log the token to console
 
             if (!token) {
                 console.error("User not authenticated");
@@ -17,12 +19,11 @@ const ManageYourOrders = () => {
                 return;
             }
 
-            // Dekodowanie tokena, aby uzyskać customerId
-            let customerId;
+            let userId;
             try {
                 const decoded = jwtDecode(token);
-                customerId = decoded.sub; // Zakładam, że `customerId` jest przechowywany w `sub`
-                console.log("Customer ID from token:", customerId);
+                userId = decoded.sub;
+                console.log("Customer ID from token:", userId);
 
                 if (decoded.exp < Math.floor(Date.now() / 1000)) {
                     console.error("Token expired. Redirecting to login.");
@@ -35,22 +36,19 @@ const ManageYourOrders = () => {
                 return;
             }
 
-            // Fetch orders for this customer
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/orders?customerId=${customerId}`, {
+                console.log("Making request with token:", token);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/orders?sub=${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
                 });
 
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        console.error("Unauthorized. Redirecting to login.");
-                        navigate('/login');
-                    } else {
-                        throw new Error('Failed to fetch orders');
-                    }
+                console.log("Response status:", response.status);
+                if (response.status === 401) {
+                    console.error("Unauthorized. Redirecting to login.");
+                    navigate('/login');
                 } else {
                     const data = await response.json();
                     setOrders(data);
@@ -62,21 +60,50 @@ const ManageYourOrders = () => {
         };
 
         fetchCustomerOrders();
-    }, [navigate]); // Użyj tablicy zależności dla `navigate`
+    }, [navigate]);
 
     return (
         <div className="manage-your-orders">
             <Navbar backPath="/" nextPath="/jobdetails" />
-            <h2>Your Orders</h2>
-            <ul>
-                {orders.map((order) => (
-                    <li key={order.OrderId}>
-                        <p>Order ID: {order.OrderId}</p>
-                        <p>Status: {order.status}</p>
-                        <p>Date: {order.date}</p>
-                    </li>
-                ))}
-            </ul>
+            <Title order={2} align="center" mt="lg" mb="md">
+                Your Orders with Details
+            </Title>
+            {orders.length === 0 ? (
+                <p>No orders found.</p>
+            ) : (
+                <Table highlightOnHover withBorder withColumnBorders>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Job Description</th>
+                            <th>Invoice Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {orders.map((order) => (
+                            <tr key={order.orderId}>
+                                <td>{order.orderId}</td>
+                                <td>{order.status}</td>
+                                <td>{new Date(order.createdDate).toLocaleDateString()}</td>
+                                <td>
+                                    {order.updatedDate
+                                        ? new Date(order.updatedDate).toLocaleDateString()
+                                        : 'N/A'}
+                                </td>
+                                <td>
+                                    {order.jobDetails?.description || 'No job details'}
+                                </td>
+                                <td>
+                                    {order.invoiceDetails?.amount || 'No invoice details'}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            )}
         </div>
     );
 };

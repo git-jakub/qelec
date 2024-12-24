@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using qelec.Models;
+using qelec.Models.DTOs;
 
-public class OrderDto
+namespace qelec.Models.DTOs
 {
-    public int OrderId { get; set; }
-    public int TimeSlotId { get; set; }
-    public string Status { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime? UpdatedDate { get; set; }
-    public List<string> StatusChangeHistory { get; set; } = new List<string>();
+    public class OrderDto
+    {
+        public int OrderId { get; set; }  // ID zamówienia
+        public int TimeSlotId { get; set; }  // ID wybranego terminu
+        public string Status { get; set; }  // Status zamówienia (Scheduled, Rescheduled, Unpaid, Completed)
+        public DateTime CreatedDate { get; set; }  // Data utworzenia zamówienia
+        public DateTime? UpdatedDate { get; set; }  // Data ostatniej aktualizacji zamówienia
 
-    public int? UserId { get; set; }  // Foreign key linking to the User table
+        public List<string> StatusChangeHistory { get; set; } = new List<string>();  // Historia zmian statusu
 
-    // Include only relevant details if necessary
-    public JobDetails JobDetails { get; set; }
-    public InvoiceDetails InvoiceDetails { get; set; }
+        public int? UserId { get; set; }  // ID użytkownika (nullable dla zamówień gościa)
+
+        public JobDetailsDto JobDetails { get; set; }  // Szczegóły pracy
+        public InvoiceDetailsDto InvoiceDetails { get; set; }  // Szczegóły faktury
+        public JobAddressDto JobAddress { get; set; }  // Adres pracy
+        public EstimateDetailsDto EstimateDetails { get; set; }  // Szczegóły wyceny
+    }
 }

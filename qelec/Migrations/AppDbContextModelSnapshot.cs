@@ -16,10 +16,117 @@ namespace qelec.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("JobDetails", b =>
+                {
+                    b.Property<int>("JobDetailsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("JobDetailsId"));
+
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("JobAddressId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Mobile")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SiteAccessInfo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("YourReference")
+                        .HasColumnType("text");
+
+                    b.HasKey("JobDetailsId");
+
+                    b.HasIndex("JobAddressId");
+
+                    b.ToTable("JobDetails");
+                });
+
+            modelBuilder.Entity("qelec.Models.CostBreakdown", b =>
+                {
+                    b.Property<int>("CostBreakdownId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CostBreakdownId"));
+
+                    b.Property<decimal>("CommutingCost")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("LaborCost")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("ParkingCost")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("TotalCongestionCharge")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("CostBreakdownId");
+
+                    b.ToTable("CostBreakdown");
+                });
+
+            modelBuilder.Entity("qelec.Models.EstimateDetails", b =>
+                {
+                    b.Property<int>("EstimateDetailsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EstimateDetailsId"));
+
+                    b.Property<decimal>("CalculatedCost")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("CongestionCharge")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("CostBreakdownId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("GeneratedTime")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("JobDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("MultiplierDetailsId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("PaidOnStreet")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Postcode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("PostcodeTierCost")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("EstimateDetailsId");
+
+                    b.HasIndex("CostBreakdownId");
+
+                    b.HasIndex("MultiplierDetailsId");
+
+                    b.ToTable("EstimateDetails");
+                });
 
             modelBuilder.Entity("qelec.Models.InvoiceDetails", b =>
                 {
@@ -72,66 +179,66 @@ namespace qelec.Migrations
                     b.ToTable("InvoiceDetails");
                 });
 
-            modelBuilder.Entity("qelec.Models.JobDetails", b =>
+            modelBuilder.Entity("qelec.Models.JobAddress", b =>
                 {
-                    b.Property<int>("JobDetailsId")
+                    b.Property<int>("JobAddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("JobDetailsId"));
-
-                    b.Property<DateTime?>("ActualCompletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("JobAddressId"));
 
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ClientEmail")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<bool>("CongestionCharge")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("EstimatedCompletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("EstimatedCost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Mobile")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<bool>("PaidOnStreet")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Postcode")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PropertySizeOrSpecification")
+                    b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceDetails")
+                    b.Property<bool>("VisitorPermit")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("JobAddressId");
+
+                    b.ToTable("JobAddress");
+                });
+
+            modelBuilder.Entity("qelec.Models.MultiplierDetails", b =>
+                {
+                    b.Property<int>("MultiplierDetailsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MultiplierDetailsId"));
+
+                    b.Property<string>("End")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceType")
+                    b.Property<decimal>("Multiplier")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("SiteAccessInfo")
+                    b.Property<string>("Start")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("JobDetailsId");
+                    b.HasKey("MultiplierDetailsId");
 
-                    b.ToTable("JobDetails");
+                    b.ToTable("MultiplierDetails");
                 });
 
             modelBuilder.Entity("qelec.Models.Order", b =>
@@ -145,7 +252,13 @@ namespace qelec.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("EstimateDetailsId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("InvoiceDetailsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("JobAddressId")
                         .HasColumnType("integer");
 
                     b.Property<int>("JobDetailsId")
@@ -166,8 +279,12 @@ namespace qelec.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("EstimateDetailsId");
+
                     b.HasIndex("InvoiceDetailsId")
                         .IsUnique();
+
+                    b.HasIndex("JobAddressId");
 
                     b.HasIndex("JobDetailsId")
                         .IsUnique();
@@ -268,15 +385,53 @@ namespace qelec.Migrations
                         });
                 });
 
+            modelBuilder.Entity("JobDetails", b =>
+                {
+                    b.HasOne("qelec.Models.JobAddress", "JobAddress")
+                        .WithMany()
+                        .HasForeignKey("JobAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobAddress");
+                });
+
+            modelBuilder.Entity("qelec.Models.EstimateDetails", b =>
+                {
+                    b.HasOne("qelec.Models.CostBreakdown", "CostBreakdown")
+                        .WithMany()
+                        .HasForeignKey("CostBreakdownId");
+
+                    b.HasOne("qelec.Models.MultiplierDetails", "MultiplierDetails")
+                        .WithMany()
+                        .HasForeignKey("MultiplierDetailsId");
+
+                    b.Navigation("CostBreakdown");
+
+                    b.Navigation("MultiplierDetails");
+                });
+
             modelBuilder.Entity("qelec.Models.Order", b =>
                 {
+                    b.HasOne("qelec.Models.EstimateDetails", "EstimateDetails")
+                        .WithMany()
+                        .HasForeignKey("EstimateDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("qelec.Models.InvoiceDetails", "InvoiceDetails")
                         .WithOne()
                         .HasForeignKey("qelec.Models.Order", "InvoiceDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("qelec.Models.JobDetails", "JobDetails")
+                    b.HasOne("qelec.Models.JobAddress", "JobAddress")
+                        .WithMany()
+                        .HasForeignKey("JobAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobDetails", "JobDetails")
                         .WithOne()
                         .HasForeignKey("qelec.Models.Order", "JobDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -293,7 +448,11 @@ namespace qelec.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.Navigation("EstimateDetails");
+
                     b.Navigation("InvoiceDetails");
+
+                    b.Navigation("JobAddress");
 
                     b.Navigation("JobDetails");
 

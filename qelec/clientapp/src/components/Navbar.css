@@ -9,8 +9,8 @@
 }
 
 .back-button, .next-button {
-    background-color: #555;
-    color: white;
+    background-color: #0FFCB3;
+    color: black;
     border: none;
     padding: 5px 10px;
     cursor: pointer;

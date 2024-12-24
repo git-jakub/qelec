@@ -8,31 +8,36 @@ namespace qelec.Models
     public class Order
     {
         [Key]
-        public int OrderId { get; set; }  // ID zamówienia
+        public int OrderId { get; set; }
 
-        [ForeignKey("TimeSlotId")]
-        public int TimeSlotId { get; set; }  // ID przypisany do wybranego terminu
-        public virtual TimeSlot? TimeSlot { get; set; }  // Powiązanie z TimeSlot
+        [ForeignKey("TimeSlot")]
+        public int? TimeSlotId { get; set; } // Nullable, jeśli czas nie zawsze jest wymagany
+        public virtual TimeSlot? TimeSlot { get; set; }
 
         [Required]
-        public string Status { get; set; }  // Status of the order (Scheduled, Rescheduled, Unpaid, Completed)
+        public string Status { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;  // Date the order was created
-        public DateTime? UpdatedDate { get; set; }  // Date the order was last updated
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedDate { get; set; }
 
-        [NotMapped]
-        public List<string> StatusChangeHistory { get; set; } = new List<string>();  // Track status changes
+        [ForeignKey("JobDetails")]
+        public int? JobDetailsId { get; set; } // Nullable, jeśli szczegóły pracy mogą być opcjonalne
+        public JobDetails? JobDetails { get; set; }
 
-        [ForeignKey("JobDetailsId")]
-        public int JobDetailsId { get; set; }
-        public JobDetails JobDetails { get; set; }  // Matches `jobDetails` in OrderDto
+        [ForeignKey("InvoiceDetails")]
+        public int? InvoiceDetailsId { get; set; }
+        public InvoiceDetails? InvoiceDetails { get; set; }
 
-        [ForeignKey("InvoiceDetailsId")]
-        public int InvoiceDetailsId { get; set; }
-        public InvoiceDetails InvoiceDetails { get; set; }  // Matches `invoiceDetails` in OrderDto
+        [ForeignKey("JobAddress")]
+        public int? JobAddressId { get; set; }
+        public JobAddress? JobAddress { get; set; }
 
-        [ForeignKey("UserId")]
-        public int? UserId { get; set; }  // Nullable UserId to allow guest orders
-        public virtual User? User { get; set; }  // Optional navigation property
+        [ForeignKey("EstimateDetails")]
+        public int? EstimateDetailsId { get; set; }
+        public EstimateDetails? EstimateDetails { get; set; }
+
+        [ForeignKey("User")]
+        public int? UserId { get; set; }
+        public virtual User? User { get; set; }
     }
 }

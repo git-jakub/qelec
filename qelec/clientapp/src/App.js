@@ -13,6 +13,7 @@ import PrivateRouteAdmin from './components/Auth/PrivateRouteAdmin';
 import PrivateRouteCustomer from './components/Auth/PrivateRouteCustomer';
 import Login from './components/Auth/Login';
 import TimeSetter from './components/AdminPortal/TimeSetter';
+import ManageOrders from './components/AdminPortal/ManageOrders';
 import ManageYourOrders from './components/CustomerPortal/ManageYourOrders';
 import EstimatesGenerator from './components/EstimatesGenerator'; // Import EstimateGenerator
 import './App.css';
@@ -59,6 +60,16 @@ function App() {
                             }
                         />
 
+                        <Route
+                            path="/adminportal/manage-orders"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <ManageOrders />
+                                </PrivateRouteAdmin>
+                            }
+                        />
+
+
                         {/* Protected Route for CustomerPortal */}
                         <Route
                             path="/customerportal"
@@ -71,7 +82,7 @@ function App() {
 
                         {/* Protected Route for ManageYourOrders */}
                         <Route
-                            path="/manage-your-orders"
+                            path="/customerportal/manageyourorders"
                             element={
                                 <PrivateRouteCustomer>
                                     <ManageYourOrders />

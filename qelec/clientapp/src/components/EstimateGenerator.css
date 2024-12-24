@@ -1,19 +1,16 @@
-﻿@import './SharedStyles.css';
-
-/* Main container for the EstimateGenerator component */
-.estimate-generator-page {
-    margin-top:0px;
+﻿.estimate-generator-page {
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1E3D65;
+    background-color: #1E3D65; /* Dopasowany kolor tła */
     min-height: 100vh;
-    color: white;
+    color: white; /* Tekst w kolorze białym */
+    padding: 20px;
 }
 
-/* Styling for the main estimate generator content */
+/* Sekcja generatora */
 .estimate-generator {
-    margin-top: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,45 +18,44 @@
     width: 100%;
     padding: 20px;
     text-align: center;
-    background-color: #2D5078;
+    background-color: #2D5078; /* Dopasowany kolor */
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Title styling */
-.estimate-title {
-    font-size: 32px;
     margin-bottom: 20px;
 }
 
-/* Instruction styling */
-.estimate-instruction {
-    font-size: 16px;
-    color: ;
-    margin-bottom: 15px;
-    text-align: center;
+.estimate-title {
+    font-size: 32px;
+    color: #e63946; /* Kolor akcentowy */
+    margin-bottom: 20px;
 }
 
+.estimate-instruction {
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ccc; /* Subtelny kolor instrukcji */
+}
 
-/* Text area for input */
+/* Pole tekstowe */
 .estimate-input {
     width: 100%;
     height: 100px;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
     resize: vertical;
-    background-color: #3A4E6A;
-    color: white;
+    background-color: #3A4E6A; /* Kolor tła pola */
+    color: white; /* Kolor tekstu */
 }
 
     .estimate-input::placeholder {
-        color: #ccc;
+        color: #ccc; /* Kolor tekstu zastępczego */
     }
 
-/* Button styling */
+/* Przyciski */
 .generate-button {
     background-color: #e63946;
     color: white;
@@ -67,22 +63,27 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
     font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
     .generate-button:hover {
         background-color: #d62839;
+        transform: scale(1.05); /* Subtelne powiększenie przy najechaniu */
     }
 
-/* Output display for the estimate */
-.estimate-output {
-    margin-top: 20px;
-    background-color: #1E3D65;
-    padding: 15px;
-    border-radius: 5px;
+.proceed-button {
+    background-color: #e63946;
     color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 1rem;
-    text-align: left;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+    .proceed-button:hover {
+        background-color: #d62839;
+        transform: scale(1.05);
+    }

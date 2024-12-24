@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1E3D65;
+    background-color: #106EBE;
     color: white;
     min-height: 100vh;
     padding: 20px;
@@ -10,7 +10,7 @@
     position: relative;
 }
 
-/* Style specyficzne dla TimePlanner */
+/* Style specific to TimePlanner */
 .mantine-date-picker,
 .mantine-time-picker {
     margin-bottom: 20px;
@@ -24,40 +24,91 @@
     justify-content: center;
 }
 
-.mantine-DatePicker-calendarHeaderLevel {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: black;
-}
-
-.mantine-DatePicker-calendarHeaderControl {
-    font-size: 50px;
-    width: 60px;
-    height: 60px;
+/* Align arrows and month display in a single row */
+.mantine-DatePicker-calendarHeader {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 20px; /* Space between arrows and month label */
+    margin-bottom: 20px;
+}
+
+.mantine-DatePicker-calendarHeaderLevel {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #0FFCB3;
+    padding: 10px 20px;
+    border-radius: 25px; /* Elliptical shape for the month display */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Stylizowanie kontenerów strzałek */
+.mantine-DatePicker-calendarHeaderControl {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Kulki */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0FFCB3;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
     position: relative;
 }
 
-    .mantine-DatePicker-calendarHeaderControl:first-child {
-        transform: rotate(90deg);
+    /* Obracanie SVG wewnątrz kontenerów */
+    .mantine-DatePicker-calendarHeaderControl svg {
+        transform: rotate(-90deg); /* Prawa strzałka domyślnie */
     }
 
-    .mantine-DatePicker-calendarHeaderControl:last-child {
-        transform: rotate(270deg);
+    /* Lewa strzałka */
+    .mantine-DatePicker-calendarHeaderControl:first-child svg {
+        transform: rotate(90deg); /* Lewa strzałka */
     }
 
+
+/* Calendar days styling */
+.mantine-DatePicker-day {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Circular days */
+    background-color: #0FFCB3;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+    .mantine-DatePicker-day:hover {
+        background-color: #ddd;
+        transform: scale(1.1);
+    }
+
+    .mantine-DatePicker-day.selected {
+        background-color: black;
+        color: white;
+    }
+
+/* Time slot buttons */
 .time-slot-button {
-    background-color: #f1f1f1;
+    background-color: #0FFCB3;
     border: 1px solid #ccc;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 5px; /* Keep square with slightly rounded corners */
     cursor: pointer;
     transition: background-color 0.3s;
     flex: 1 1 100px;
     text-align: center;
+    font-size: 14px;
+    font-weight: bold;
 }
 
     .time-slot-button:hover {
@@ -65,14 +116,17 @@
     }
 
     .time-slot-button.selected {
-        background-color: #e63946;
+        background-color: black;
         color: white;
-        border-color: #e63946;
     }
 
 .time-slots-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: grid; /* Użycie grid zamiast flex */
+    gap: 10px; /* Odstępy między slotami */
     justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Automatyczny podział kolumn */
+    grid-auto-rows: auto; /* Automatyczne wysokości wierszy */
+    width: 100%; /* Umożliwienie dynamicznego rozkładu */
+    max-width: 800px; /* Opcjonalnie, maksymalna szerokość kontenera */
 }
+
