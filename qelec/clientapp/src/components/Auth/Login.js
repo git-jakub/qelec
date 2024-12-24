@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from './AuthService';
+import Navbar from '../../components/Navbar';
+import './../SharedStyles.css';
 import './Login.css';
 
 const Login = () => {
@@ -15,6 +17,7 @@ const Login = () => {
         try {
             // Use AuthService to handle login
             const data = await AuthService.login(email, password);
+            console.log("Login response data:", data); // Check if userName is included
 
             if (data.userRole === 'Admin') {
                 navigate('/adminportal'); // Redirect admin to admin portal
@@ -30,7 +33,9 @@ const Login = () => {
     };
 
     return (
+                   
         <div className="login-container">
+            <Navbar backPath="/" nextPath="/jobdetails" />
             <h2>Login</h2>
             {error && <p className="error">{error}</p>}
             <form onSubmit={handleSubmit}>

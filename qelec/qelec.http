@@ -1,4 +1,4 @@
-@qelec_HostAddress = http://localhost:5299
+@qelec_HostAddress = http://localhost:5105
 
 GET {{qelec_HostAddress}}/weatherforecast/
 Accept: application/json

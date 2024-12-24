@@ -1,4 +1,4 @@
-﻿import { jwtDecode } from "jwt-decode"; // Named import, as this works for you
+﻿import { jwtDecode } from "jwt-decode"; // Named import
 
 class AuthService {
     static API_URL = process.env.REACT_APP_API_URL;
@@ -9,7 +9,7 @@ class AuthService {
             const response = await fetch(`${this.API_URL}/user/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
             });
 
             if (!response.ok) {
@@ -20,14 +20,13 @@ class AuthService {
             console.log("Token received from server:", data.token); // Debug log
 
             this.setToken(data.token);
-            console.log("Token saved to localStorage:", this.getToken()); // Verify token is saved
 
-            this.setUserRole(data.userRole);
-            this.setUserId(data.userId);
+            const decodedToken = jwtDecode(data.token); // Decode token to extract user details
+            console.log("Decoded token:", decodedToken);
 
-            if (data.userName) {
-                this.setUserName(data.userName);
-            }
+            this.setUserRole(decodedToken.userRole || data.userRole);
+            this.setUserId(decodedToken.userId || data.userId);
+            this.setUserName(decodedToken.userName || data.userName);
 
             return data;
         } catch (error) {
@@ -41,7 +40,7 @@ class AuthService {
         localStorage.removeItem("token");
         localStorage.removeItem("userRole");
         localStorage.removeItem("userId");
-        localStorage.removeItem("userName"); // Clear userName as well
+        localStorage.removeItem("userName");
     }
 
     static isAuthenticated() {
@@ -51,15 +50,21 @@ class AuthService {
     }
 
     static getUserRole() {
-        return localStorage.getItem("userRole");
+        const role = localStorage.getItem("userRole");
+        console.log("Retrieved user role:", role); // Debug log
+        return role;
     }
 
     static getUserId() {
-        return localStorage.getItem("userId");
+        const userId = localStorage.getItem("userId");
+        console.log("Retrieved user ID:", userId); // Debug log
+        return userId;
     }
 
     static getUserName() {
-        return localStorage.getItem("userName");
+        const userName = localStorage.getItem("userName");
+        console.log("Retrieved user name:", userName); // Debug log
+        return userName;
     }
 
     static getToken() {

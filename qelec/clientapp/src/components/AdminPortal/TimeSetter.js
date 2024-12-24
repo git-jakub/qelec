@@ -1,5 +1,6 @@
 ﻿import React, { useState } from 'react';
 import { DatePickerInput, TimeInput } from '@mantine/dates';
+import Navbar from '../../components/Navbar';
 import './TimeSetter.css';
 
 const TimeSetter = () => {
@@ -60,6 +61,7 @@ const TimeSetter = () => {
 
     return (
         <div className="time-setter-container">
+            <Navbar backPath="/" nextPath="/jobdetails" />
             <h2>Time Setter Page</h2>
             {error && <p className="error-message">{error}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}

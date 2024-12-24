@@ -84,6 +84,45 @@ public class TimeSlotsController : ControllerBase
             return StatusCode(500, "An error occurred while creating time slots.");
         }
     }
+    // Endpoint to mark time slots as available
+    [HttpPost("mark-available")]
+    public async Task<IActionResult> MarkTimeSlotsAvailable([FromBody] BookingRequest bookingRequest)
+    {
+        if (bookingRequest == null || bookingRequest.StartDate == DateTime.MinValue || bookingRequest.EndDate == DateTime.MinValue)
+        {
+            return BadRequest("Start date and end date are required.");
+        }
+
+        try
+        {
+            var slotsToUpdate = _context.TimeSlot
+                .Where(ts => ts.StartDate >= bookingRequest.StartDate && ts.EndDate <= bookingRequest.EndDate && !ts.IsAvailable)
+                .ToList();
+
+            foreach (var slot in slotsToUpdate)
+            {
+                slot.IsAvailable = true;
+            }
+
+            var updateResult = await _context.SaveChangesAsync();
+
+            if (updateResult > 0)
+            {
+                return Ok(new { message = "Time slots marked as available successfully.", recordsUpdated = updateResult });
+            }
+            else
+            {
+                return StatusCode(500, "Failed to update time slots.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            return StatusCode(500, "An error occurred while marking time slots as available.");
+        }
+    }
+
 
     // New endpoint to mark time slots as unavailable after booking
     [HttpPost("mark-unavailable")]

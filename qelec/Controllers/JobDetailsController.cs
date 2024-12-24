@@ -18,12 +18,22 @@ public class JobDetailsController : ControllerBase
 
     // POST: api/jobdetails - Adds new JobDetails
     [HttpPost]
-    public async Task<IActionResult> CreateJobDetails([FromBody] JobDetails jobDetails)
+    public async Task<IActionResult> CreateJobDetails([FromBody] JobDetailsDto jobDetailsDto)
     {
-        if (jobDetails == null)
+        if (jobDetailsDto == null)
         {
             return BadRequest("Invalid job details data.");
         }
+
+        var jobDetails = new JobDetails
+        {
+            ClientName = jobDetailsDto.ClientName,
+            SiteAccessInfo = jobDetailsDto.SiteAccessInfo,
+            Mobile = jobDetailsDto.Mobile,
+            ClientEmail = jobDetailsDto.ClientEmail,
+            YourReference = jobDetailsDto.YourReference,
+            AdditionalInfo = jobDetailsDto.AdditionalInfo
+        };
 
         _context.JobDetails.Add(jobDetails);
         await _context.SaveChangesAsync();
@@ -33,35 +43,57 @@ public class JobDetailsController : ControllerBase
 
     // GET: api/jobdetails/{id} - Gets specific JobDetails by ID
     [HttpGet("{id}")]
-    public async Task<ActionResult<JobDetails>> GetJobDetailsById(int id)
+    public async Task<ActionResult<JobDetailsDto>> GetJobDetailsById(int id)
     {
-        var jobDetails = await _context.JobDetails.FindAsync(id);
+        var jobDetails = await _context.JobDetails
+            .Include(j => j.JobAddress) // Include related JobAddress if necessary
+            .FirstOrDefaultAsync(j => j.JobDetailsId == id);
 
         if (jobDetails == null)
         {
             return NotFound();
         }
 
-        return Ok(jobDetails);
+        var jobDetailsDto = new JobDetailsDto
+        {
+            ClientName = jobDetails.ClientName,
+            SiteAccessInfo = jobDetails.SiteAccessInfo,
+            Mobile = jobDetails.Mobile,
+            ClientEmail = jobDetails.ClientEmail,
+            YourReference = jobDetails.YourReference,
+            AdditionalInfo = jobDetails.AdditionalInfo
+        };
+
+        return Ok(jobDetailsDto);
     }
 
     // GET: api/jobdetails - Gets all JobDetails
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<JobDetails>>> GetAllJobDetails()
+    public async Task<ActionResult<IEnumerable<JobDetailsDto>>> GetAllJobDetails()
     {
         var jobDetailsList = await _context.JobDetails.ToListAsync();
-        return Ok(jobDetailsList);
+
+        var jobDetailsDtos = new List<JobDetailsDto>();
+        foreach (var jobDetails in jobDetailsList)
+        {
+            jobDetailsDtos.Add(new JobDetailsDto
+            {
+                ClientName = jobDetails.ClientName,
+                SiteAccessInfo = jobDetails.SiteAccessInfo,
+                Mobile = jobDetails.Mobile,
+                ClientEmail = jobDetails.ClientEmail,
+                YourReference = jobDetails.YourReference,
+                AdditionalInfo = jobDetails.AdditionalInfo
+            });
+        }
+
+        return Ok(jobDetailsDtos);
     }
 
     // PUT: api/jobdetails/{id} - Updates an existing JobDetails
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateJobDetails(int id, [FromBody] JobDetails updatedJobDetails)
+    public async Task<IActionResult> UpdateJobDetails(int id, [FromBody] JobDetailsDto updatedJobDetailsDto)
     {
-        if (id != updatedJobDetails.JobDetailsId)
-        {
-            return BadRequest("Job Details ID mismatch.");
-        }
-
         var existingJobDetails = await _context.JobDetails.FindAsync(id);
         if (existingJobDetails == null)
         {
@@ -69,19 +101,12 @@ public class JobDetailsController : ControllerBase
         }
 
         // Update fields
-        existingJobDetails.Postcode = updatedJobDetails.Postcode;
-        existingJobDetails.City = updatedJobDetails.City;
-        existingJobDetails.Address = updatedJobDetails.Address;
-        existingJobDetails.ClientName = updatedJobDetails.ClientName;
-        existingJobDetails.SiteAccessInfo = updatedJobDetails.SiteAccessInfo;
-        existingJobDetails.Mobile = updatedJobDetails.Mobile;
-        existingJobDetails.ClientEmail = updatedJobDetails.ClientEmail;
-        existingJobDetails.ServiceType = updatedJobDetails.ServiceType;
-        existingJobDetails.ServiceDetails = updatedJobDetails.ServiceDetails;
-        existingJobDetails.PropertySizeOrSpecification = updatedJobDetails.PropertySizeOrSpecification;
-        existingJobDetails.EstimatedCost = updatedJobDetails.EstimatedCost;
-        existingJobDetails.EstimatedCompletionTime = updatedJobDetails.EstimatedCompletionTime;
-        existingJobDetails.ActualCompletionTime = updatedJobDetails.ActualCompletionTime;
+        existingJobDetails.ClientName = updatedJobDetailsDto.ClientName;
+        existingJobDetails.SiteAccessInfo = updatedJobDetailsDto.SiteAccessInfo;
+        existingJobDetails.Mobile = updatedJobDetailsDto.Mobile;
+        existingJobDetails.ClientEmail = updatedJobDetailsDto.ClientEmail;
+        existingJobDetails.YourReference = updatedJobDetailsDto.YourReference;
+        existingJobDetails.AdditionalInfo = updatedJobDetailsDto.AdditionalInfo;
 
         await _context.SaveChangesAsync();
 

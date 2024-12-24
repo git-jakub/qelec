@@ -1,0 +1,60 @@
+﻿.estimate-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: #2D5078; /* Dopasowany kolor */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+    .estimate-details h2 {
+        font-size: 24px;
+        color: #e63946; /* Kolor akcentowy */
+        margin-bottom: 20px;
+    }
+
+    /* Pole formularza */
+    .estimate-details label {
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+        color: #ccc; /* Subtelny kolor tekstu */
+        font-size: 0.9rem;
+    }
+
+    .estimate-details input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        background-color: #3A4E6A;
+        color: white;
+        margin-bottom: 15px;
+    }
+
+        .estimate-details input:disabled {
+            background-color: #2D3A4E; /* Kolor dla wyłączonego pola */
+        }
+
+    .estimate-details p {
+        font-size: 1rem;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .estimate-details .cost-breakdown {
+        font-size: 0.8rem; /* Smaller font size */
+        color: #ccc; /* Subtle color matching 'Would you like to adjust details' */
+        margin-top: 10px;
+    }
+
+.cost-breakdown-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ccc; /* Match color to the rest of the text */
+}
