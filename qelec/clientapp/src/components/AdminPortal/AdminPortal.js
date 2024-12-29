@@ -14,11 +14,10 @@ const AdminPortal = () => {
                     <li><Link to="timesetter">Time Setter</Link></li>
                     <li><Link to="manage-users">Manage Users</Link></li>
                     <li><Link to="manage-orders">Manage Orders</Link></li>
-                    {/* Add more admin links as needed */}
+                    <li><Link to="generate-invoice">Generate Invoice</Link></li> {/* Added Generate Invoice link */}
                 </ul>
             </nav>
             <div className="admin-content">
-                
                 {/* Outlet will render nested routes */}
                 <Outlet />
             </div>

@@ -15,7 +15,9 @@ import Login from './components/Auth/Login';
 import TimeSetter from './components/AdminPortal/TimeSetter';
 import ManageOrders from './components/AdminPortal/ManageOrders';
 import ManageYourOrders from './components/CustomerPortal/ManageYourOrders';
-import EstimatesGenerator from './components/EstimatesGenerator'; // Import EstimateGenerator
+import EstimatesGenerator from './components/EstimatesGenerator';
+import GenerateInvoice from './services/GenerateInvoice'; // Updated Import
+import PdfMakeTest from './components/PdfMakeTest'; // Added a test page for PDFMake
 import './App.css';
 
 function App() {
@@ -30,17 +32,16 @@ function App() {
             <OrderProvider>
                 <Router>
                     <Routes>
+                        {/* Public Routes */}
                         <Route path="/" element={<WelcomePage onBookNow={handleBookNow} />} />
                         <Route path="/timeplanner" element={<TimePlanner />} />
                         <Route path="/jobdetails" element={<JobDetails />} />
                         <Route path="/invoice" element={<InvoiceRecipient />} />
                         <Route path="/ordersummary" element={<OrderSummary />} />
                         <Route path="/login" element={<Login />} />
-
-                        {/* New Route for EstimateGenerator */}
                         <Route path="/estimates" element={<EstimatesGenerator />} />
 
-                        {/* Protected Route for AdminPortal */}
+                        {/* Protected Admin Routes */}
                         <Route
                             path="/adminportal"
                             element={
@@ -48,29 +49,13 @@ function App() {
                                     <AdminPortal />
                                 </PrivateRouteAdmin>
                             }
-                        />
+                        >
+                            <Route path="timesetter" element={<TimeSetter />} />
+                            <Route path="manage-orders" element={<ManageOrders />} />
+                            <Route path="generate-invoice" element={<GenerateInvoice />} /> {/* GenerateInvoice Route */}
+                        </Route>
 
-                        {/* Route for TimeSetter inside AdminPortal */}
-                        <Route
-                            path="/adminportal/timesetter"
-                            element={
-                                <PrivateRouteAdmin>
-                                    <TimeSetter />
-                                </PrivateRouteAdmin>
-                            }
-                        />
-
-                        <Route
-                            path="/adminportal/manage-orders"
-                            element={
-                                <PrivateRouteAdmin>
-                                    <ManageOrders />
-                                </PrivateRouteAdmin>
-                            }
-                        />
-
-
-                        {/* Protected Route for CustomerPortal */}
+                        {/* Protected Customer Routes */}
                         <Route
                             path="/customerportal"
                             element={
@@ -79,8 +64,6 @@ function App() {
                                 </PrivateRouteCustomer>
                             }
                         />
-
-                        {/* Protected Route for ManageYourOrders */}
                         <Route
                             path="/customerportal/manageyourorders"
                             element={
@@ -89,6 +72,9 @@ function App() {
                                 </PrivateRouteCustomer>
                             }
                         />
+
+                        {/* PDFMake Test Page */}
+                        <Route path="/pdfmake-test" element={<PdfMakeTest />} />
                     </Routes>
                 </Router>
             </OrderProvider>

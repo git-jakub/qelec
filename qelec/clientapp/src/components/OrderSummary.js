@@ -4,7 +4,7 @@ import { OrderContext } from '../context/OrderContext';
 import Navbar from './Navbar';
 import OrderStatus from './OrderStatus';
 import { sendOrderEmail } from '../services/emailService';
-import { generateInvoicePdf } from '../services/pdfService';
+import { generatePurchaseOrderPdf } from '../services/purchaseOrderService';
 import './SharedStyles.css';
 import './OrderSummary.css';
 
@@ -13,7 +13,6 @@ const OrderSummary = () => {
     const { orderData } = useContext(OrderContext);
     const { timeSlot, jobDetails, invoiceDetails, jobAddress, estimateDetails } = orderData;
 
-    // Obsługa timeSlot jako tablicy
     const formattedDate = timeSlot?.length > 0
         ? new Date(timeSlot[0]?.date).toLocaleDateString()
         : 'N/A';
@@ -29,12 +28,13 @@ const OrderSummary = () => {
     const editTimeSlot = () => navigate('/timeplanner');
     const editJobDetails = () => navigate('/jobdetails');
     const editInvoiceDetails = () => navigate('/invoice');
+
     const saveOrder = async () => {
         setLoading(true);
         try {
             const validatedOrderData = {
                 ...orderData,
-                timeSlotId: orderData.timeSlot?.[0]?.startSlot?.timeSlotId || null, // Pobranie ID wybranego przedziału czasowego
+                timeSlotId: orderData.timeSlot?.[0]?.startSlot?.timeSlotId || null,
                 status: orderData.status || 'Scheduled',
                 jobDetails: {
                     clientName: orderData.jobDetails?.clientName || 'Not entered',
@@ -81,7 +81,6 @@ const OrderSummary = () => {
                     },
                 },
             };
-            console.log('Validated Order Data:', JSON.stringify(validatedOrderData, null, 2));
 
             const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
                 method: 'POST',
@@ -99,25 +98,37 @@ const OrderSummary = () => {
             setOrderId(savedOrder.id);
             console.log('Order saved successfully:', savedOrder);
 
-            // **Define emailParams after saving the order**
             const emailParams = {
+                from_name: "QELEC",
                 recipient_name: validatedOrderData.invoiceDetails.recipientName,
-                recipient_email: validatedOrderData.invoiceDetails.recipientEmail,
-                order_id: savedOrder.id,
+                order_id: savedOrder.orderId,
                 job_description: validatedOrderData.estimateDetails.jobDescription,
-                total_cost: validatedOrderData.estimateDetails.calculatedCost,
-                time_slot: timeSlot.map((slot) => slot.time).join(', '), // Assuming timeSlot is an array
-                date: formattedDate, // Use the formatted date
+                total_cost: validatedOrderData.estimateDetails.calculatedCost.toString(),
+                date: formattedDate,
+                time_slot: timeSlot.map((slot) => slot.time).join(', '),
+                to_email: validatedOrderData.invoiceDetails.recipientEmail,
+                reply_to: validatedOrderData.invoiceDetails.recipientEmail,
             };
 
-            // Send email
             const emailResponse = await sendOrderEmail(emailParams);
+            console.log('Email Params:', emailParams);
+
             if (!emailResponse.success) {
                 console.error('Failed to send email:', emailResponse.error);
                 alert('Order saved but email could not be sent. Please try again later.');
             } else {
                 console.log('Email sent successfully!');
             }
+
+            // Generate Purchase Order PDF
+            generatePurchaseOrderPdf({
+                recipient_name: emailParams.recipient_name,
+                order_id: savedOrder.id,
+                job_description: emailParams.job_description,
+                total_cost: emailParams.total_cost,
+                date: emailParams.date,
+                time_slot: emailParams.time_slot,
+            });
         } catch (error) {
             console.error('Error during saveOrder:', error);
             alert(`An error occurred: ${error.message}`);
@@ -126,26 +137,21 @@ const OrderSummary = () => {
         }
     };
 
-
-
     return (
         <div className="order-summary">
             <Navbar backPath="/invoice" nextPath="/" />
-
             {orderId && (
                 <div className="order-id-section">
                     <h3>Order Reference Number</h3>
                     <p>Your Order ID: {orderId}</p>
                 </div>
             )}
-
             <div className="summary-section">
                 <h3>Time Slot</h3>
                 <p>Date: {formattedDate}</p>
                 <p>Time: {formattedTime}</p>
                 <button onClick={editTimeSlot} className="edit-button">Edit</button>
             </div>
-
             <div className="summary-section">
                 <h3>Job Details</h3>
                 <p>Name: {jobDetails?.clientName || 'N/A'}</p>
@@ -156,7 +162,6 @@ const OrderSummary = () => {
                 <p>Additional Information: {jobDetails?.additionalInfo || 'N/A'}</p>
                 <button onClick={editJobDetails} className="edit-button">Edit</button>
             </div>
-
             <div className="summary-section">
                 <h3>Job Address</h3>
                 <p>Postcode: {jobAddress?.postcode || 'N/A'}</p>
@@ -166,7 +171,6 @@ const OrderSummary = () => {
                 <p>Visitor Permit: {jobAddress?.visitorPermit ? 'Yes' : 'No'}</p>
                 <p>Congestion Charge: {jobAddress?.congestionCharge ? 'Yes' : 'No'}</p>
             </div>
-
             <div className="summary-section">
                 <h3>Estimate Details</h3>
                 <p>Job Description: {estimateDetails?.jobDescription || 'N/A'}</p>
@@ -177,7 +181,6 @@ const OrderSummary = () => {
                 <p>Congestion Charge: £{estimateDetails?.costBreakdown?.totalCongestionCharge || 'N/A'}</p>
                 <p>Commuting Cost: £{estimateDetails?.costBreakdown?.commutingCost || 'N/A'}</p>
             </div>
-
             <div className="summary-section">
                 <h3>Invoice Details</h3>
                 <p>Recipient Name: {invoiceDetails?.recipientName || 'N/A'}</p>
@@ -190,11 +193,9 @@ const OrderSummary = () => {
                 <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
                 <button onClick={editInvoiceDetails} className="edit-button">Edit</button>
             </div>
-
             <div className="summary-section">
                 <OrderStatus status={status} setStatus={setStatus} />
             </div>
-
             <button onClick={saveOrder} className="submit-button" disabled={loading}>
                 {loading ? 'Saving...' : 'Save Order and Send Email'}
             </button>
