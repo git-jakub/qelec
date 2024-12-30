@@ -1,21 +1,12 @@
-﻿.estimate-generator-page {
-    margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white; /* Niebieski */
-    min-height: 100vh;
-    color: white; /* Tekst w kolorze białym */
-    padding: 20px;
-}
+﻿
 
 /* Sekcja generatora */
 .estimate-generator {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 600px;
-    width: 100%;
+    max-width: 70%;
+    width: 70%;
     padding: 20px;
     text-align: center;
     background-color: #106EBE; /* Dopasowany kolor */
@@ -26,8 +17,9 @@
 
 .estimate-title {
     font-size: 32px;
-    color: white; /* Kolor akcentowy */
+    color: white !important; /* Kolor akcentowy */
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .estimate-instruction {
@@ -55,10 +47,11 @@
         color: #ccc; /* Kolor tekstu zastępczego */
     }
 
+
 /* Przyciski */
 .generate-button {
     background-color: #0FFCB3;
-    color: black;
+    color: red;
     padding: 20px 150px;
     border: none;
     border-radius: 5px;
@@ -75,8 +68,8 @@
 
 .proceed-button {
     background-color: #0FFCB3;
-    color: black;
-    padding: 20px 250px;
+    color: green;
+    padding: 20px 200px;
     border: none;
     border-radius: 5px;
     cursor: pointer;

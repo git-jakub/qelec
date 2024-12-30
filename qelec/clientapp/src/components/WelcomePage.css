@@ -1,72 +1,77 @@
 ﻿.welcome-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #106EBE;
-    color: white;
-    min-height: 100vh;
-    padding: 20px;
+    align-items: center; /* Wyśrodkowanie poziome */
+    justify-content: center; /* Wyśrodkowanie pionowe */
+    background-color: white; /* Tło strony */
+    min-height: 100vh; /* Wysokość kontenera na pełen ekran */
     text-align: center;
-    top: 0px;
-    min-height: 100vh;
+    padding: 0; /* Zerowanie paddingu, jeśli istnieje */
+    margin: 0; /* Zerowanie marginesów */
+   
 }
-/* Navbar styling */
 
 
+/* Sekcja z boxem */
+.blue-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #106EBE; /* Kolor tła boxu */
+    color: white; /* Kolor tekstu w boxie */
+    max-width: 70%; /* Szerokość boxu */
+    padding: 20px;
+    border-radius: 15px; /* Zaokrąglenie krawędzi */
+    margin-bottom: 20px; /* Odstęp między boxem a resztą */
+    margin-top: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtelny cień */
+}
 
+/* Stylizacja logo w boxie */
 .logo img {
-    margin: 50px;
+    margin: 0 auto;
     width: 350px; /* Dopasuj rozmiar loga */
     margin-bottom: 20px;
-    top: 0px;
 }
 
+/* Tytuł w boxie */
 .title {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
+/* Ikony w boxie */
+.service-options {
+    display: flex;
+    flex-direction: row; /* Ikonki w rzędzie */
+    justify-content: space-evenly; /* Rozłóż ikonki równomiernie */
+    align-items: center; /* Wyśrodkuj ikonki pionowo */
+    width: 100%; /* Szerokość kontenera */
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
 .service-option {
-    background-color: #106EBE; /* Brązowy kolor */
+    background-color: #106EBE;
     color: white;
     display: flex;
-    flex-direction: column; /* Układ pionowy dla ikony i tekstu */
-    align-items: center; /* Wyśrodkowanie poziome */
-    justify-content: center; /* Wyśrodkowanie pionowe */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
     padding: 20px;
-    margin: 10px 0;
-    min-height: 75px; /* Ustawienie minimalnej wysokości boxa */
+    margin: 10px;
+    min-height: 75px;
+    width: 100px;
     transition: background-color 0.3s;
 }
 
     .service-option img {
-        margin-bottom: 10px; /* Odstęp między ikoną a tekstem */
-        max-width: 50px; /* Ustawienie maksymalnej szerokości dla ikony */
-        max-height: 50px; /* Ustawienie maksymalnej wysokości dla ikony */
-    }
-
-    .service-option p {
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-        margin: 0;
+        margin-bottom: 10px;
+        max-width: 75px;
+        max-height: 75px;
     }
 
     .service-option:hover {
-        background-color: black; /* Zmiana koloru po najechaniu */
-    }
-
-.book-now-btn {
-    background-color: #0FFCB3;
-    color: black;
-    padding: 20px 65px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-
-    .book-now-btn:hover {
-        background-color: #0FBBA2; /* Ciemniejszy czerwony po najechaniu */
+        background-color: black;
     }

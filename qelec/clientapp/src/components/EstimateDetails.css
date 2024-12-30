@@ -5,7 +5,7 @@
     max-width: 600px;
     width: 100%;
     padding: 20px;
-    background-color: #2D5078; /* Dopasowany kolor */
+    background-color: #106EBE; /* Dopasowany kolor */
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
@@ -13,7 +13,7 @@
 
     .estimate-details h2 {
         font-size: 24px;
-        color: #e63946; /* Kolor akcentowy */
+        color: white; /* Kolor akcentowy */
         margin-bottom: 20px;
     }
 
@@ -22,24 +22,9 @@
         display: block;
         text-align: left;
         margin-bottom: 5px;
-        color: #ccc; /* Subtelny kolor tekstu */
+        color: white; /* Subtelny kolor tekstu */
         font-size: 0.9rem;
     }
-
-    .estimate-details input {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        background-color: #3A4E6A;
-        color: white;
-        margin-bottom: 15px;
-    }
-
-        .estimate-details input:disabled {
-            background-color: #2D3A4E; /* Kolor dla wyłączonego pola */
-        }
 
     .estimate-details p {
         font-size: 1rem;
@@ -49,12 +34,31 @@
     }
     .estimate-details .cost-breakdown {
         font-size: 0.8rem; /* Smaller font size */
-        color: #ccc; /* Subtle color matching 'Would you like to adjust details' */
+        color: white; /* Subtle color matching 'Would you like to adjust details' */
         margin-top: 10px;
     }
 
 .cost-breakdown-title {
     font-weight: bold;
     margin-bottom: 5px;
-    color: #ccc; /* Match color to the rest of the text */
+    color: white; /* Match color to the rest of the text */
 }
+
+
+.estimate-details textarea {
+    width: 100%;
+    padding: 20px 50px;
+    border: none;
+    border-radius: 0px;
+    font-size: 1rem;
+    background-color: white;
+    color: black;
+    margin-bottom: 0px;
+    line-height: 1.5;
+    resize: none; /* Disable manual resizing */
+    overflow: hidden; /* Hide scrollbar */
+}
+
+    .estimate-details textarea:disabled {
+        background-color: #2D3A4E; /* Color for disabled field */
+    }
