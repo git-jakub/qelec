@@ -80,12 +80,24 @@ const EstimateDetails = ({
     }, [input]);
 
     useEffect(() => {
+        console.log('[EstimateDetails] Received timeslotCosts:', timeslotCosts);
         const firstSlot = timeslotCosts[0]?.startSlot;
+
+        // Log the received `timeslotCosts` and the extracted `firstSlot`
+        console.log('[EstimateDetails] Received timeslotCosts:', timeslotCosts);
+        console.log('[EstimateDetails] Extracted firstSlot:', firstSlot);
+
         const startTime = firstSlot?.startDate
             ? new Date(firstSlot.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            : '00:00';
+            : '16:00';
+
+        // Log the calculated `startTime`
+        console.log('[EstimateDetails] Calculated startTime:', startTime);
 
         const details = getMultiplierForTimeSlot(startTime) || { multiplier: 1, name: 'Default' };
+
+        // Log the details retrieved from `getMultiplierForTimeSlot`
+        console.log('[EstimateDetails] Multiplier details:', details);
 
         if (JSON.stringify(tierDetails) !== JSON.stringify(details)) {
             setTierDetails(details);
@@ -112,6 +124,7 @@ const EstimateDetails = ({
             },
         });
     }, [generatedTime, paidOnStreet, congestionCharge, postcodeTierCost, timeslotCosts]);
+
 
     return (
         <div className="estimate-details">

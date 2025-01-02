@@ -2,13 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Wyśrodkowanie poziome */
-    justify-content: center; /* Wyśrodkowanie pionowe */
-    background-color: white; /* Tło strony */
+   
+    background-color: #106EBE; /* Tło strony */
     min-height: 100vh; /* Wysokość kontenera na pełen ekran */
     text-align: center;
     padding: 0; /* Zerowanie paddingu, jeśli istnieje */
     margin: 0; /* Zerowanie marginesów */
-   
 }
 
 
@@ -20,7 +19,7 @@
     background-color: #106EBE; /* Kolor tła boxu */
     color: white; /* Kolor tekstu w boxie */
     max-width: 70%; /* Szerokość boxu */
-    padding: 20px;
+    padding: 0px;
     border-radius: 15px; /* Zaokrąglenie krawędzi */
     margin-bottom: 20px; /* Odstęp między boxem a resztą */
     margin-top: 20px;

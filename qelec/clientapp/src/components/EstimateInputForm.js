@@ -53,7 +53,7 @@ const EstimateInputForm = () => {
 
     return (
         <div className="estimate-generator">
-            <h2>Estimate Generator</h2>
+            <h2 className="estimate-title">Estimate Generator</h2>
             <textarea
                 className="estimate-input"
                 value={input}

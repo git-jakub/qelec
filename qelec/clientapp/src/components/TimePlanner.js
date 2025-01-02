@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useContext, useMemo } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import { DatePicker } from '@mantine/dates';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
@@ -7,7 +7,6 @@ import EstimateDetails from './EstimateDetails';
 import './SharedStyles.css';
 import './TimePlanner.css';
 
-// Function to find continuous slots
 const findAvailableContinuousSlots = (slots, requiredHours) => {
     console.log(`[findAvailableContinuousSlots] Looking for slots that fit ${requiredHours} hours.`);
     const continuousSlots = [];
@@ -49,20 +48,10 @@ const findAvailableContinuousSlots = (slots, requiredHours) => {
     return continuousSlots;
 };
 
-// Function to split work into manageable time slots
-const splitExtendedWork = (totalHours) => {
-    const slots = [];
-    while (totalHours > 0) {
-        const slotHours = Math.min(totalHours, 12);
-        slots.push(slotHours);
-        totalHours -= slotHours;
-    }
-    return slots;
-};
-
-// Function to mark time slots as unavailable
-const markTimeSlotsUnavailable = async (startDate, endDate) => {
+const markTimeSlotUnavailable = async (startDate, endDate) => {
     try {
+        console.log('Marking time slot as unavailable:', { startDate, endDate });
+
         const response = await fetch(`${process.env.REACT_APP_API_URL}/TimeSlots/mark-unavailable`, {
             method: 'POST',
             headers: {
@@ -85,23 +74,16 @@ const markTimeSlotsUnavailable = async (startDate, endDate) => {
 };
 
 const TimePlanner = () => {
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(new Date());
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
-    const [filteredTimeSlots, setFilteredTimeSlots] = useState([]);
-    const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
-    const [loadingSlots, setLoadingSlots] = useState(false);
+    const [amTimeSlots, setAmTimeSlots] = useState([]);
+    const [pmTimeSlots, setPmTimeSlots] = useState([]);
+    const [selectedSlot, setSelectedSlot] = useState(null);
     const [error, setError] = useState(null);
+    const [loadingSlots, setLoadingSlots] = useState(false);
 
     const { setOrderData, orderData } = useContext(OrderContext);
     const navigate = useNavigate();
-
-    const estimatedTimeInHours = orderData?.estimateDetails?.generatedTime || 1;
-    const isMultiDay = estimatedTimeInHours > 12;
-
-    const timeSlots = useMemo(
-        () => (isMultiDay ? splitExtendedWork(estimatedTimeInHours) : [estimatedTimeInHours]),
-        [isMultiDay, estimatedTimeInHours]
-    );
 
     const fetchAvailableTimeSlots = async (date) => {
         setLoadingSlots(true);
@@ -117,6 +99,7 @@ const TimePlanner = () => {
 
             const data = await response.json();
             setAvailableTimeSlots(data.availableSlots);
+            console.log(`Available time slots for ${formattedDate}:`, data.availableSlots);
         } catch (error) {
             setError('Failed to load available time slots. Please try again later.');
         } finally {
@@ -124,87 +107,131 @@ const TimePlanner = () => {
         }
     };
 
-    useEffect(() => {
-        if (selectedDate) {
-            fetchAvailableTimeSlots(selectedDate);
+    const filterTimeSlots = (slots) => {
+        const amSlots = slots.filter(slot => new Date(slot.startDate).getHours() < 12);
+        const pmSlots = slots.filter(slot => new Date(slot.startDate).getHours() >= 12);
+
+        const estimatedTimeInHours = orderData?.estimateDetails?.generatedTime || 1;
+
+        setAmTimeSlots(findAvailableContinuousSlots(amSlots, estimatedTimeInHours));
+        setPmTimeSlots(findAvailableContinuousSlots(pmSlots, estimatedTimeInHours));
+    };
+
+    const handleSlotClick = (slot) => {
+        console.log('[TimePlanner] Clicked time slot:', slot);
+
+        // ISO format for start time
+        const startTimeISO = slot.startSlot.startDate;
+        console.log('[TimePlanner] Passing startTimeISO to OrderContext:', startTimeISO);
+
+        // Prepare timeslotCosts for EstimateDetails
+        const timeslotData = [
+            {
+                startSlot: slot.startSlot,
+                endSlot: slot.endSlot,
+            },
+        ];
+        console.log('[TimePlanner] Generated timeslotCosts:', timeslotData);
+
+        setSelectedSlot(slot); // Update selected slot
+
+        // Update OrderContext
+        setOrderData((prevData) => {
+            const updatedData = {
+                ...prevData,
+                timeSlot: [
+                    {
+                        date: selectedDay.toISOString().split('T')[0],
+                        time: slot.time,
+                        startSlot: slot.startSlot,
+                        endSlot: slot.endSlot,
+                    },
+                ],
+                timeslotCosts: timeslotData, // Include timeslotCosts for EstimateDetails
+                estimateDetails: {
+                    ...prevData.estimateDetails,
+                    multiplierStartTime: startTimeISO, // Pass ISO formatted start time
+                },
+            };
+
+            console.log('[TimePlanner] Updated OrderContext data:', updatedData);
+            return updatedData;
+        });
+    };
+
+
+
+
+
+    const handleNext = () => {
+        if (!selectedSlot) {
+            alert('Please select a time slot.');
+            return;
         }
-    }, [selectedDate]);
+        navigate('/jobdetails');
+    };
+
+    useEffect(() => {
+        if (selectedDay) {
+            fetchAvailableTimeSlots(selectedDay);
+        }
+    }, [selectedDay]);
 
     useEffect(() => {
         if (availableTimeSlots.length > 0) {
-            const allSlots = timeSlots.map((hours) =>
-                findAvailableContinuousSlots(availableTimeSlots, hours)
-            );
-            setFilteredTimeSlots(allSlots);
-        } else {
-            setFilteredTimeSlots([]);
+            filterTimeSlots(availableTimeSlots);
         }
-    }, [availableTimeSlots, timeSlots]);
-
-    const handleTimeSlotClick = (slot, index) => {
-        const updatedSelectedTimeSlots = [...selectedTimeSlots];
-        updatedSelectedTimeSlots[index] = slot;
-        setSelectedTimeSlots(updatedSelectedTimeSlots);
-
-        if (!selectedDate) {
-            return;
-        }
-
-        setOrderData((prevData) => ({
-            ...prevData,
-            timeSlot: updatedSelectedTimeSlots
-                .filter((ts) => ts)
-                .map((ts) => ({
-                    date: selectedDate.toISOString().split('T')[0],
-                    time: ts.time,
-                    startSlot: ts.startSlot,
-                    endSlot: ts.endSlot,
-                })),
-        }));
-    };
-
-    const handleNext = async () => {
-        if (selectedTimeSlots.length === timeSlots.length) {
-            const firstSlot = selectedTimeSlots[0].startSlot.startDate;
-            const lastSlot = selectedTimeSlots[selectedTimeSlots.length - 1].endSlot.endDate;
-
-            await markTimeSlotsUnavailable(new Date(firstSlot), new Date(lastSlot));
-
-            navigate('/jobdetails');
-        } else {
-            alert('Please select all required time slots before proceeding.');
-        }
-    };
+    }, [availableTimeSlots, orderData?.estimateDetails?.generatedTime]);
 
     return (
         <div className="time-planner-form">
             <Navbar backPath="/jobdetails" nextPath="/invoice" />
             <div className="main-content">
                 <h2>Select time slots for your work:</h2>
-                <DatePicker value={selectedDate} onChange={setSelectedDate} placeholder="Choose a suitable date" />
-                <div className="time-slots-container">
+
+                <div className="slider-section">
+                    <h3>Select Day:</h3>
+                    <DatePicker value={selectedDay} onChange={setSelectedDay} placeholder="Choose a date" />
+                </div>
+
+                <div className="slider-section">
+                    <h3>AM Time Slots:</h3>
                     {loadingSlots ? (
-                        <p>Loading available timeslots...</p>
-                    ) : error ? (
-                        <p className="error-message">{error}</p>
-                    ) : (
-                        timeSlots.map((hours, index) => (
-                            <div key={index}>
-                                <h4>Select slot for {hours} hours:</h4>
-                                {filteredTimeSlots[index]?.map((slot, slotIndex) => (
-                                    <button
-                                        key={slotIndex}
-                                        onClick={() => handleTimeSlotClick(slot, index)}
-                                        className={`time-slot-button ${selectedTimeSlots[index] === slot ? 'selected' : ''
-                                            }`}
-                                    >
-                                        {slot.time}
-                                    </button>
-                                ))}
-                            </div>
+                        <p>Loading AM slots...</p>
+                    ) : amTimeSlots.length > 0 ? (
+                        amTimeSlots.map((slot, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleSlotClick(slot)}
+                                className={`time-slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                            >
+                                {slot.time}
+                            </button>
                         ))
+                    ) : (
+                        <p>No AM time slots available.</p>
                     )}
                 </div>
+
+                <div className="slider-section">
+                    <h3>PM Time Slots:</h3>
+                    {loadingSlots ? (
+                        <p>Loading PM slots...</p>
+                    ) : pmTimeSlots.length > 0 ? (
+                        pmTimeSlots.map((slot, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleSlotClick(slot)}
+                                className={`time-slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                            >
+                                {slot.time}
+                            </button>
+                        ))
+                    ) : (
+                        <p>No PM time slots available.</p>
+                    )}
+                </div>
+
                 <EstimateDetails
                     input={orderData?.estimateDetails?.jobDescription || ''}
                     setInput={(value) =>
@@ -221,25 +248,14 @@ const TimePlanner = () => {
                         }))
                     }
                     calculatedCost={orderData?.estimateDetails?.calculatedCost || 0}
-                    editable={true}
-                    setEditable={() => { }}
-                    paidOnStreet={orderData?.jobAddress?.paidOnStreet || false}
-                    congestionCharge={orderData?.jobAddress?.congestionCharge || false}
-                    postcode={orderData?.jobAddress?.postcode || ''}
-                    postcodeTierCost={orderData?.estimateDetails?.costBreakdown?.commutingCost || 0}
-                    multiplierDetails={orderData?.estimateDetails?.multiplierDetails || null}
-                    timeslotCosts={selectedTimeSlots.map((slot) => ({
-                        startSlot: slot?.startSlot || {},
-                        endSlot: slot?.endSlot || {},
-                        time: slot?.time || '',
-                    }))}
                 />
+
                 <button
                     onClick={handleNext}
                     className="submit-button"
-                    disabled={selectedTimeSlots.length !== timeSlots.length}
+                    disabled={!selectedSlot}
                 >
-                    Book Time Slots
+                    Book Time Slot
                 </button>
             </div>
         </div>
