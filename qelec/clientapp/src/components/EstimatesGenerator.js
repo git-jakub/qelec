@@ -56,6 +56,16 @@ function EstimateGenerator() {
             <Navbar backPath="/" nextPath="/timeplanner" />
 
             <EstimateDetails
+                input={contextEstimateDetails.jobDescription}
+                setInput={(updatedInput) => {
+                    setOrderData((prev) => ({
+                        ...prev,
+                        estimateDetails: {
+                            ...prev.estimateDetails,
+                            jobDescription: updatedInput,
+                        },
+                    }));
+                }}
                 generatedTime={generatedTime}
                 setGeneratedTime={setGeneratedTime}
                 calculatedCost={calculatedCost}
@@ -64,6 +74,7 @@ function EstimateGenerator() {
                 postcode={postcode}
                 postcodeTierCost={postcodeTierCost || 0}
             />
+
 
             <JobAddress
                 postcode={postcode}

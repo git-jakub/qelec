@@ -28,6 +28,8 @@ const OrderSummary = () => {
     const editTimeSlot = () => navigate('/timeplanner');
     const editJobDetails = () => navigate('/jobdetails');
     const editInvoiceDetails = () => navigate('/invoice');
+    const editEstimateDetails = () => navigate('/estimates');
+    const editJobAddress = () => navigate('/estimates');
 
     const saveOrder = async () => {
         setLoading(true);
@@ -66,6 +68,7 @@ const OrderSummary = () => {
                     jobDescription: orderData.estimateDetails?.jobDescription || 'Not entered',
                     calculatedCost: parseFloat(orderData.estimateDetails?.calculatedCost || 0),
                     generatedTime: orderData.estimateDetails?.generatedTime || 1,
+
                     costBreakdown: {
                         commutingCost: parseFloat(orderData.estimateDetails?.costBreakdown?.commutingCost || 0),
                         paidOnStreet: !!orderData.estimateDetails?.costBreakdown?.paidOnStreet,
@@ -170,16 +173,26 @@ const OrderSummary = () => {
                 <p>Paid On Street: {jobAddress?.paidOnStreet ? 'Yes' : 'No'}</p>
                 <p>Visitor Permit: {jobAddress?.visitorPermit ? 'Yes' : 'No'}</p>
                 <p>Congestion Charge: {jobAddress?.congestionCharge ? 'Yes' : 'No'}</p>
+                <button onClick={editEstimateDetails} className="edit-button">Edit</button>
             </div>
             <div className="summary-section">
                 <h3>Estimate Details</h3>
                 <p>Job Description: {estimateDetails?.jobDescription || 'N/A'}</p>
                 <p>Estimated Time: {estimateDetails?.generatedTime || 'N/A'} hours</p>
+                {/* Conditionally render Booked Hours and To Be Confirmed */}
+                {estimateDetails?.generatedTime > 12 && (
+                    <>
+                        <p>Booked Hours: {estimateDetails?.bookedHours || 0} hours</p>
+                        <p>To Be Confirmed: {estimateDetails?.toBeConfirmedHours || 0} hours</p>
+                    </>
+                )}
+                <p>Multiplier Tier: {estimateDetails?.multiplierDetails?.name || 'N/A'}</p>
                 <p>Total Cost: £{estimateDetails?.calculatedCost || 'N/A'}</p>
                 <p>Labor Cost: £{estimateDetails?.costBreakdown?.laborCost || 'N/A'}</p>
                 <p>Parking Cost: £{estimateDetails?.costBreakdown?.parkingCost || 'N/A'}</p>
                 <p>Congestion Charge: £{estimateDetails?.costBreakdown?.totalCongestionCharge || 'N/A'}</p>
                 <p>Commuting Cost: £{estimateDetails?.costBreakdown?.commutingCost || 'N/A'}</p>
+                <button onClick={editJobAddress} className="edit-button">Edit</button>
             </div>
             <div className="summary-section">
                 <h3>Invoice Details</h3>

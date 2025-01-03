@@ -12,6 +12,8 @@ const EstimateDetails = ({
     setInput: propSetInput,
     generatedTime: propGeneratedTime,
     setGeneratedTime: propSetGeneratedTime,
+    bookedHours,
+    toBeConfirmedHours,
     editable: propEditable,
     setEditable: propSetEditable,
     paidOnStreet: propPaidOnStreet,
@@ -76,6 +78,11 @@ const EstimateDetails = ({
     };
 
     useEffect(() => {
+        updateContext({ jobDescription: input });
+    }, [input]);
+
+
+    useEffect(() => {
         adjustTextareaHeight(); // Adjust height when input changes
     }, [input]);
 
@@ -103,6 +110,10 @@ const EstimateDetails = ({
             setTierDetails(details);
         }
 
+        const maxBookableHours = 12;
+        const bookedHours = Math.min(generatedTime, maxBookableHours);
+        const toBeConfirmedHours = Math.max(0, generatedTime - maxBookableHours);
+
         const laborCost = generatedTime * HOURLY_RATE * details.multiplier;
         const parkingCost = paidOnStreet ? generatedTime * PAID_ON_STREET_EXTRA_COST_PER_HOUR : 0;
         const congestionChargeCost = congestionCharge ? CONGESTION_CHARGE_COST : 0;
@@ -115,12 +126,18 @@ const EstimateDetails = ({
         }
 
         updateContext({
+            jobDescription: input,
             generatedTime,
+            bookedHours,
+            toBeConfirmedHours,
+            calculatedCost: singleDayCost,
+            multiplierDetails: details,
             costBreakdown: {
                 laborCost,
                 parkingCost,
                 totalCongestionCharge: congestionChargeCost,
                 commutingCost,
+                
             },
         });
     }, [generatedTime, paidOnStreet, congestionCharge, postcodeTierCost, timeslotCosts]);
@@ -163,6 +180,12 @@ const EstimateDetails = ({
             <div className="cost-breakdown">
                 <p className="cost-breakdown-title">Cost Breakdown:</p>
                 <p>{generatedTime} x Labour Hour: £{(generatedTime * HOURLY_RATE).toFixed(2)}</p>
+                {generatedTime > 12 && (
+                    <>
+                        <p>Booked Hours: {bookedHours} hours</p>
+                        <p>To Be Confirmed: {toBeConfirmedHours} hours</p>
+                    </>
+                )}
                 <p>Multiplier: x{tierDetails?.multiplier || 1} (Tier: {tierDetails?.name || 'Default'})</p>
                 {paidOnStreet && (
                     <p>{generatedTime} x Paid on Street Parking: £{(generatedTime * PAID_ON_STREET_EXTRA_COST_PER_HOUR).toFixed(2)}</p>
@@ -173,6 +196,8 @@ const EstimateDetails = ({
                 {postcodeTierCost > 0 && (
                     <p>Commuting to {postcode || 'N/A'}: £{postcodeTierCost.toFixed(2)}</p>
                 )}
+
+             
             </div>
 
             <div>

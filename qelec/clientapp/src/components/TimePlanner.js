@@ -58,6 +58,7 @@ const splitExtendedWork = (totalHours) => {
     return slots;
 };
 
+
 const TimePlanner = () => {
     const [currentDayIndex, setCurrentDayIndex] = useState(0);
     const [currentSlotIndex, setCurrentSlotIndex] = useState(0);
@@ -161,6 +162,15 @@ const TimePlanner = () => {
     }, [timeFilter, filteredTimeSlots]);
 
     const handleTimeSlotClick = (slot, index) => {
+        // Allow booking only for the first 12 hours
+        if (index > 0) {
+            alert('Only the first 12 hours can be booked directly.');
+            return;
+        }
+
+        const bookedHours = Math.min(estimatedTimeInHours, 12);
+        const toBeConfirmedHours = Math.max(0, estimatedTimeInHours - 12);
+
         const updatedSelectedTimeSlots = [...selectedTimeSlots];
         updatedSelectedTimeSlots[index] = slot;
         setSelectedTimeSlots(updatedSelectedTimeSlots);
@@ -175,20 +185,44 @@ const TimePlanner = () => {
                     startSlot: ts.startSlot,
                     endSlot: ts.endSlot,
                 })),
+            estimateDetails: {
+                ...prevData.estimateDetails,
+                bookedHours,
+                toBeConfirmedHours,
+            },
         }));
     };
 
+
+
+
     const handleNext = () => {
-        if (selectedTimeSlots.length === timeSlots.length) {
-            navigate('/jobdetails');
-        } else {
-            alert('Please select all required time slots before proceeding.');
+        if (selectedTimeSlots.length < 1) {
+            alert('Please select at least one time slot before proceeding.');
+            return;
         }
+
+        const bookedHours = Math.min(estimatedTimeInHours, 12);
+        const toBeConfirmedHours = Math.max(0, estimatedTimeInHours - 12);
+
+        setOrderData((prevData) => ({
+            ...prevData,
+            estimateDetails: {
+                ...prevData.estimateDetails,
+                bookedHours,
+                toBeConfirmedHours,
+            },
+        }));
+
+        navigate('/jobdetails');
     };
+
+
+
 
     return (
         <div className="time-planner-form">
-            <Navbar />
+            <Navbar backPath="/estimates" nextPath="/jobdetails" />
             <div className="main-content">
                 <h2>Select time slots for your work:</h2>
 
@@ -289,6 +323,8 @@ const TimePlanner = () => {
                         }))
                     }
                     calculatedCost={orderData?.estimateDetails?.calculatedCost || 0}
+                    bookedHours={orderData?.estimateDetails?.bookedHours || 0}
+                    toBeConfirmedHours={orderData?.estimateDetails?.toBeConfirmedHours || 0}
                     editable={true}
                     setEditable={() => { }}
                     paidOnStreet={orderData?.jobAddress?.paidOnStreet || false}
@@ -302,13 +338,15 @@ const TimePlanner = () => {
                         time: slot?.time || '',
                     }))}
                 />
+
                 <button
                     onClick={handleNext}
                     className="submit-button"
-                    disabled={selectedTimeSlots.length !== timeSlots.length}
+                    disabled={selectedTimeSlots.length < 1} // Enable if at least one slot is selected
                 >
                     Book Time Slots
                 </button>
+
             </div>
         </div>
     );
