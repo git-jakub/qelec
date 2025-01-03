@@ -1,4 +1,4 @@
-﻿import React, { createContext, useState } from 'react';
+﻿import React, { createContext, useState, useEffect } from 'react';
 
 export const OrderContext = createContext();
 
@@ -45,16 +45,28 @@ export const OrderProvider = ({ children }) => {
                 multiplierDetails: null, // Grouped multiplier details under costBreakdown
                 paidOnStreet: false,    // Whether parking is paid on the street
                 visitorPermit: false,   // Whether a visitor permit is available
-                congestionCharge: false
+                congestionCharge: false,
             },
         },
+        timeslotCosts: [], // Added for debugging timeslotCosts
     });
 
-    // Logging updates to orderData
+    // Log initial state
+    useEffect(() => {
+        console.log('[OrderContext] Initial orderData:', orderData);
+    }, []);
+
+    // Log updates to orderData
     const handleSetOrderData = (newData) => {
-        console.log('Updating Order Data:', newData);
+        console.log('[OrderContext] Previous state:', orderData);
+        console.log('[OrderContext] Updating orderData:', newData);
         setOrderData(newData);
     };
+
+    // Log on every re-render of the provider
+    useEffect(() => {
+        console.log('[OrderContext] Current state of orderData:', orderData);
+    }, [orderData]);
 
     return (
         <OrderContext.Provider value={{ orderData, setOrderData: handleSetOrderData }}>
