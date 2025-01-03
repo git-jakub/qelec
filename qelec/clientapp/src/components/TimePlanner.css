@@ -129,27 +129,6 @@
     width: 100%; /* Umożliwienie dynamicznego rozkładu */
     max-width: 800px; /* Opcjonalnie, maksymalna szerokość kontenera */
 }
-.day-slider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 10px 0;
-}
-
-.day-button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #e0e0e0;
-    color: #000;
-}
-
-    .day-button.selected {
-        background-color: #007bff;
-        color: #fff;
-    }
 
 .time-slot-button {
     padding: 8px;
@@ -160,5 +139,66 @@
     .time-slot-button.selected {
         background-color: #007bff;
         color: #fff;
+    }
+
+/* Styl podstawowy dla przycisków filtra */
+.filter-button {
+    background-color: #f0f0f0; /* Domyślny kolor przycisku */
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    /* Styl dla aktywnego przycisku */
+    .filter-button.active {
+        background-color: #007bff; /* Kolor aktywnego przycisku */
+        color: #fff; /* Biały tekst */
+        border: 1px solid #0056b3;
+        font-weight: bold;
+    }
+
+    /* Styl hover */
+    .filter-button:hover {
+        background-color: #e0e0e0;
+    }
+/* Styl podstawowy dla przycisków dnia */
+.day-slider {
+    display: flex;
+    flex-direction: row; /* Wyświetlanie w wierszu */
+    justify-content: center; /* Wyśrodkowanie elementów */
+    align-items: center; /* Wyrównanie w pionie */
+    gap: 10px; /* Odstępy między przyciskami */
+    margin: 10px 0; /* Odstępy nad i pod sliderem */
+}
+
+.day-button {
+    display: flex;
+    flex-direction: column; /* Tekst w dwóch liniach */
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+    .day-button.active {
+        background-color: #007bff;
+        color: #fff;
+        border: 1px solid #0056b3;
+        font-weight: bold;
+        transform: scale(1.1);
+    }
+
+    .day-button:hover {
+        background-color: #e0e0e0;
     }
 

@@ -60,10 +60,13 @@ const splitExtendedWork = (totalHours) => {
 
 const TimePlanner = () => {
     const [currentDayIndex, setCurrentDayIndex] = useState(0);
+    const [currentSlotIndex, setCurrentSlotIndex] = useState(0);
     const [availableDays, setAvailableDays] = useState([]);
     const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     const [filteredTimeSlots, setFilteredTimeSlots] = useState([]);
+    const [filteredSlotsByTime, setFilteredSlotsByTime] = useState([]); // Nowy stan dla filtrowanych slotów
+    const [timeFilter, setTimeFilter] = useState('ALL'); // Domyślnie pokazuj wszystkie sloty
     const [loadingSlots, setLoadingSlots] = useState(false);
     const [error, setError] = useState(null);
 
@@ -78,19 +81,16 @@ const TimePlanner = () => {
         [isMultiDay, estimatedTimeInHours]
     );
 
-    // Function to generate days dynamically
     const generateDays = (startIndex, totalDays = 14) => {
         const today = new Date();
-        const days = [];
-        for (let i = startIndex; i < startIndex + totalDays; i++) {
+        return Array.from({ length: totalDays }, (_, i) => {
             const date = new Date(today);
-            date.setDate(today.getDate() + i);
-            days.push({
+            date.setDate(today.getDate() + startIndex + i);
+            return {
                 label: date.toLocaleDateString('en-GB', { weekday: 'long', day: '2-digit', month: '2-digit' }),
-                date: date,
-            });
-        }
-        return days;
+                date,
+            };
+        });
     };
 
     useEffect(() => {
@@ -133,10 +133,32 @@ const TimePlanner = () => {
                 findAvailableContinuousSlots(availableTimeSlots, hours)
             );
             setFilteredTimeSlots(allSlots);
+
+            // Początkowo pokaż wszystkie sloty
+            setFilteredSlotsByTime(allSlots[0]);
         } else {
             setFilteredTimeSlots([]);
+            setFilteredSlotsByTime([]);
         }
     }, [availableTimeSlots, timeSlots]);
+
+    // Filtruj przedziały czasowe na podstawie wybranego filtra
+    useEffect(() => {
+        if (filteredTimeSlots[0]?.length > 0) {
+            const filtered = filteredTimeSlots[0].filter((slot) => {
+                const startHour = new Date(slot.startSlot.startDate).getHours();
+
+                if (timeFilter === 'AM') return startHour >= 6 && startHour < 12;
+                if (timeFilter === 'PM') return startHour >= 12 && startHour < 18;
+                if (timeFilter === 'OUT_OF_HOURS') return startHour >= 18 || startHour < 6;
+
+                return true; // Jeśli brak filtra, pokaż wszystkie sloty
+            });
+
+            setFilteredSlotsByTime(filtered);
+            setCurrentSlotIndex(0); // Resetuj slider po zmianie filtra
+        }
+    }, [timeFilter, filteredTimeSlots]);
 
     const handleTimeSlotClick = (slot, index) => {
         const updatedSelectedTimeSlots = [...selectedTimeSlots];
@@ -169,6 +191,8 @@ const TimePlanner = () => {
             <Navbar />
             <div className="main-content">
                 <h2>Select time slots for your work:</h2>
+
+                {/* Day Slider */}
                 <div className="day-slider">
                     <button
                         onClick={() => setCurrentDayIndex((prev) => Math.max(prev - 1, 0))}
@@ -179,10 +203,11 @@ const TimePlanner = () => {
                     {availableDays.slice(currentDayIndex, currentDayIndex + 7).map((day, index) => (
                         <button
                             key={index}
-                            className={`day-button ${index === 0 ? 'selected' : ''}`}
+                            className={`day-button ${currentDayIndex + index === currentDayIndex ? 'active' : ''}`}
                             onClick={() => setCurrentDayIndex(currentDayIndex + index)}
                         >
-                            {day.label}
+                            <span className="day-label">{day.label.split(',')[0]}</span> {/* Friday */}
+                            <span className="date-label">{day.label.split(',')[1]}</span> {/* January 3rd */}
                         </button>
                     ))}
                     <button
@@ -192,28 +217,62 @@ const TimePlanner = () => {
                         &gt;
                     </button>
                 </div>
-                <div className="time-slots-container">
-                    {loadingSlots ? (
-                        <p>Loading available timeslots...</p>
-                    ) : error ? (
-                        <p className="error-message">{error}</p>
-                    ) : (
-                        timeSlots.map((hours, index) => (
-                            <div key={index}>
-                                <h4>Select slot for {hours} hours:</h4>
-                                {filteredTimeSlots[index]?.map((slot, slotIndex) => (
-                                    <button
-                                        key={slotIndex}
-                                        onClick={() => handleTimeSlotClick(slot, index)}
-                                        className={`time-slot-button ${selectedTimeSlots[index] === slot ? 'selected' : ''}`}
-                                    >
-                                        {slot.time}
-                                    </button>
-                                ))}
-                            </div>
-                        ))
-                    )}
+
+
+                {/* TimeSlot Filter */}
+                <div className="time-slot-filter">
+                    <button
+                        onClick={() => setTimeFilter('ALL')}
+                        className={`filter-button ${timeFilter === 'ALL' ? 'active' : ''}`}
+                    >
+                        All
+                    </button>
+                    <button
+                        onClick={() => setTimeFilter('AM')}
+                        className={`filter-button ${timeFilter === 'AM' ? 'active' : ''}`}
+                    >
+                        AM
+                    </button>
+                    <button
+                        onClick={() => setTimeFilter('PM')}
+                        className={`filter-button ${timeFilter === 'PM' ? 'active' : ''}`}
+                    >
+                        PM
+                    </button>
+                    <button
+                        onClick={() => setTimeFilter('OUT_OF_HOURS')}
+                        className={`filter-button ${timeFilter === 'OUT_OF_HOURS' ? 'active' : ''}`}
+                    >
+                        Out of Hours
+                    </button>
                 </div>
+
+
+                {/* TimeSlot Slider */}
+                <div className="time-slot-slider">
+                    <button
+                        onClick={() => setCurrentSlotIndex((prev) => Math.max(prev - 1, 0))}
+                        disabled={currentSlotIndex === 0}
+                    >
+                        &lt;
+                    </button>
+                    {filteredSlotsByTime.slice(currentSlotIndex, currentSlotIndex + 5).map((slot, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleTimeSlotClick(slot, 0)}
+                            className={`time-slot-button ${selectedTimeSlots[0] === slot ? 'selected' : ''}`}
+                        >
+                            {slot.time}
+                        </button>
+                    ))}
+                    <button
+                        onClick={() => setCurrentSlotIndex((prev) => prev + 1)}
+                        disabled={currentSlotIndex + 5 >= filteredSlotsByTime.length}
+                    >
+                        &gt;
+                    </button>
+                </div>
+
                 <EstimateDetails
                     input={orderData?.estimateDetails?.jobDescription || ''}
                     setInput={(value) =>
@@ -256,3 +315,4 @@ const TimePlanner = () => {
 };
 
 export default TimePlanner;
+
