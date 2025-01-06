@@ -27,6 +27,8 @@ import GeneratePATCertificate from './services/GeneratePATCertificate';
 import AnalyticsReports from './components/AdminPortal/AnalyticsReports';
 import OrderSuccessful from './components/OrderSuccessful';
 import './App.css';
+import SuccessPage from './components/SuccessPage';
+import CancelPage from './components/CancelPage';
 
 
 
@@ -55,6 +57,8 @@ function App() {
                         <Route path="/forgot-password" element={<ForgotPassword />} />
                         <Route path="/reset-password" element={<ResetPassword />} />
                         <Route path="/order-successful" element={<OrderSuccessful />} />
+                        <Route path="/success" element={<SuccessPage />} />
+                        <Route path="/cancel" element={<CancelPage />} />
                         {/* Protected Admin Routes */}
                         <Route
                             path="/adminportal"

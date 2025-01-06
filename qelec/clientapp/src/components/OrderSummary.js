@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import OrderStatus from './OrderStatus';
 import { sendOrderEmail } from '../services/emailService';
 import { generatePurchaseOrderPdf } from '../services/purchaseOrderService';
+import { jwtDecode } from 'jwt-decode';
 import './SharedStyles.css';
 import './OrderSummary.css';
 
@@ -33,9 +34,15 @@ const OrderSummary = () => {
 
     const saveOrder = async () => {
         setLoading(true);
+
+        const UserId = localStorage.getItem("userId"); // Example of localStorage retrieval
+        console.log("Retrieved userId:", UserId); // Add logging
+
+      
         try {
             const validatedOrderData = {
                 ...orderData,
+                UserId, 
                 timeSlotId: orderData.timeSlot?.[0]?.startSlot?.timeSlotId || null,
                 status: orderData.status || 'Scheduled',
                 jobDetails: {
