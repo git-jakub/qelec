@@ -1,6 +1,17 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, TextInput, Select } from '@mantine/core';
+import { Table, Button, Modal, TextInput, Select, ScrollArea } from '@mantine/core';
 import Navbar from '../../components/Navbar';
+import { jwtDecode } from 'jwt-decode';
+
+const isTokenValid = (token) => {
+    try {
+        const decoded = jwtDecode(token);
+        return decoded.exp > Math.floor(Date.now() / 1000); // Check if the token is expired
+    } catch (error) {
+        console.error('Invalid token:', error);
+        return false;
+    }
+};
 
 const ManageOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -13,22 +24,30 @@ const ManageOrders = () => {
     }, []);
 
     const fetchOrders = async () => {
+        const token = localStorage.getItem('token');
+
+        if (!token || !isTokenValid(token)) {
+            console.error('Token is missing or expired. Redirecting to login.');
+            setError('Your session has expired. Please log in again.');
+            return;
+        }
+
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/orders/all-orders`, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
             });
 
             if (!response.ok) {
-                throw new Error(`Failed to fetch: ${response.status}`);
+                throw new Error(`Failed to fetch orders: ${response.status}`);
             }
 
             const data = await response.json();
             setOrders(data);
         } catch (error) {
-            console.error("Error fetching orders:", error);
+            console.error('Error fetching orders:', error);
             setError('Failed to fetch orders.');
         }
     };
@@ -62,47 +81,55 @@ const ManageOrders = () => {
         }
     };
 
-    const rows = orders.map((order) => (
-        <tr key={order.orderId}>
-            <td>{order.orderId}</td>
-            <td>{order.status}</td>
-            <td>{new Date(order.createdDate).toLocaleDateString()}</td>
-            <td>{order.jobDetails?.clientName || 'N/A'}</td>
-            <td>{order.jobDetails?.serviceType || 'N/A'}</td>
-            <td>{order.invoiceDetails?.recipientName || 'N/A'}</td>
-            <td>{order.invoiceDetails?.totalAmount || 'N/A'}</td>
-            <td>
-                <Button size="xs" onClick={() => handleEdit(order)}>Edit</Button>
-            </td>
-        </tr>
-    ));
-
     return (
         <div style={{ padding: '20px' }}>
+            <Navbar backPath="/" />
             <h2>Manage Orders</h2>
-            <Navbar backPath="/" nextPath="/jobdetails" />
             {error && <p className="error">{error}</p>}
-            <Table withBorder withColumnBorders>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
-                        <th>Client Name</th>
-                        <th>Service Type</th>
-                        <th>Recipient Name</th>
-                        <th>Total Amount</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.length > 0 ? rows : (
+            <ScrollArea style={{ height: '80vh', width: '100%' }}>
+                <Table withBorder withColumnBorders verticalSpacing="md" horizontalSpacing="md">
+                    <thead>
                         <tr>
-                            <td colSpan={8} style={{ textAlign: 'center' }}>No orders available</td>
+                            <th>Order ID</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Client Name</th>
+                            <th>Client Email</th>
+                            <th>Job Description</th>
+                            <th>Estimated Cost</th>
+                            <th>Invoice Total</th>
+                            <th>Actions</th>
                         </tr>
-                    )}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {orders.map((order) => (
+                            <tr key={order.orderId}>
+                                <td>{order.orderId}</td>
+                                <td>{order.status}</td>
+                                <td>{new Date(order.createdDate).toLocaleDateString()}</td>
+                                <td>{order.updatedDate ? new Date(order.updatedDate).toLocaleDateString() : 'N/A'}</td>
+                                <td>{order.jobDetails?.clientName || 'N/A'}</td>
+                                <td>{order.jobDetails?.clientEmail || 'N/A'}</td>
+                                <td>{order.estimateDetails?.jobDescription || 'No job description'}</td>
+                                <td>
+                                    {order.estimateDetails?.calculatedCost
+                                        ? `£${order.estimateDetails.calculatedCost}`
+                                        : 'N/A'}
+                                </td>
+                                <td>
+                                    {order.invoiceDetails?.totalAmount
+                                        ? `$${order.invoiceDetails.totalAmount}`
+                                        : 'N/A'}
+                                </td>
+                                <td>
+                                    <Button size="xs" onClick={() => handleEdit(order)}>Edit</Button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </ScrollArea>
 
             {/* Modal for Editing */}
             <Modal
@@ -133,19 +160,9 @@ const ManageOrders = () => {
                             }
                         />
                         <TextInput
-                            label="Recipient Name"
-                            value={selectedOrder.invoiceDetails?.recipientName || ''}
-                            onChange={(e) =>
-                                setSelectedOrder({
-                                    ...selectedOrder,
-                                    invoiceDetails: { ...selectedOrder.invoiceDetails, recipientName: e.target.value },
-                                })
-                            }
-                        />
-                        <TextInput
                             label="Total Amount"
                             type="number"
-                            value={selectedOrder.invoiceDetails?.totalAmount || 0}
+                            value={selectedOrder.invoiceDetails?.totalAmount || ''}
                             onChange={(e) =>
                                 setSelectedOrder({
                                     ...selectedOrder,

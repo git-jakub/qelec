@@ -1,4 +1,4 @@
-﻿import { jwtDecode } from "jwt-decode"; // Named import
+﻿import { jwtDecode } from "jwt-decode";
 
 class AuthService {
     static API_URL = process.env.REACT_APP_API_URL;
@@ -34,6 +34,48 @@ class AuthService {
             throw error;
         }
     }
+
+    // Register method for creating new users
+    static async register(email, username, fullName, password) {
+        try {
+            const response = await fetch(`${this.API_URL}/user/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, username, fullName, password }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || "Registration failed.");
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error("Error during registration:", error);
+            throw error;
+        }
+    }
+
+    static async requestPasswordReset(email) {
+        try {
+            const response = await fetch(`${this.API_URL}/user/request-password-reset`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Failed to send password reset email.");
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error("Error during password reset request:", error);
+            throw error;
+        }
+    }
+
 
     static logout() {
         console.log("Logging out. Clearing token and user info."); // Debug log

@@ -1,12 +1,19 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using qelec;
 using qelec.Services;
+using qelec.Models;
 using System.IdentityModel.Tokens.Jwt;
 using qelec.Controllers;
+using FluentEmail.Core;
+using FluentEmail.Smtp;
+using System.Net.Mail;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +71,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Register services for Dependency Injection
 builder.Services.AddScoped<InvoiceService>();
 builder.Services.AddScoped<OpenAIService>();
+builder.Services.AddScoped<EmailService>();
+
+
+
+
+//// Pobierz ustawienia EmailSettings z konfiguracji
+//builder.Services.AddFluentEmail("qelectriclimited@gmail.com")
+//    .AddRazorRenderer() // Renderowanie szablonów e-mail (opcjonalne)
+//    .AddSmtpSender(new SmtpClient("smtp.gmail.com")
+//    {
+//        Port = 587,
+//        Credentials = new NetworkCredential("qelectriclimited@gmail.com", "viso rgvu otdw nxue"),
+//        EnableSsl = true
+//    });
+
+
+
 
 // Enable Swagger for API documentation and testing
 builder.Services.AddEndpointsApiExplorer();

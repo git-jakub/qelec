@@ -58,6 +58,29 @@ const splitExtendedWork = (totalHours) => {
     return slots;
 };
 
+// Function to mark time slots as unavailable
+const markTimeSlotsUnavailable = async (startDate, endDate) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/TimeSlots/mark-unavailable`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString(),
+            }),
+        });
+
+        if (response.ok) {
+            console.log('Time slots marked as unavailable successfully.');
+        } else {
+            console.error('Failed to mark time slots as unavailable.');
+        }
+    } catch (error) {
+        console.error('Error marking time slots as unavailable:', error);
+    }
+};
 
 const TimePlanner = () => {
     const [currentDayIndex, setCurrentDayIndex] = useState(0);
@@ -66,8 +89,8 @@ const TimePlanner = () => {
     const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     const [filteredTimeSlots, setFilteredTimeSlots] = useState([]);
-    const [filteredSlotsByTime, setFilteredSlotsByTime] = useState([]); // Nowy stan dla filtrowanych slotów
-    const [timeFilter, setTimeFilter] = useState('ALL'); // Domyślnie pokazuj wszystkie sloty
+    const [filteredSlotsByTime, setFilteredSlotsByTime] = useState([]);
+    const [timeFilter, setTimeFilter] = useState('ALL');
     const [loadingSlots, setLoadingSlots] = useState(false);
     const [error, setError] = useState(null);
 
@@ -134,8 +157,6 @@ const TimePlanner = () => {
                 findAvailableContinuousSlots(availableTimeSlots, hours)
             );
             setFilteredTimeSlots(allSlots);
-
-            // Początkowo pokaż wszystkie sloty
             setFilteredSlotsByTime(allSlots[0]);
         } else {
             setFilteredTimeSlots([]);
@@ -143,7 +164,6 @@ const TimePlanner = () => {
         }
     }, [availableTimeSlots, timeSlots]);
 
-    // Filtruj przedziały czasowe na podstawie wybranego filtra
     useEffect(() => {
         if (filteredTimeSlots[0]?.length > 0) {
             const filtered = filteredTimeSlots[0].filter((slot) => {
@@ -153,23 +173,19 @@ const TimePlanner = () => {
                 if (timeFilter === 'PM') return startHour >= 12 && startHour < 18;
                 if (timeFilter === 'OUT_OF_HOURS') return startHour >= 18 || startHour < 6;
 
-                return true; // Jeśli brak filtra, pokaż wszystkie sloty
+                return true;
             });
 
             setFilteredSlotsByTime(filtered);
-            setCurrentSlotIndex(0); // Resetuj slider po zmianie filtra
+            setCurrentSlotIndex(0);
         }
     }, [timeFilter, filteredTimeSlots]);
 
     const handleTimeSlotClick = (slot, index) => {
-        // Allow booking only for the first 12 hours
         if (index > 0) {
             alert('Only the first 12 hours can be booked directly.');
             return;
         }
-
-        const bookedHours = Math.min(estimatedTimeInHours, 12);
-        const toBeConfirmedHours = Math.max(0, estimatedTimeInHours - 12);
 
         const updatedSelectedTimeSlots = [...selectedTimeSlots];
         updatedSelectedTimeSlots[index] = slot;
@@ -185,18 +201,10 @@ const TimePlanner = () => {
                     startSlot: ts.startSlot,
                     endSlot: ts.endSlot,
                 })),
-            estimateDetails: {
-                ...prevData.estimateDetails,
-                bookedHours,
-                toBeConfirmedHours,
-            },
         }));
     };
 
-
-
-
-    const handleNext = () => {
+    const handleNext = async () => {
         if (selectedTimeSlots.length < 1) {
             alert('Please select at least one time slot before proceeding.');
             return;
@@ -205,19 +213,31 @@ const TimePlanner = () => {
         const bookedHours = Math.min(estimatedTimeInHours, 12);
         const toBeConfirmedHours = Math.max(0, estimatedTimeInHours - 12);
 
-        setOrderData((prevData) => ({
-            ...prevData,
-            estimateDetails: {
-                ...prevData.estimateDetails,
-                bookedHours,
-                toBeConfirmedHours,
-            },
-        }));
+        try {
+            // Mark all selected time slots as unavailable
+            for (const slot of selectedTimeSlots.filter(Boolean)) {
+                const startDate = new Date(slot.startSlot.startDate);
+                const endDate = new Date(slot.endSlot.endDate);
+                await markTimeSlotsUnavailable(startDate, endDate);
+            }
 
-        navigate('/jobdetails');
+            // Update order data
+            setOrderData((prevData) => ({
+                ...prevData,
+                estimateDetails: {
+                    ...prevData.estimateDetails,
+                    bookedHours,
+                    toBeConfirmedHours,
+                },
+            }));
+
+            // Navigate to the next page
+            navigate('/jobdetails');
+        } catch (error) {
+            console.error('Error booking time slots:', error);
+            alert('An error occurred while booking time slots. Please try again.');
+        }
     };
-
-
 
 
     return (
@@ -225,8 +245,6 @@ const TimePlanner = () => {
             <Navbar backPath="/estimates" nextPath="/jobdetails" />
             <div className="main-content">
                 <h2>Select time slots for your work:</h2>
-
-                {/* Day Slider */}
                 <div className="day-slider">
                     <button
                         onClick={() => setCurrentDayIndex((prev) => Math.max(prev - 1, 0))}
@@ -237,11 +255,11 @@ const TimePlanner = () => {
                     {availableDays.slice(currentDayIndex, currentDayIndex + 7).map((day, index) => (
                         <button
                             key={index}
-                            className={`day-button ${currentDayIndex + index === currentDayIndex ? 'active' : ''}`}
+                            className={`day-button ${index === 0 ? 'active' : ''}`}
                             onClick={() => setCurrentDayIndex(currentDayIndex + index)}
                         >
-                            <span className="day-label">{day.label.split(',')[0]}</span> {/* Friday */}
-                            <span className="date-label">{day.label.split(',')[1]}</span> {/* January 3rd */}
+                            <span className="day-label">{day.label.split(',')[0]}</span>
+                            <span className="date-label">{day.label.split(',')[1]}</span>
                         </button>
                     ))}
                     <button
@@ -251,9 +269,6 @@ const TimePlanner = () => {
                         &gt;
                     </button>
                 </div>
-
-
-                {/* TimeSlot Filter */}
                 <div className="time-slot-filter">
                     <button
                         onClick={() => setTimeFilter('ALL')}
@@ -280,9 +295,6 @@ const TimePlanner = () => {
                         Out of Hours
                     </button>
                 </div>
-
-
-                {/* TimeSlot Slider */}
                 <div className="time-slot-slider">
                     <button
                         onClick={() => setCurrentSlotIndex((prev) => Math.max(prev - 1, 0))}
@@ -306,7 +318,6 @@ const TimePlanner = () => {
                         &gt;
                     </button>
                 </div>
-
                 <EstimateDetails
                     input={orderData?.estimateDetails?.jobDescription || ''}
                     setInput={(value) =>
@@ -326,7 +337,6 @@ const TimePlanner = () => {
                     bookedHours={orderData?.estimateDetails?.bookedHours || 0}
                     toBeConfirmedHours={orderData?.estimateDetails?.toBeConfirmedHours || 0}
                     editable={true}
-                    setEditable={() => { }}
                     paidOnStreet={orderData?.jobAddress?.paidOnStreet || false}
                     congestionCharge={orderData?.jobAddress?.congestionCharge || false}
                     postcode={orderData?.jobAddress?.postcode || ''}
@@ -338,19 +348,16 @@ const TimePlanner = () => {
                         time: slot?.time || '',
                     }))}
                 />
-
                 <button
                     onClick={handleNext}
                     className="submit-button"
-                    disabled={selectedTimeSlots.length < 1} // Enable if at least one slot is selected
+                    disabled={selectedTimeSlots.length < 1}
                 >
                     Book Time Slots
                 </button>
-
             </div>
         </div>
     );
 };
 
 export default TimePlanner;
-

@@ -35,90 +35,94 @@ const InvoiceRecipient = () => {
 
     return (
         <div className="invoice-form">
-            <Navbar backPath="/timeplanner" nextPath="/ordersummary" /> 
+            <Navbar backPath="/timeplanner" nextPath="/ordersummary" />
+            {/* Sekcja zawierająca tytuł i formularz */}
+            <div className="invoice-section">
+                <h2>Invoice Details</h2> {/* Tytuł w niebieskiej sekcji */}
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="recipientName">Recipient Name:</label>
+                    <input
+                        type="text"
+                        id="recipientName"
+                        name="recipientName"
+                        placeholder="Enter recipient name"
+                        value={formData.recipientName}
+                        onChange={handleChange}
+                        required
+                    />
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="recipientName">Recipient Name:</label>
-                <input
-                    type="text"
-                    id="recipientName"
-                    name="recipientName"
-                    placeholder="Enter recipient name"
-                    value={formData.recipientName}
-                    onChange={handleChange}
-                    required
-                />
+                    <label htmlFor="companyName">Company Name:</label>
+                    <input
+                        type="text"
+                        id="companyName"
+                        name="companyName"
+                        placeholder="Enter company name"
+                        value={formData.companyName}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <label htmlFor="companyName">Company Name:</label>
-                <input
-                    type="text"
-                    id="companyName"
-                    name="companyName"
-                    placeholder="Enter company name"
-                    value={formData.companyName}
-                    onChange={handleChange}
-                    required
-                />
+                    <label htmlFor="recipientAddress">Recipient Address:</label>
+                    <input
+                        type="text"
+                        id="recipientAddress"
+                        name="recipientAddress"
+                        placeholder="Enter recipient address"
+                        value={formData.recipientAddress}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <label htmlFor="recipientAddress">Recipient Address:</label>
-                <input
-                    type="text"
-                    id="recipientAddress"
-                    name="recipientAddress"
-                    placeholder="Enter recipient address"
-                    value={formData.recipientAddress}
-                    onChange={handleChange}
-                    required
-                />
+                    <label htmlFor="recipientPostcode">Postcode:</label>
+                    <input
+                        type="text"
+                        id="recipientPostcode"
+                        name="recipientPostcode"
+                        placeholder="Enter postcode"
+                        value={formData.recipientPostcode}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <label htmlFor="recipientPostcode">Postcode:</label>
-                <input
-                    type="text"
-                    id="recipientPostcode"
-                    name="recipientPostcode"
-                    placeholder="Enter postcode"
-                    value={formData.recipientPostcode}
-                    onChange={handleChange}
-                    required
-                />
+                    <label htmlFor="recipientCity">City:</label>
+                    <input
+                        type="text"
+                        id="recipientCity"
+                        name="recipientCity"
+                        placeholder="Enter city"
+                        value={formData.recipientCity}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <label htmlFor="recipientCity">City:</label>
-                <input
-                    type="text"
-                    id="recipientCity"
-                    name="recipientCity"
-                    placeholder="Enter city"
-                    value={formData.recipientCity}
-                    onChange={handleChange}
-                    required
-                />
+                    <label htmlFor="recipientEmail">Recipient Email:</label>
+                    <input
+                        type="email"
+                        id="recipientEmail"
+                        name="recipientEmail"
+                        placeholder="Enter recipient email"
+                        value={formData.recipientEmail}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <label htmlFor="recipientEmail">Recipient Email:</label>
-                <input
-                    type="email"
-                    id="recipientEmail"
-                    name="recipientEmail"
-                    placeholder="Enter recipient email"
-                    value={formData.recipientEmail}
-                    onChange={handleChange}
-                    required
-                />
+                    <label htmlFor="recipientPhone">Phone Number:</label>
+                    <input
+                        type="tel"
+                        id="recipientPhone"
+                        name="recipientPhone"
+                        placeholder="Enter phone number"
+                        value={formData.recipientPhone}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <label htmlFor="recipientPhone">Phone Number:</label>
-                <input
-                    type="tel"
-                    id="recipientPhone"
-                    name="recipientPhone"
-                    placeholder="Enter phone number"
-                    value={formData.recipientPhone}
-                    onChange={handleChange}
-                    required
-                />
-
-                <button type="submit" className="submit-button">Submit</button>
-            </form>
+                    <button type="submit" className="submit-button">Submit</button>
+                </form>
+            </div>
         </div>
     );
+
 };
 
 export default InvoiceRecipient;

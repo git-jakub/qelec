@@ -76,12 +76,13 @@ const OrderSummary = () => {
                         congestionCharge: !!orderData.estimateDetails?.costBreakdown?.congestionCharge,
                     },
                     postcode: orderData.estimateDetails?.postcode || 'Not entered',
-                    multiplierDetails: orderData.estimateDetails?.multiplierDetails || {
-                        name: 'Default Multiplier',
-                        start: new Date().toISOString(),
-                        end: new Date().toISOString(),
-                        multiplier: 1.0,
+                    multiplierDetails: {
+                        name: orderData.estimateDetails?.multiplierDetails?.name || 'Default Multiplier',
+                        start: orderData.estimateDetails?.multiplierDetails?.start || null, // Pozwala na null
+                        end: orderData.estimateDetails?.multiplierDetails?.end || null,   // Pozwala na null
+                        multiplier: orderData.estimateDetails?.multiplierDetails?.multiplier || 1.0,
                     },
+
                 },
             };
 
@@ -102,19 +103,27 @@ const OrderSummary = () => {
             console.log('Order saved successfully:', savedOrder);
 
             const emailParams = {
-                from_name: "QELEC",
-                recipient_name: validatedOrderData.invoiceDetails.recipientName,
-                order_id: savedOrder.orderId,
-                job_description: validatedOrderData.estimateDetails.jobDescription,
-                total_cost: validatedOrderData.estimateDetails.calculatedCost.toString(),
-                date: formattedDate,
-                time_slot: timeSlot.map((slot) => slot.time).join(', '),
-                to_email: validatedOrderData.invoiceDetails.recipientEmail,
-                reply_to: validatedOrderData.invoiceDetails.recipientEmail,
+                toEmail: validatedOrderData.invoiceDetails.recipientEmail,
+                toName: validatedOrderData.invoiceDetails.recipientName,
+                subject: `Order Confirmation #${savedOrder.orderId || "Unknown"}`,
+                body: `
+                    Dear ${validatedOrderData.invoiceDetails.recipientName},<br/><br/>
+                    Your order has been successfully placed.<br/><br/>
+                    <strong>Order Details:</strong><br/>
+                    Job: ${validatedOrderData.estimateDetails.jobDescription || "Not entered"}<br/>
+                    Total Cost: £${validatedOrderData.estimateDetails.calculatedCost || 0}<br/>
+                    Date: ${formattedDate}<br/>
+                    Time: ${formattedTime}<br/><br/>
+                    Thank you for choosing QElectric.
+                `,
             };
 
+
+            console.log("Prepared Email Params:", emailParams);
+
+
             const emailResponse = await sendOrderEmail(emailParams);
-            console.log('Email Params:', emailParams);
+            console.log("Email send response:", emailResponse);
 
             if (!emailResponse.success) {
                 console.error('Failed to send email:', emailResponse.error);
@@ -122,6 +131,8 @@ const OrderSummary = () => {
             } else {
                 console.log('Email sent successfully!');
             }
+
+
 
             // Generate Purchase Order PDF
             generatePurchaseOrderPdf({

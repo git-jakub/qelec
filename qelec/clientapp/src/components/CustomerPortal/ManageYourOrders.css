@@ -1,0 +1,30 @@
+﻿.manage-your-orders table {
+    border-collapse: collapse; /* Sprawia, że granice tabeli są lepiej widoczne */
+    width: 100%; /* Zajmuje pełną szerokość dostępnego kontenera */
+}
+
+.manage-your-orders th,
+.manage-your-orders td {
+    border: 1px solid #ddd; /* Granice pomiędzy wierszami i kolumnami */
+    padding: 8px; /* Odstęp wewnętrzny */
+    text-align: left; /* Tekst wyrównany do lewej */
+}
+
+.manage-your-orders th {
+    background-color: #f2f2f2; /* Tło nagłówków */
+    font-weight: bold;
+}
+
+.manage-your-orders tr:hover {
+    background-color: #f9f9f9; /* Tło wiersza przy najechaniu */
+}
+
+.manage-your-orders tbody tr:nth-child(even) {
+    background-color: #f7f7f7; /* Alternatywne tło dla parzystych wierszy */
+}
+
+.manage-your-orders {
+    overflow-x: auto; /* Scroll w poziomie */
+    overflow-y: auto; /* Scroll w pionie */
+    max-height: 80vh; /* Maksymalna wysokość */
+}

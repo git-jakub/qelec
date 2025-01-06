@@ -1,7 +1,5 @@
-﻿// src/components/AdminPortal/AdminPortal.js
-
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+﻿import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 
 const AdminPortal = () => {
@@ -11,16 +9,15 @@ const AdminPortal = () => {
             <h2>Admin Portal</h2>
             <nav>
                 <ul>
-                    <li><Link to="timesetter">Time Setter</Link></li>
-                    <li><Link to="manage-users">Manage Users</Link></li>
-                    <li><Link to="manage-orders">Manage Orders</Link></li>
-                    <li><Link to="generate-invoice">Generate Invoice</Link></li> {/* Added Generate Invoice link */}
+                    <li><Link to="/adminportal/timesetter">Time Setter</Link></li>
+                    <li><Link to="/adminportal/manage-users">Manage Users</Link></li>
+                    <li><Link to="/adminportal/manage-orders">Manage Orders</Link></li>
+                    <li><Link to="/adminportal/generate-invoice">Generate Invoice</Link></li>
+                    <li><Link to="/adminportal/generate-pat-certificate">Generate PAT Certificate</Link></li>
+                    <li><Link to="/adminportal/analytics-reports">Analytics Reports</Link></li>
+
                 </ul>
             </nav>
-            <div className="admin-content">
-                {/* Outlet will render nested routes */}
-                <Outlet />
-            </div>
         </div>
     );
 };

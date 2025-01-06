@@ -58,6 +58,30 @@
     text-align: center;
 }
 
+.register-button {
+    background-color: #0FFCB3; /* Kolor tła */
+    color: black; /* Kolor tekstu */
+    border: none;
+    padding: 10px 15px; /* Odstęp wewnętrzny */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    font-size: 0.9rem; /* Rozmiar czcionki */
+    cursor: pointer;
+    font-weight: bold; /* Pogrubienie tekstu */
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Efekty przejścia */
+}
+
+    .register-button:hover {
+        background-color: #106EBE; /* Kolor tła po najechaniu */
+        color: white; /* Kolor tekstu po najechaniu */
+        transform: scale(1.05); /* Subtelne powiększenie */
+    }
+
+    .register-button:focus {
+        outline: none; /* Usuń domyślny outline */
+        box-shadow: 0 0 5px #0FFCB3; /* Efekt glow */
+    }
+
 /* Responsywność */
 @media (max-width: 768px) {
     .navbar {
@@ -75,7 +99,7 @@
         flex-wrap: wrap;
     }
 
-    .login-button, .back-button, .portal-button, .next-button {
+    .login-button, .back-button, .portal-button, .next-button, .register-button {
         width: auto; /* Przycisk dostosowuje się do zawartości */
     }
 }

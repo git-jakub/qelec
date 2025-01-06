@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace qelec.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241207165929_initialcreate")]
-    partial class initialcreate
+    [Migration("20250105203219_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace qelec.Migrations
                     b.Property<string>("ClientName")
                         .HasColumnType("text");
 
-                    b.Property<int>("JobAddressId")
+                    b.Property<int?>("JobAddressId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Mobile")
@@ -55,7 +55,8 @@ namespace qelec.Migrations
 
                     b.HasKey("JobDetailsId");
 
-                    b.HasIndex("JobAddressId");
+                    b.HasIndex("JobAddressId")
+                        .IsUnique();
 
                     b.ToTable("JobDetails");
                 });
@@ -255,23 +256,23 @@ namespace qelec.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("EstimateDetailsId")
+                    b.Property<int?>("EstimateDetailsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("InvoiceDetailsId")
+                    b.Property<int?>("InvoiceDetailsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("JobAddressId")
+                    b.Property<int?>("JobAddressId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("JobDetailsId")
+                    b.Property<int?>("JobDetailsId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TimeSlotId")
+                    b.Property<int?>("TimeSlotId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -364,6 +365,12 @@ namespace qelec.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ResetToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ResetTokenExpiry")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("text");
@@ -391,10 +398,9 @@ namespace qelec.Migrations
             modelBuilder.Entity("JobDetails", b =>
                 {
                     b.HasOne("qelec.Models.JobAddress", "JobAddress")
-                        .WithMany()
-                        .HasForeignKey("JobAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithOne()
+                        .HasForeignKey("JobDetails", "JobAddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("JobAddress");
                 });
@@ -418,33 +424,25 @@ namespace qelec.Migrations
                 {
                     b.HasOne("qelec.Models.EstimateDetails", "EstimateDetails")
                         .WithMany()
-                        .HasForeignKey("EstimateDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EstimateDetailsId");
 
                     b.HasOne("qelec.Models.InvoiceDetails", "InvoiceDetails")
                         .WithOne()
                         .HasForeignKey("qelec.Models.Order", "InvoiceDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("qelec.Models.JobAddress", "JobAddress")
                         .WithMany()
-                        .HasForeignKey("JobAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("JobAddressId");
 
                     b.HasOne("JobDetails", "JobDetails")
                         .WithOne()
                         .HasForeignKey("qelec.Models.Order", "JobDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("qelec.Models.TimeSlot", "TimeSlot")
                         .WithMany("Orders")
-                        .HasForeignKey("TimeSlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TimeSlotId");
 
                     b.HasOne("qelec.Models.User", "User")
                         .WithMany("Orders")

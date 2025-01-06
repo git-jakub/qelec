@@ -21,7 +21,11 @@ namespace qelec.Models
 
         public string Role { get; set; }
 
-        // Navigation property for related Orders
-        public ICollection<Order> Orders { get; set; }  // Ensure this collection exists for the one-to-many relationship
+        public ICollection<Order> Orders { get; set; }
+
+        // Update ResetToken to be nullable
+        public string? ResetToken { get; set; }
+        public DateTime? ResetTokenExpiry { get; set; }
     }
+
 }

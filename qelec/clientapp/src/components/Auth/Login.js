@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from './AuthService';
 import Navbar from '../../components/Navbar';
-import './../SharedStyles.css';
+/*import './../SharedStyles.css';*/
 import './Login.css';
 
 const Login = () => {
@@ -55,6 +55,10 @@ const Login = () => {
                 />
                 <button type="submit">Login</button>
             </form>
+            <p>
+                <a href="/forgot-password">Forgot your password?</a>
+            </p>
+
         </div>
     );
 };

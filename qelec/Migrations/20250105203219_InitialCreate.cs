@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace qelec.Migrations
 {
     /// <inheritdoc />
-    public partial class initialcreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -111,7 +111,9 @@ namespace qelec.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
                     FullName = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<string>(type: "text", nullable: false)
+                    Role = table.Column<string>(type: "text", nullable: false),
+                    ResetToken = table.Column<string>(type: "text", nullable: true),
+                    ResetTokenExpiry = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,7 +132,7 @@ namespace qelec.Migrations
                     ClientEmail = table.Column<string>(type: "text", nullable: true),
                     YourReference = table.Column<string>(type: "text", nullable: true),
                     AdditionalInfo = table.Column<string>(type: "text", nullable: true),
-                    JobAddressId = table.Column<int>(type: "integer", nullable: false)
+                    JobAddressId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -180,14 +182,14 @@ namespace qelec.Migrations
                 {
                     OrderId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TimeSlotId = table.Column<int>(type: "integer", nullable: false),
+                    TimeSlotId = table.Column<int>(type: "integer", nullable: true),
                     Status = table.Column<string>(type: "text", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    JobDetailsId = table.Column<int>(type: "integer", nullable: false),
-                    InvoiceDetailsId = table.Column<int>(type: "integer", nullable: false),
-                    JobAddressId = table.Column<int>(type: "integer", nullable: false),
-                    EstimateDetailsId = table.Column<int>(type: "integer", nullable: false),
+                    JobDetailsId = table.Column<int>(type: "integer", nullable: true),
+                    InvoiceDetailsId = table.Column<int>(type: "integer", nullable: true),
+                    JobAddressId = table.Column<int>(type: "integer", nullable: true),
+                    EstimateDetailsId = table.Column<int>(type: "integer", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -197,8 +199,7 @@ namespace qelec.Migrations
                         name: "FK_Orders_EstimateDetails_EstimateDetailsId",
                         column: x => x.EstimateDetailsId,
                         principalTable: "EstimateDetails",
-                        principalColumn: "EstimateDetailsId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EstimateDetailsId");
                     table.ForeignKey(
                         name: "FK_Orders_InvoiceDetails_InvoiceDetailsId",
                         column: x => x.InvoiceDetailsId,
@@ -209,8 +210,7 @@ namespace qelec.Migrations
                         name: "FK_Orders_JobAddress_JobAddressId",
                         column: x => x.JobAddressId,
                         principalTable: "JobAddress",
-                        principalColumn: "JobAddressId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "JobAddressId");
                     table.ForeignKey(
                         name: "FK_Orders_JobDetails_JobDetailsId",
                         column: x => x.JobDetailsId,
@@ -221,8 +221,7 @@ namespace qelec.Migrations
                         name: "FK_Orders_TimeSlot_TimeSlotId",
                         column: x => x.TimeSlotId,
                         principalTable: "TimeSlot",
-                        principalColumn: "TimeSlotId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TimeSlotId");
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
@@ -243,8 +242,8 @@ namespace qelec.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "Email", "FullName", "PasswordHash", "Role", "Username" },
-                values: new object[] { 1, "admin@gmail.com", "Adam", "$2a$12$6Ck2f2SZA77ETUZ.buJG2.Ql8lo1p65fiF.JEtGZPVxDkJPhimrTm", "Admin", "Boss" });
+                columns: new[] { "UserId", "Email", "FullName", "PasswordHash", "ResetToken", "ResetTokenExpiry", "Role", "Username" },
+                values: new object[] { 1, "admin@gmail.com", "Adam", "$2a$12$6Ck2f2SZA77ETUZ.buJG2.Ql8lo1p65fiF.JEtGZPVxDkJPhimrTm", null, null, "Admin", "Boss" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EstimateDetails_CostBreakdownId",
@@ -259,7 +258,8 @@ namespace qelec.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_JobDetails_JobAddressId",
                 table: "JobDetails",
-                column: "JobAddressId");
+                column: "JobAddressId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_EstimateDetailsId",

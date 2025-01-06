@@ -202,3 +202,56 @@
         background-color: #e0e0e0;
     }
 
+/* Style dla ekranów o szerokości 768px i mniejszych */
+@media (max-width: 768px) {
+    .time-planner-form {
+        padding: 10px; /* Zmniejszenie odstępów */
+    }
+
+    .day-slider {
+        flex-wrap: wrap; /* Ustawienie elementów w wielu liniach */
+        gap: 5px; /* Mniejsze odstępy między przyciskami */
+    }
+
+    .day-button {
+        font-size: 12px; /* Zmniejszenie rozmiaru czcionki */
+        padding: 8px; /* Mniejsze odstępy wewnętrzne */
+    }
+
+    .time-slots-container {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Więcej kolumn na mniejszych ekranach */
+        gap: 5px; /* Mniejsze odstępy między slotami */
+    }
+
+    .time-slot-button {
+        font-size: 12px; /* Zmniejszenie rozmiaru czcionki przycisków */
+        padding: 6px; /* Mniejsze odstępy */
+    }
+
+    .filter-button {
+        font-size: 12px; /* Zmniejszenie rozmiaru czcionki */
+        padding: 8px; /* Dopasowanie odstępów */
+    }
+
+    .calendar-container {
+        margin: 20px; /* Mniejsze marginesy wokół kalendarza */
+    }
+
+    .mantine-DatePicker-calendarHeaderLevel {
+        font-size: 14px; /* Zmniejszenie rozmiaru tekstu */
+        padding: 8px 16px; /* Dopasowanie odstępów */
+    }
+
+    .mantine-DatePicker-calendarHeaderControl {
+        font-size: 18px; /* Zmniejszenie rozmiaru ikon */
+        width: 30px; /* Mniejsza szerokość */
+        height: 30px; /* Mniejsza wysokość */
+    }
+
+    .mantine-DatePicker-day {
+        width: 30px; /* Mniejsza szerokość dnia */
+        height: 30px; /* Mniejsza wysokość */
+    }
+}
+
+
