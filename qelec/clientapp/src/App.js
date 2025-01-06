@@ -18,7 +18,16 @@ import ManageYourOrders from './components/CustomerPortal/ManageYourOrders';
 import EstimatesGenerator from './components/EstimatesGenerator';
 import GenerateInvoice from './services/GenerateInvoice'; // Updated Import
 import PdfMakeTest from './components/PdfMakeTest'; // Added a test page for PDFMake
+import TestEmail from "./components/TestEmail";
+import Register from './components/Auth/Register';
+import ForgotPassword from './components/Auth/ForgotPassword';
+import ResetPassword from './components/Auth/ResetPassword';
+import ManageUsers from './components/AdminPortal/ManageUsers';
+import GeneratePATCertificate from './services/GeneratePATCertificate';
+import AnalyticsReports from './components/AdminPortal/AnalyticsReports';
 import './App.css';
+
+
 
 function App() {
     const [showForm, setShowForm] = useState(false);
@@ -40,7 +49,10 @@ function App() {
                         <Route path="/ordersummary" element={<OrderSummary />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/estimates" element={<EstimatesGenerator />} />
-
+                        <Route path="/testemail" element={<TestEmail />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/forgot-password" element={<ForgotPassword />} />"
+                        <Route path="/reset-password" element={<ResetPassword />} />"
                         {/* Protected Admin Routes */}
                         <Route
                             path="/adminportal"
@@ -49,12 +61,58 @@ function App() {
                                     <AdminPortal />
                                 </PrivateRouteAdmin>
                             }
-                        >
-                            <Route path="timesetter" element={<TimeSetter />} />
-                            <Route path="manage-orders" element={<ManageOrders />} />
-                            <Route path="generate-invoice" element={<GenerateInvoice />} /> {/* GenerateInvoice Route */}
-                        </Route>
+                        />
+                        <Route
+                            path="/adminportal/timesetter"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <TimeSetter />
+                                </PrivateRouteAdmin>
+                            }
+                        />
 
+                        <Route
+                            path="/adminportal/manage-users"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <ManageUsers />
+                                </PrivateRouteAdmin>
+                            }
+                        />
+
+
+                        <Route
+                            path="/adminportal/manage-orders"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <ManageOrders />
+                                </PrivateRouteAdmin>
+                            }
+                        />
+                        <Route
+                            path="/adminportal/generate-invoice"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <GenerateInvoice />
+                                </PrivateRouteAdmin>
+                            }
+                        />
+                        <Route
+                            path="/adminportal/generate-pat-certificate"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <GeneratePATCertificate />
+                                </PrivateRouteAdmin>
+                            }
+                        />
+                        <Route
+                            path="/adminportal/analytics-reports"
+                            element={
+                                <PrivateRouteAdmin>
+                                    <AnalyticsReports />
+                                </PrivateRouteAdmin>
+                            }
+                        />
                         {/* Protected Customer Routes */}
                         <Route
                             path="/customerportal"

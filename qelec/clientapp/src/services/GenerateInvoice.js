@@ -15,7 +15,7 @@ const GenerateInvoice = ({ orderId }) => {
             name: "QELECTRIC LTD",
             street: "5 Levett House",
             postcode: "SW16 1SS",
-            city:  "London",
+            city: "London",
             phone: "0740 537 6887",
             email: "jakub@qelectric.net",
         },
@@ -277,7 +277,7 @@ const GenerateInvoice = ({ orderId }) => {
             ],
             styles: {
                 header: { fontSize: 18, bold: true },
-                sectionHeader: { fontSize:14, bold: true, margin: [0, 10, 0, 5] },
+                sectionHeader: { fontSize: 14, bold: true, margin: [0, 10, 0, 5] },
                 smallText: { fontSize: 12 },
                 tableHeader: { fontSize: 12, bold: true },
                 total: { fontSize: 14, bold: true, alignment: "right" },

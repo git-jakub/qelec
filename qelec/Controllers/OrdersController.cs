@@ -39,24 +39,61 @@ public class OrdersController : ControllerBase
         return null;
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<OrderDto>> GetOrderById(int id)
+    [HttpGet]
+    [Route("user-orders")]
+    public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByUserId([FromQuery] int? sub)
     {
-        var order = await _context.Orders
+        var userId = sub ?? GetUserId();
+        if (userId == null)
+        {
+            return Unauthorized(new { message = "User ID could not be determined." });
+        }
+
+        var orders = await _context.Orders
+            .Where(o => o.UserId == userId)
             .Include(o => o.JobDetails)
             .ThenInclude(jd => jd.JobAddress)
             .Include(o => o.EstimateDetails)
             .ThenInclude(e => e.CostBreakdown)
-            .FirstOrDefaultAsync(o => o.OrderId == id);
+            .Select(o => MapToOrderDto(o))
+            .ToListAsync();
 
-        if (order == null)
+        if (!orders.Any())
         {
-            return NotFound();
+            return NotFound(new { message = "No orders found for the user." });
         }
 
-        var orderDto = MapToOrderDto(order);
-        return Ok(orderDto);
+        return Ok(orders);
     }
+
+    [HttpGet]
+    [Route("all-orders")]
+    [Authorize(Roles = "Admin")] // Ensure only admins can access this
+    public async Task<ActionResult<IEnumerable<OrderDto>>> GetAllOrders()
+    {
+        // Fetch all orders with related data
+        var orders = await _context.Orders
+            .Include(o => o.JobDetails)
+            .ThenInclude(jd => jd.JobAddress)
+            .Include(o => o.EstimateDetails)
+            .ThenInclude(e => e.CostBreakdown)
+            .Include(o => o.InvoiceDetails)
+            .Select(o => MapToOrderDto(o))
+            .ToListAsync();
+
+        if (!orders.Any())
+        {
+            return NotFound(new { message = "No orders found." });
+        }
+
+        return Ok(orders);
+    }
+
+
+
+
+
+
 
     [HttpPost]
     [AllowAnonymous]
@@ -160,12 +197,12 @@ public class OrdersController : ControllerBase
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetOrderById), new { id = order.OrderId }, MapToOrderDto(order));
+        return CreatedAtAction(nameof(GetOrdersByUserId), new { id = order.OrderId }, MapToOrderDto(order));
     }
 
 
 
-    private OrderDto MapToOrderDto(Order order)
+    private static OrderDto MapToOrderDto(Order order)
     {
         return new OrderDto
         {
@@ -216,7 +253,21 @@ public class OrdersController : ControllerBase
                     TotalCongestionCharge = order.EstimateDetails.CostBreakdown.TotalCongestionCharge,
                     CommutingCost = order.EstimateDetails.CostBreakdown.CommutingCost
                 }
-            }
+            },
+            InvoiceDetails = order.InvoiceDetails != null ? new InvoiceDetailsDto
+            {
+                RecipientName = order.InvoiceDetails.RecipientName,
+                RecipientAddress = order.InvoiceDetails.RecipientAddress,
+                RecipientPostcode = order.InvoiceDetails.RecipientPostcode,
+                RecipientCity = order.InvoiceDetails.RecipientCity,
+                RecipientEmail = order.InvoiceDetails.RecipientEmail,
+                RecipientPhone = order.InvoiceDetails.RecipientPhone,
+                PaymentStatus = order.InvoiceDetails.PaymentStatus,
+                CompanyName = order.InvoiceDetails.CompanyName,
+                InvoiceDate = order.InvoiceDetails.InvoiceDate,
+                TotalAmount = order.InvoiceDetails.TotalAmount
+            } : null
         };
     }
+
 }

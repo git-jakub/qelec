@@ -1,5 +1,4 @@
 ﻿import React, { useState, useEffect, useContext, useMemo } from 'react';
-import { DatePicker } from '@mantine/dates';
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
 import Navbar from './Navbar';
@@ -9,7 +8,6 @@ import './TimePlanner.css';
 
 // Function to find continuous slots
 const findAvailableContinuousSlots = (slots, requiredHours) => {
-    console.log(`[findAvailableContinuousSlots] Looking for slots that fit ${requiredHours} hours.`);
     const continuousSlots = [];
     const now = new Date();
     now.setHours(now.getHours() + 8);
@@ -85,10 +83,14 @@ const markTimeSlotsUnavailable = async (startDate, endDate) => {
 };
 
 const TimePlanner = () => {
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [currentDayIndex, setCurrentDayIndex] = useState(0);
+    const [currentSlotIndex, setCurrentSlotIndex] = useState(0);
+    const [availableDays, setAvailableDays] = useState([]);
+    const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     const [filteredTimeSlots, setFilteredTimeSlots] = useState([]);
-    const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
+    const [filteredSlotsByTime, setFilteredSlotsByTime] = useState([]);
+    const [timeFilter, setTimeFilter] = useState('ALL');
     const [loadingSlots, setLoadingSlots] = useState(false);
     const [error, setError] = useState(null);
 
@@ -102,6 +104,25 @@ const TimePlanner = () => {
         () => (isMultiDay ? splitExtendedWork(estimatedTimeInHours) : [estimatedTimeInHours]),
         [isMultiDay, estimatedTimeInHours]
     );
+
+    const generateDays = (startIndex, totalDays = 14) => {
+        const today = new Date();
+        return Array.from({ length: totalDays }, (_, i) => {
+            const date = new Date(today);
+            date.setDate(today.getDate() + startIndex + i);
+            return {
+                label: date.toLocaleDateString('en-GB', { weekday: 'long', day: '2-digit', month: '2-digit' }),
+                date,
+            };
+        });
+    };
+
+    useEffect(() => {
+        setAvailableDays((prevDays) => [
+            ...prevDays,
+            ...generateDays(prevDays.length, 14),
+        ]);
+    }, [currentDayIndex]);
 
     const fetchAvailableTimeSlots = async (date) => {
         setLoadingSlots(true);
@@ -125,10 +146,10 @@ const TimePlanner = () => {
     };
 
     useEffect(() => {
-        if (selectedDate) {
-            fetchAvailableTimeSlots(selectedDate);
+        if (availableDays[currentDayIndex]) {
+            fetchAvailableTimeSlots(availableDays[currentDayIndex].date);
         }
-    }, [selectedDate]);
+    }, [currentDayIndex, availableDays]);
 
     useEffect(() => {
         if (availableTimeSlots.length > 0) {
@@ -136,26 +157,46 @@ const TimePlanner = () => {
                 findAvailableContinuousSlots(availableTimeSlots, hours)
             );
             setFilteredTimeSlots(allSlots);
+            setFilteredSlotsByTime(allSlots[0]);
         } else {
             setFilteredTimeSlots([]);
+            setFilteredSlotsByTime([]);
         }
     }, [availableTimeSlots, timeSlots]);
 
+    useEffect(() => {
+        if (filteredTimeSlots[0]?.length > 0) {
+            const filtered = filteredTimeSlots[0].filter((slot) => {
+                const startHour = new Date(slot.startSlot.startDate).getHours();
+
+                if (timeFilter === 'AM') return startHour >= 6 && startHour < 12;
+                if (timeFilter === 'PM') return startHour >= 12 && startHour < 18;
+                if (timeFilter === 'OUT_OF_HOURS') return startHour >= 18 || startHour < 6;
+
+                return true;
+            });
+
+            setFilteredSlotsByTime(filtered);
+            setCurrentSlotIndex(0);
+        }
+    }, [timeFilter, filteredTimeSlots]);
+
     const handleTimeSlotClick = (slot, index) => {
+        if (index > 0) {
+            alert('Only the first 12 hours can be booked directly.');
+            return;
+        }
+
         const updatedSelectedTimeSlots = [...selectedTimeSlots];
         updatedSelectedTimeSlots[index] = slot;
         setSelectedTimeSlots(updatedSelectedTimeSlots);
-
-        if (!selectedDate) {
-            return;
-        }
 
         setOrderData((prevData) => ({
             ...prevData,
             timeSlot: updatedSelectedTimeSlots
                 .filter((ts) => ts)
                 .map((ts) => ({
-                    date: selectedDate.toISOString().split('T')[0],
+                    date: availableDays[currentDayIndex].date.toISOString().split('T')[0],
                     time: ts.time,
                     startSlot: ts.startSlot,
                     endSlot: ts.endSlot,
@@ -164,46 +205,118 @@ const TimePlanner = () => {
     };
 
     const handleNext = async () => {
-        if (selectedTimeSlots.length === timeSlots.length) {
-            const firstSlot = selectedTimeSlots[0].startSlot.startDate;
-            const lastSlot = selectedTimeSlots[selectedTimeSlots.length - 1].endSlot.endDate;
+        if (selectedTimeSlots.length < 1) {
+            alert('Please select at least one time slot before proceeding.');
+            return;
+        }
 
-            await markTimeSlotsUnavailable(new Date(firstSlot), new Date(lastSlot));
+        const bookedHours = Math.min(estimatedTimeInHours, 12);
+        const toBeConfirmedHours = Math.max(0, estimatedTimeInHours - 12);
 
+        try {
+            // Mark all selected time slots as unavailable
+            for (const slot of selectedTimeSlots.filter(Boolean)) {
+                const startDate = new Date(slot.startSlot.startDate);
+                const endDate = new Date(slot.endSlot.endDate);
+                await markTimeSlotsUnavailable(startDate, endDate);
+            }
+
+            // Update order data
+            setOrderData((prevData) => ({
+                ...prevData,
+                estimateDetails: {
+                    ...prevData.estimateDetails,
+                    bookedHours,
+                    toBeConfirmedHours,
+                },
+            }));
+
+            // Navigate to the next page
             navigate('/jobdetails');
-        } else {
-            alert('Please select all required time slots before proceeding.');
+        } catch (error) {
+            console.error('Error booking time slots:', error);
+            alert('An error occurred while booking time slots. Please try again.');
         }
     };
 
+
     return (
         <div className="time-planner-form">
-            <Navbar backPath="/jobdetails" nextPath="/invoice" />
+            <Navbar backPath="/estimates" nextPath="/jobdetails" />
             <div className="main-content">
                 <h2>Select time slots for your work:</h2>
-                <DatePicker value={selectedDate} onChange={setSelectedDate} placeholder="Choose a suitable date" />
-                <div className="time-slots-container">
-                    {loadingSlots ? (
-                        <p>Loading available timeslots...</p>
-                    ) : error ? (
-                        <p className="error-message">{error}</p>
-                    ) : (
-                        timeSlots.map((hours, index) => (
-                            <div key={index}>
-                                <h4>Select slot for {hours} hours:</h4>
-                                {filteredTimeSlots[index]?.map((slot, slotIndex) => (
-                                    <button
-                                        key={slotIndex}
-                                        onClick={() => handleTimeSlotClick(slot, index)}
-                                        className={`time-slot-button ${selectedTimeSlots[index] === slot ? 'selected' : ''
-                                            }`}
-                                    >
-                                        {slot.time}
-                                    </button>
-                                ))}
-                            </div>
-                        ))
-                    )}
+                <div className="day-slider">
+                    <button
+                        onClick={() => setCurrentDayIndex((prev) => Math.max(prev - 1, 0))}
+                        disabled={currentDayIndex === 0}
+                    >
+                        &lt;
+                    </button>
+                    {availableDays.slice(currentDayIndex, currentDayIndex + 7).map((day, index) => (
+                        <button
+                            key={index}
+                            className={`day-button ${index === 0 ? 'active' : ''}`}
+                            onClick={() => setCurrentDayIndex(currentDayIndex + index)}
+                        >
+                            <span className="day-label">{day.label.split(',')[0]}</span>
+                            <span className="date-label">{day.label.split(',')[1]}</span>
+                        </button>
+                    ))}
+                    <button
+                        onClick={() => setCurrentDayIndex((prev) => prev + 1)}
+                        disabled={currentDayIndex + 7 >= availableDays.length}
+                    >
+                        &gt;
+                    </button>
+                </div>
+                <div className="time-slot-filter">
+                    <button
+                        onClick={() => setTimeFilter('ALL')}
+                        className={`filter-button ${timeFilter === 'ALL' ? 'active' : ''}`}
+                    >
+                        All
+                    </button>
+                    <button
+                        onClick={() => setTimeFilter('AM')}
+                        className={`filter-button ${timeFilter === 'AM' ? 'active' : ''}`}
+                    >
+                        AM
+                    </button>
+                    <button
+                        onClick={() => setTimeFilter('PM')}
+                        className={`filter-button ${timeFilter === 'PM' ? 'active' : ''}`}
+                    >
+                        PM
+                    </button>
+                    <button
+                        onClick={() => setTimeFilter('OUT_OF_HOURS')}
+                        className={`filter-button ${timeFilter === 'OUT_OF_HOURS' ? 'active' : ''}`}
+                    >
+                        Out of Hours
+                    </button>
+                </div>
+                <div className="time-slot-slider">
+                    <button
+                        onClick={() => setCurrentSlotIndex((prev) => Math.max(prev - 1, 0))}
+                        disabled={currentSlotIndex === 0}
+                    >
+                        &lt;
+                    </button>
+                    {filteredSlotsByTime.slice(currentSlotIndex, currentSlotIndex + 5).map((slot, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleTimeSlotClick(slot, 0)}
+                            className={`time-slot-button ${selectedTimeSlots[0] === slot ? 'selected' : ''}`}
+                        >
+                            {slot.time}
+                        </button>
+                    ))}
+                    <button
+                        onClick={() => setCurrentSlotIndex((prev) => prev + 1)}
+                        disabled={currentSlotIndex + 5 >= filteredSlotsByTime.length}
+                    >
+                        &gt;
+                    </button>
                 </div>
                 <EstimateDetails
                     input={orderData?.estimateDetails?.jobDescription || ''}
@@ -221,8 +334,9 @@ const TimePlanner = () => {
                         }))
                     }
                     calculatedCost={orderData?.estimateDetails?.calculatedCost || 0}
+                    bookedHours={orderData?.estimateDetails?.bookedHours || 0}
+                    toBeConfirmedHours={orderData?.estimateDetails?.toBeConfirmedHours || 0}
                     editable={true}
-                    setEditable={() => { }}
                     paidOnStreet={orderData?.jobAddress?.paidOnStreet || false}
                     congestionCharge={orderData?.jobAddress?.congestionCharge || false}
                     postcode={orderData?.jobAddress?.postcode || ''}
@@ -237,7 +351,7 @@ const TimePlanner = () => {
                 <button
                     onClick={handleNext}
                     className="submit-button"
-                    disabled={selectedTimeSlots.length !== timeSlots.length}
+                    disabled={selectedTimeSlots.length < 1}
                 >
                     Book Time Slots
                 </button>

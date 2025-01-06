@@ -7,7 +7,7 @@
 	width: 100%; /* Responsywna szerokość */
 	padding: 20px; /* Wewnętrzne odstępy */
 	text-align: center; /* Wyrównanie do środka */
-	background-color: #2D5078; /* Dopasowany kolor tła */
+	background-color: #106EBE; /* Dopasowany kolor tła */
 	border-radius: 10px; /* Zaokrąglone rogi */
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtelny cień */
 }
@@ -15,7 +15,7 @@
 	.job-address-container h2 {
 		font-size: 32px; /* Dopasowana wielkość tekstu */
 		margin-bottom: 20px; /* Odstęp poniżej */
-		color: #e63946; /* Kolor akcentowy */
+		color: white; /* Kolor akcentowy */
 	}
 
 .job-address-form-group {
@@ -38,8 +38,8 @@
 		border: none;
 		border-radius: 5px;
 		font-size: 1rem;
-		background-color: #3A4E6A; /* Kolor wiersza */
-		color: white; /* Kolor tekstu */
+		background-color: white; /* Kolor wiersza */
+		color: black; /* Kolor tekstu */
 		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 	}
 

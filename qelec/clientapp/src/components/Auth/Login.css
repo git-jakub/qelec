@@ -1,18 +1,21 @@
 ﻿/* Container for the entire login component */
 .login-container {
+    margin-top: 80px; /* Dodaj odstęp od góry, aby uwzględnić navbar */
     max-width: 400px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #1E3D65;
+    background-color: black;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
+    color: white;
 }
+
 
     /* Title styling */
     .login-container h2 {
         font-size: 1.8rem;
-        color: white;
+        color: #0FFCB3; /* Dopasowanie koloru tytułu */
         margin-bottom: 1rem;
     }
 
@@ -26,7 +29,7 @@
     /* Label styling */
     .login-container label {
         font-size: 1rem;
-        color: white;
+        color: #0FFCB3; /* Dopasowanie koloru etykiet */
         text-align: left;
         margin-bottom: 0.5rem;
         font-weight: 600;
@@ -34,7 +37,7 @@
 
     /* Input field styling */
     .login-container input {
-        padding: 0.6rem;
+        padding: 10px;
         font-size: 1rem;
         border: 1px solid #ddd;
         border-radius: 5px;
@@ -45,24 +48,45 @@
 
         .login-container input:focus {
             outline: none;
-            border-color: #007bff;
+            border-color: #0FFCB3; /* Dopasowanie koloru obramowania po fokusie */
         }
 
     /* Button styling */
     .login-container button {
-        padding: 0.8rem;
+        padding: 10px 15px;
         font-size: 1rem;
-        color: #fff;
-        background-color: #e74c3c;
+        color: black;
+        background-color: #0FFCB3; /* Dopasowanie koloru przycisku */
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
     }
 
         .login-container button:hover {
-            background-color: #0056b3;
+            background-color: #106EBE; /* Kolor po najechaniu */
+            color: white; /* Zmiana koloru tekstu */
+            transform: scale(1.05); /* Subtelne powiększenie */
         }
+    /* Styl dla linku "Forgot your password?" */
+    .login-container a {
+        color: #0FFCB3; /* Dopasowanie koloru do przycisków i etykiet */
+        text-decoration: none; /* Usuń podkreślenie */
+        font-weight: bold; /* Pogrubienie tekstu */
+        transition: color 0.3s ease;
+    }
+
+        .login-container a:hover {
+            color: #106EBE; /* Zmiana koloru po najechaniu */
+            text-decoration: underline; /* Podkreślenie tekstu przy hover */
+        }
+
+        .login-container a:focus {
+            outline: none;
+            color: #00D2A0; /* Podświetlenie po fokusie */
+        }
+
 
 /* Error message styling */
 .error {
@@ -73,4 +97,27 @@
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
     border-radius: 5px;
+}
+
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+        .login-container h2 {
+            font-size: 1.5rem;
+        }
+
+        .login-container button {
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
+        .login-container input {
+            padding: 8px;
+            font-size: 0.9rem;
+        }
 }

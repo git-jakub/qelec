@@ -72,7 +72,7 @@ public class AppDbContext : DbContext
             }
         );
 
-        // Seed User data
+        //Seed User data
         modelBuilder.Entity<User>().HasData(
             new User
             {
@@ -81,8 +81,11 @@ public class AppDbContext : DbContext
                 PasswordHash = "$2a$12$6Ck2f2SZA77ETUZ.buJG2.Ql8lo1p65fiF.JEtGZPVxDkJPhimrTm",
                 FullName = "Adam",
                 Username = "Boss",
-                Role = "Admin"
+                Role = "Admin",
+                ResetToken = null, // Set to null or provide a default value
+                ResetTokenExpiry = null // Set to null or provide a default value
             }
         );
+
     }
 }

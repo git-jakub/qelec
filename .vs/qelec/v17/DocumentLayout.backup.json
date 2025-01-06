@@ -1,166 +1,166 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\",
+  "WorkspaceRootPath": "C:\\Users\\xpsja\\source\\repos\\qelec\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\UserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Controllers\\UserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\qelec.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\qelec.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\qelec.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\qelec.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\jobdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\jobdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\JobDetailsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Controllers\\JobDetailsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\dtos\\jobaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\dtos\\jobaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\controllers\\jobdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\controllers\\jobdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\OrdersController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Controllers\\OrdersController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\dtos\\jobdetailsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\dtos\\jobdetailsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\Order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\Order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\OrderDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\DTOs\\OrderDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\costcalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\costcalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\EstimatesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Controllers\\EstimatesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\controllers\\estimatescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\controllers\\estimatescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\EstimateDetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\EstimateDetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\EstimateDetailsDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\DTOs\\EstimateDetailsDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\JobAddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\JobAddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\JobAddressDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\DTOs\\JobAddressDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\ordersummary.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\ordersummary.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\JobDetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\JobDetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\estimatedetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\estimatedetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\JobDetailsDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Models\\DTOs\\JobDetailsDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\dtos\\estimatedetailsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\dtos\\estimatedetailsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderActions.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\OrderActions.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\estimatedetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\estimatedetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderStatus.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\OrderStatus.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\models\\jobaddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\models\\jobaddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\services\\pdfService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\services\\pdfService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\address\\jobaddress.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\address\\jobaddress.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\services\\emailService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\services\\emailService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\jobdetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\jobdetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\JobDetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\orderactions.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\orderactions.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderSummary.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\OrderSummary.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\orderstatus.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\orderstatus.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\TimePlanner.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\timeplanner.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\timeplanner.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\TimePlanner.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\estimatesgenerator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\estimatesgenerator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\EstimateDetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\estimategenerator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\estimategenerator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\EstimateDetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\postcodeservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\postcodeservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\services\\postcodeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\services\\postcodeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\PostcodeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Controllers\\PostcodeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\services\\pdfservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\services\\pdfservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\postcodeService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\postcodeService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\services\\emailservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\services\\emailservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\PostcodeCategorizer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\PostcodeCategorizer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\jobdetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\jobdetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\DistanceCalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\DistanceCalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\estimatedetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\estimatedetails.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\CostCalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\CostCalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\timeplanner.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\timeplanner.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.css||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\Address\\JobAddress.css||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\postcodecategorizer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\postcodecategorizer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\Address\\JobAddress.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\distancecalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\distancecalculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Services\\PostcodeService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Services\\PostcodeService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\address\\jobaddress.css||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\address\\jobaddress.css||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\tests\\testcategorizepostcodes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\tests\\testcategorizepostcodes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Services\\OpenAIService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\Services\\OpenAIService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\controllers\\postcodecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\controllers\\postcodecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\JobDetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateGenerator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\EstimateGenerator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\serviceselector.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\serviceselector.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\ServiceSelector.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\services\\openaiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\services\\openaiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimatesGenerator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\EstimatesGenerator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|c:\\users\\administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\serviceselector.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{49E21BC3-B14D-411F-AB1A-9310904DAFB5}|qelec\\qelec.csproj|solutionrelative:qelec\\clientapp\\src\\components\\serviceselector.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:qelec\\clientapp\\src\\components\\ServiceSelector.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -174,15 +174,15 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\UserController.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "qelec\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\UserController.cs",
               "RelativeToolTip": "qelec\\Controllers\\UserController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -193,22 +193,21 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "qelec.csproj",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Source\\Repos\\git-jakub\\qelec\\qelec\\qelec.csproj",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\qelec.csproj",
               "RelativeDocumentMoniker": "qelec\\qelec.csproj",
-              "ToolTip": "C:\\Users\\Administrator\\Source\\Repos\\git-jakub\\qelec\\qelec\\qelec.csproj",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\qelec.csproj",
               "RelativeToolTip": "qelec\\qelec.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-12-05T20:15:50.001Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T20:15:50.001Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "JobDetailsController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\JobDetailsController.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\JobDetailsController.cs",
               "RelativeDocumentMoniker": "qelec\\Controllers\\JobDetailsController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\JobDetailsController.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\JobDetailsController.cs",
               "RelativeToolTip": "qelec\\Controllers\\JobDetailsController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAswIMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -216,11 +215,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\AppDbContext.cs",
               "RelativeDocumentMoniker": "qelec\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\AppDbContext.cs",
               "RelativeToolTip": "qelec\\AppDbContext.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -228,11 +227,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "OrdersController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\OrdersController.cs",
               "RelativeDocumentMoniker": "qelec\\Controllers\\OrdersController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\OrdersController.cs",
               "RelativeToolTip": "qelec\\Controllers\\OrdersController.cs",
               "ViewState": "AgIAAKQAAAAAAAAAAAAYwLwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -240,11 +239,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 5,
               "Title": "Order.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\Order.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\Order.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\Order.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\Order.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\Order.cs",
               "RelativeToolTip": "qelec\\Models\\Order.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -252,11 +251,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 6,
               "Title": "OrderDto.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\OrderDto.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\OrderDto.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\DTOs\\OrderDto.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\OrderDto.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\OrderDto.cs",
               "RelativeToolTip": "qelec\\Models\\DTOs\\OrderDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAkwBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -264,11 +263,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "EstimatesController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\EstimatesController.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\EstimatesController.cs",
               "RelativeDocumentMoniker": "qelec\\Controllers\\EstimatesController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\EstimatesController.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\EstimatesController.cs",
               "RelativeToolTip": "qelec\\Controllers\\EstimatesController.cs",
               "ViewState": "AgIAAFMAAAAAAAAAAAAYwGsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -276,11 +275,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 8,
               "Title": "EstimateDetails.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\EstimateDetails.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\EstimateDetails.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\EstimateDetails.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\EstimateDetails.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\EstimateDetails.cs",
               "RelativeToolTip": "qelec\\Models\\EstimateDetails.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAA5wDAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -288,11 +287,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 9,
               "Title": "EstimateDetailsDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\EstimateDetailsDTO.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\EstimateDetailsDTO.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\DTOs\\EstimateDetailsDTO.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\EstimateDetailsDTO.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\EstimateDetailsDTO.cs",
               "RelativeToolTip": "qelec\\Models\\DTOs\\EstimateDetailsDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -300,11 +299,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 10,
               "Title": "JobAddress.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\JobAddress.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\JobAddress.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\JobAddress.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\JobAddress.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\JobAddress.cs",
               "RelativeToolTip": "qelec\\Models\\JobAddress.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -312,11 +311,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "JobAddressDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\JobAddressDTO.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\JobAddressDTO.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\DTOs\\JobAddressDTO.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\JobAddressDTO.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\JobAddressDTO.cs",
               "RelativeToolTip": "qelec\\Models\\DTOs\\JobAddressDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -324,11 +323,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "JobDetails.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\JobDetails.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\JobDetails.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\JobDetails.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\JobDetails.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\JobDetails.cs",
               "RelativeToolTip": "qelec\\Models\\JobDetails.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAywA0AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -336,11 +335,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 13,
               "Title": "JobDetailsDto.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\JobDetailsDto.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\JobDetailsDto.cs",
               "RelativeDocumentMoniker": "qelec\\Models\\DTOs\\JobDetailsDto.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Models\\DTOs\\JobDetailsDto.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Models\\DTOs\\JobDetailsDto.cs",
               "RelativeToolTip": "qelec\\Models\\DTOs\\JobDetailsDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -348,11 +347,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 14,
               "Title": "OrderActions.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\OrderActions.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderActions.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\OrderActions.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\OrderActions.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderActions.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\OrderActions.js",
               "ViewState": "AgIAABEAAAAAAAAAAAAwwEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -360,11 +359,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 15,
               "Title": "OrderStatus.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\OrderStatus.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderStatus.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\OrderStatus.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\OrderStatus.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderStatus.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\OrderStatus.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -372,11 +371,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 16,
               "Title": "pdfService.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\services\\pdfService.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\services\\pdfService.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\services\\pdfService.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\services\\pdfService.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\services\\pdfService.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\services\\pdfService.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -384,11 +383,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 17,
               "Title": "emailService.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\services\\emailService.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\services\\emailService.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\services\\emailService.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\services\\emailService.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\services\\emailService.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\services\\emailService.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -396,11 +395,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 18,
               "Title": "JobDetails.css",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.css",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.css",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\JobDetails.css",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.css",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.css",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\JobDetails.css",
               "ViewState": "AgIAABcAAAAAAAAAAAAwwC0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
@@ -408,11 +407,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 19,
               "Title": "OrderSummary.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\OrderSummary.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderSummary.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\OrderSummary.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\OrderSummary.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\OrderSummary.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\OrderSummary.js",
               "ViewState": "AgIAAIAAAAAAAAAAAAAUwJgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -420,11 +419,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 20,
               "Title": "TimePlanner.css",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.css",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.css",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\TimePlanner.css",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.css",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.css",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\TimePlanner.css",
               "ViewState": "AgIAAGYAAAAAAAAAAAAwwIQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
@@ -434,9 +433,9 @@
               "$type": "Document",
               "DocumentIndex": 21,
               "Title": "TimePlanner.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\TimePlanner.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\TimePlanner.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\TimePlanner.js",
               "ViewState": "AgIAANUAAAAAAAAAAAAAAAMBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -444,11 +443,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 22,
               "Title": "EstimateDetails.css",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.css",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.css",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\EstimateDetails.css",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.css",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.css",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\EstimateDetails.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
@@ -456,11 +455,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 23,
               "Title": "EstimateDetails.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\EstimateDetails.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateDetails.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\EstimateDetails.js",
               "ViewState": "AgIAADwAAAAAAAAAAAAYwGkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -468,11 +467,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 24,
               "Title": "testCategorizePostcodes.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\tests\\testCategorizePostcodes.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -480,11 +479,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 25,
               "Title": "PostcodeController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\PostcodeController.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\PostcodeController.cs",
               "RelativeDocumentMoniker": "qelec\\Controllers\\PostcodeController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Controllers\\PostcodeController.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Controllers\\PostcodeController.cs",
               "RelativeToolTip": "qelec\\Controllers\\PostcodeController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -492,11 +491,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "postcodeService.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\postcodeService.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\postcodeService.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\postcodeService.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\postcodeService.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\postcodeService.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\postcodeService.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -504,11 +503,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 27,
               "Title": "PostcodeCategorizer.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\PostcodeCategorizer.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\PostcodeCategorizer.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\PostcodeCategorizer.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\PostcodeCategorizer.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\PostcodeCategorizer.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\PostcodeCategorizer.js",
               "ViewState": "AgIAAEEAAAAAAAAAAAAAwGkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -516,11 +515,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 28,
               "Title": "DistanceCalculator.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\DistanceCalculator.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\DistanceCalculator.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\DistanceCalculator.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\DistanceCalculator.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\DistanceCalculator.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\DistanceCalculator.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -528,11 +527,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 29,
               "Title": "CostCalculator.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\CostCalculator.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\CostCalculator.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\CostCalculator.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\CostCalculator.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\CostCalculator.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\CostCalculator.js",
               "ViewState": "AgIAAFcAAAAAAAAAAAAUwG8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -540,11 +539,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 30,
               "Title": "JobAddress.css",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.css",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.css",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\Address\\JobAddress.css",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.css",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.css",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\Address\\JobAddress.css",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
@@ -552,11 +551,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 31,
               "Title": "JobAddress.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\Address\\JobAddress.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\Address\\JobAddress.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\Address\\JobAddress.js",
               "ViewState": "AgIAAD8AAAAAAAAAAAAYwGwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -564,11 +563,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 32,
               "Title": "PostcodeService.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Services\\PostcodeService.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Services\\PostcodeService.cs",
               "RelativeDocumentMoniker": "qelec\\Services\\PostcodeService.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Services\\PostcodeService.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Services\\PostcodeService.cs",
               "RelativeToolTip": "qelec\\Services\\PostcodeService.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAQwDYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -576,11 +575,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 33,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Program.cs",
               "RelativeDocumentMoniker": "qelec\\Program.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Program.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Program.cs",
               "RelativeToolTip": "qelec\\Program.cs",
               "ViewState": "AgIAAGEAAAAAAAAAAAAowIwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -588,11 +587,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 34,
               "Title": "OpenAIService.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Services\\OpenAIService.cs",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Services\\OpenAIService.cs",
               "RelativeDocumentMoniker": "qelec\\Services\\OpenAIService.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\Services\\OpenAIService.cs",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\Services\\OpenAIService.cs",
               "RelativeToolTip": "qelec\\Services\\OpenAIService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -600,11 +599,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 35,
               "Title": "JobDetails.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\JobDetails.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\JobDetails.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\JobDetails.js",
               "ViewState": "AgIAAFwAAAAAAAAAAAAYwIkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -612,11 +611,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 36,
               "Title": "EstimateGenerator.css",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimateGenerator.css",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateGenerator.css",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\EstimateGenerator.css",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimateGenerator.css",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimateGenerator.css",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\EstimateGenerator.css",
               "ViewState": "AgIAADoAAAAAAAAAAAAQwFkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
@@ -624,11 +623,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 37,
               "Title": "ServiceSelector.css",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.css",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.css",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\ServiceSelector.css",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.css",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.css",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\ServiceSelector.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
@@ -636,11 +635,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 38,
               "Title": "EstimatesGenerator.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimatesGenerator.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimatesGenerator.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\EstimatesGenerator.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\EstimatesGenerator.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\EstimatesGenerator.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\EstimatesGenerator.js",
               "ViewState": "AgIAAHEAAAAAAAAAAAAAAJ8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -648,15 +647,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 39,
               "Title": "ServiceSelector.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.js",
+              "DocumentMoniker": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.js",
               "RelativeDocumentMoniker": "qelec\\clientapp\\src\\components\\ServiceSelector.js",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\git-jakub\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.js",
+              "ToolTip": "C:\\Users\\xpsja\\source\\repos\\qelec\\qelec\\clientapp\\src\\components\\ServiceSelector.js",
               "RelativeToolTip": "qelec\\clientapp\\src\\components\\ServiceSelector.js",
               "ViewState": "AgIAAJkAAAAAAAAAAAAgwKcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-12-02T19:33:55.668Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }

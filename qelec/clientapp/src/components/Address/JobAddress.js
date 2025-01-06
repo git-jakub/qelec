@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef, useContext } from 'react';
+import { OrderContext } from '../../context/OrderContext';
 import './JobAddress.css';
 
 const JobAddress = ({
@@ -15,34 +16,35 @@ const JobAddress = ({
     congestionCharge,
     setCongestionCharge,
 }) => {
-    const calculationRef = useRef(null); // To track ongoing calculations or API requests
+    const { setOrderData } = useContext(OrderContext); // Access context
 
-    // Function to start postcode calculations
-    const startPostcodeCalculations = (newPostcode) => {
-        if (calculationRef.current) {
-            console.log('Cancelling ongoing calculation');
-            clearTimeout(calculationRef.current); // Clear any ongoing calculations
-        }
-
-        calculationRef.current = setTimeout(() => {
-            console.log('Calculating details for postcode:', newPostcode);
-            // Perform your API requests or calculations here
-            // Example: fetchPostcodeDetails(newPostcode);
-        }, 500); // Debounced delay
+    const updateContext = (updatedValues) => {
+        setOrderData((prevData) => ({
+            ...prevData,
+            jobAddress: {
+                ...prevData.jobAddress,
+                ...updatedValues,
+            },
+        }));
     };
 
-    // Stop calculations on blur
-    const stopPostcodeCalculations = () => {
+    const calculationRef = useRef(null); // To track ongoing calculations or API requests
+
+    const startPostcodeCalculations = (newPostcode) => {
         if (calculationRef.current) {
-            console.log('Stopped postcode calculations.');
-            clearTimeout(calculationRef.current);
-            calculationRef.current = null;
+            clearTimeout(calculationRef.current); // Clear any ongoing calculations
         }
+        calculationRef.current = setTimeout(() => {
+            // Perform calculations or API requests here
+            console.log('Calculating details for postcode:', newPostcode);
+        }, 500); // Debounced delay
     };
 
     useEffect(() => {
         return () => {
-            stopPostcodeCalculations(); // Cleanup on component unmount
+            if (calculationRef.current) {
+                clearTimeout(calculationRef.current); // Cleanup on unmount
+            }
         };
     }, []);
 
@@ -58,11 +60,10 @@ const JobAddress = ({
                     id="postcode"
                     value={postcode}
                     onChange={(e) => {
-                        console.log('Postcode Updated:', e.target.value);
                         setPostcode(e.target.value);
-                        startPostcodeCalculations(e.target.value); // Start calculations
+                        startPostcodeCalculations(e.target.value);
+                        updateContext({ postcode: e.target.value });
                     }}
-                    onBlur={stopPostcodeCalculations} // Stop calculations on blur
                 />
             </div>
 
@@ -74,8 +75,8 @@ const JobAddress = ({
                     id="street"
                     value={street}
                     onChange={(e) => {
-                        console.log('Street Updated:', e.target.value);
                         setStreet(e.target.value);
+                        updateContext({ street: e.target.value });
                     }}
                 />
             </div>
@@ -88,8 +89,8 @@ const JobAddress = ({
                     id="city"
                     value={city}
                     onChange={(e) => {
-                        console.log('City Updated:', e.target.value);
                         setCity(e.target.value);
+                        updateContext({ city: e.target.value });
                     }}
                 />
             </div>
@@ -101,8 +102,8 @@ const JobAddress = ({
                         type="checkbox"
                         checked={paidOnStreet}
                         onChange={(e) => {
-                            console.log('Paid On Street Updated:', e.target.checked);
                             setPaidOnStreet(e.target.checked);
+                            updateContext({ paidOnStreet: e.target.checked });
                         }}
                     />
                     Paid On Street (£5/hour)
@@ -112,8 +113,8 @@ const JobAddress = ({
                         type="checkbox"
                         checked={visitorPermit}
                         onChange={(e) => {
-                            console.log('Visitor Permit Updated:', e.target.checked);
                             setVisitorPermit(e.target.checked);
+                            updateContext({ visitorPermit: e.target.checked });
                         }}
                     />
                     Visitor Permit (Free)
@@ -127,8 +128,8 @@ const JobAddress = ({
                         type="checkbox"
                         checked={congestionCharge}
                         onChange={(e) => {
-                            console.log('Congestion Charge Updated:', e.target.checked);
                             setCongestionCharge(e.target.checked);
+                            updateContext({ congestionCharge: e.target.checked });
                         }}
                     />
                     Congestion Charge Applies (£15)

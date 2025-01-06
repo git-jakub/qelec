@@ -28,6 +28,8 @@ const OrderSummary = () => {
     const editTimeSlot = () => navigate('/timeplanner');
     const editJobDetails = () => navigate('/jobdetails');
     const editInvoiceDetails = () => navigate('/invoice');
+    const editEstimateDetails = () => navigate('/estimates');
+    const editJobAddress = () => navigate('/estimates');
 
     const saveOrder = async () => {
         setLoading(true);
@@ -66,6 +68,7 @@ const OrderSummary = () => {
                     jobDescription: orderData.estimateDetails?.jobDescription || 'Not entered',
                     calculatedCost: parseFloat(orderData.estimateDetails?.calculatedCost || 0),
                     generatedTime: orderData.estimateDetails?.generatedTime || 1,
+
                     costBreakdown: {
                         commutingCost: parseFloat(orderData.estimateDetails?.costBreakdown?.commutingCost || 0),
                         paidOnStreet: !!orderData.estimateDetails?.costBreakdown?.paidOnStreet,
@@ -73,12 +76,13 @@ const OrderSummary = () => {
                         congestionCharge: !!orderData.estimateDetails?.costBreakdown?.congestionCharge,
                     },
                     postcode: orderData.estimateDetails?.postcode || 'Not entered',
-                    multiplierDetails: orderData.estimateDetails?.multiplierDetails || {
-                        name: 'Default Multiplier',
-                        start: new Date().toISOString(),
-                        end: new Date().toISOString(),
-                        multiplier: 1.0,
+                    multiplierDetails: {
+                        name: orderData.estimateDetails?.multiplierDetails?.name || 'Default Multiplier',
+                        start: orderData.estimateDetails?.multiplierDetails?.start || null, // Pozwala na null
+                        end: orderData.estimateDetails?.multiplierDetails?.end || null,   // Pozwala na null
+                        multiplier: orderData.estimateDetails?.multiplierDetails?.multiplier || 1.0,
                     },
+
                 },
             };
 
@@ -99,19 +103,27 @@ const OrderSummary = () => {
             console.log('Order saved successfully:', savedOrder);
 
             const emailParams = {
-                from_name: "QELEC",
-                recipient_name: validatedOrderData.invoiceDetails.recipientName,
-                order_id: savedOrder.orderId,
-                job_description: validatedOrderData.estimateDetails.jobDescription,
-                total_cost: validatedOrderData.estimateDetails.calculatedCost.toString(),
-                date: formattedDate,
-                time_slot: timeSlot.map((slot) => slot.time).join(', '),
-                to_email: validatedOrderData.invoiceDetails.recipientEmail,
-                reply_to: validatedOrderData.invoiceDetails.recipientEmail,
+                toEmail: validatedOrderData.invoiceDetails.recipientEmail,
+                toName: validatedOrderData.invoiceDetails.recipientName,
+                subject: `Order Confirmation #${savedOrder.orderId || "Unknown"}`,
+                body: `
+                    Dear ${validatedOrderData.invoiceDetails.recipientName},<br/><br/>
+                    Your order has been successfully placed.<br/><br/>
+                    <strong>Order Details:</strong><br/>
+                    Job: ${validatedOrderData.estimateDetails.jobDescription || "Not entered"}<br/>
+                    Total Cost: £${validatedOrderData.estimateDetails.calculatedCost || 0}<br/>
+                    Date: ${formattedDate}<br/>
+                    Time: ${formattedTime}<br/><br/>
+                    Thank you for choosing QElectric.
+                `,
             };
 
+
+            console.log("Prepared Email Params:", emailParams);
+
+
             const emailResponse = await sendOrderEmail(emailParams);
-            console.log('Email Params:', emailParams);
+            console.log("Email send response:", emailResponse);
 
             if (!emailResponse.success) {
                 console.error('Failed to send email:', emailResponse.error);
@@ -119,6 +131,53 @@ const OrderSummary = () => {
             } else {
                 console.log('Email sent successfully!');
             }
+
+            // Notify admin via WhatsApp
+            const whatsappMessage = {
+                toPhoneNumber: "+447405376887", // Your admin number
+                body: `🔔 *New Order Received!*
+
+                *Order ID:* ${savedOrder.orderId || "Unknown"}
+                *Client Name:* ${validatedOrderData.jobDetails.clientName || "Not entered"}
+                *Client Mobile:* ${validatedOrderData.jobDetails.mobile || "Not entered"}
+                *Client Email:* ${validatedOrderData.jobDetails.clientEmail || "Not entered"}
+
+                *Job Description:* ${validatedOrderData.estimateDetails.jobDescription || "Not entered"}
+                *Job Address:*
+                - ${validatedOrderData.jobAddress.street || "Not entered"}
+                - ${validatedOrderData.jobAddress.city || "Not entered"}
+                - ${validatedOrderData.jobAddress.postcode || "Not entered"}
+
+                *Total Cost:* £${validatedOrderData.estimateDetails.calculatedCost || 0}
+                *Date:* ${formattedDate}
+                *Time:* ${formattedTime}
+
+                Please review the order for further processing.`,
+            };
+
+            try {
+                // Send the WhatsApp message
+                const whatsappResponse = await fetch(`${process.env.REACT_APP_API_URL}/WhatsApp/send`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(whatsappMessage),
+                });
+
+                if (!whatsappResponse.ok) {
+                    const whatsappErrorDetails = await whatsappResponse.text();
+                    console.error('Failed to send WhatsApp message to admin:', whatsappErrorDetails);
+                    alert('Order saved but admin notification could not be sent. Please check the logs.');
+                } else {
+                    console.log('Admin notified via WhatsApp successfully!');
+                }
+            } catch (error) {
+                console.error('Error sending WhatsApp message to admin:', error);
+                alert('An unexpected error occurred while sending the WhatsApp notification.');
+            }
+
+
+
+
 
             // Generate Purchase Order PDF
             generatePurchaseOrderPdf({
@@ -146,65 +205,69 @@ const OrderSummary = () => {
                     <p>Your Order ID: {orderId}</p>
                 </div>
             )}
-            <div className="order-summary__container">
-                <div className="summary-section">
-                    <h3>Time Slot</h3>
-                    <p>Date: {formattedDate}</p>
-                    <p>Time: {formattedTime}</p>
-                    <button onClick={editTimeSlot} className="edit-button">Edit</button>
-                </div>
-                <div className="summary-section">
-                    <h3>Job Details</h3>
-                    <p>Name: {jobDetails?.clientName || 'N/A'}</p>
-                    <p>Site Access Info: {jobDetails?.siteAccessInfo || 'N/A'}</p>
-                    <p>Mobile: {jobDetails?.mobile || 'N/A'}</p>
-                    <p>Email: {jobDetails?.clientEmail || 'N/A'}</p>
-                    <p>Your Reference: {jobDetails?.yourReference || 'N/A'}</p>
-                    <p>Additional Information: {jobDetails?.additionalInfo || 'N/A'}</p>
-                    <button onClick={editJobDetails} className="edit-button">Edit</button>
-                </div>
-                <div className="summary-section">
-                    <h3>Job Address</h3>
-                    <p>Postcode: {jobAddress?.postcode || 'N/A'}</p>
-                    <p>Street: {jobAddress?.street || 'N/A'}</p>
-                    <p>City: {jobAddress?.city || 'N/A'}</p>
-                    <p>Paid On Street: {jobAddress?.paidOnStreet ? 'Yes' : 'No'}</p>
-                    <p>Visitor Permit: {jobAddress?.visitorPermit ? 'Yes' : 'No'}</p>
-                    <p>Congestion Charge: {jobAddress?.congestionCharge ? 'Yes' : 'No'}</p>
-                </div>
-                <div className="summary-section">
-                    <h3>Estimate Details</h3>
-                    <p>Job Description: {estimateDetails?.jobDescription || 'N/A'}</p>
-                    <p>Estimated Time: {estimateDetails?.generatedTime || 'N/A'} hours</p>
-                    <p>Total Cost: £{estimateDetails?.calculatedCost || 'N/A'}</p>
-                    <p>Labor Cost: £{estimateDetails?.costBreakdown?.laborCost || 'N/A'}</p>
-                    <p>Parking Cost: £{estimateDetails?.costBreakdown?.parkingCost || 'N/A'}</p>
-                    <p>Congestion Charge: £{estimateDetails?.costBreakdown?.totalCongestionCharge || 'N/A'}</p>
-                    <p>Commuting Cost: £{estimateDetails?.costBreakdown?.commutingCost || 'N/A'}</p>
-                </div>
-                <div className="summary-section">
-                    <h3>Invoice Details</h3>
-                    <p>Recipient Name: {invoiceDetails?.recipientName || 'N/A'}</p>
-                    <p>Company Name: {invoiceDetails?.companyName || 'N/A'}</p>
-                    <p>Recipient Address: {invoiceDetails?.recipientAddress || 'N/A'}</p>
-                    <p>Recipient Postcode: {invoiceDetails?.recipientPostcode || 'N/A'}</p>
-                    <p>Recipient City: {invoiceDetails?.recipientCity || 'N/A'}</p>
-                    <p>Recipient Email: {invoiceDetails?.recipientEmail || 'N/A'}</p>
-                    <p>Recipient Phone: {invoiceDetails?.recipientPhone || 'N/A'}</p>
-                    <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
-                    <button onClick={editInvoiceDetails} className="edit-button">Edit</button>
-                </div>
-                <div className="summary-section">
-
-                    <OrderStatus status={status} setStatus={setStatus}/>
-
-                    <button onClick={saveOrder} className="submit-button" disabled={loading}>
-                        {loading ? 'Saving...' : 'Save Order and Send Email'}
-                    </button>
-                </div>
-
+            <div className="summary-section">
+                <h3>Time Slot</h3>
+                <p>Date: {formattedDate}</p>
+                <p>Time: {formattedTime}</p>
+                <button onClick={editTimeSlot} className="edit-button">Edit</button>
             </div>
-
+            <div className="summary-section">
+                <h3>Job Details</h3>
+                <p>Name: {jobDetails?.clientName || 'N/A'}</p>
+                <p>Site Access Info: {jobDetails?.siteAccessInfo || 'N/A'}</p>
+                <p>Mobile: {jobDetails?.mobile || 'N/A'}</p>
+                <p>Email: {jobDetails?.clientEmail || 'N/A'}</p>
+                <p>Your Reference: {jobDetails?.yourReference || 'N/A'}</p>
+                <p>Additional Information: {jobDetails?.additionalInfo || 'N/A'}</p>
+                <button onClick={editJobDetails} className="edit-button">Edit</button>
+            </div>
+            <div className="summary-section">
+                <h3>Job Address</h3>
+                <p>Postcode: {jobAddress?.postcode || 'N/A'}</p>
+                <p>Street: {jobAddress?.street || 'N/A'}</p>
+                <p>City: {jobAddress?.city || 'N/A'}</p>
+                <p>Paid On Street: {jobAddress?.paidOnStreet ? 'Yes' : 'No'}</p>
+                <p>Visitor Permit: {jobAddress?.visitorPermit ? 'Yes' : 'No'}</p>
+                <p>Congestion Charge: {jobAddress?.congestionCharge ? 'Yes' : 'No'}</p>
+                <button onClick={editEstimateDetails} className="edit-button">Edit</button>
+            </div>
+            <div className="summary-section">
+                <h3>Estimate Details</h3>
+                <p>Job Description: {estimateDetails?.jobDescription || 'N/A'}</p>
+                <p>Estimated Time: {estimateDetails?.generatedTime || 'N/A'} hours</p>
+                {/* Conditionally render Booked Hours and To Be Confirmed */}
+                {estimateDetails?.generatedTime > 12 && (
+                    <>
+                        <p>Booked Hours: {estimateDetails?.bookedHours || 0} hours</p>
+                        <p>To Be Confirmed: {estimateDetails?.toBeConfirmedHours || 0} hours</p>
+                    </>
+                )}
+                <p>Multiplier Tier: {estimateDetails?.multiplierDetails?.name || 'N/A'}</p>
+                <p>Total Cost: £{estimateDetails?.calculatedCost || 'N/A'}</p>
+                <p>Labor Cost: £{estimateDetails?.costBreakdown?.laborCost || 'N/A'}</p>
+                <p>Parking Cost: £{estimateDetails?.costBreakdown?.parkingCost || 'N/A'}</p>
+                <p>Congestion Charge: £{estimateDetails?.costBreakdown?.totalCongestionCharge || 'N/A'}</p>
+                <p>Commuting Cost: £{estimateDetails?.costBreakdown?.commutingCost || 'N/A'}</p>
+                <button onClick={editJobAddress} className="edit-button">Edit</button>
+            </div>
+            <div className="summary-section">
+                <h3>Invoice Details</h3>
+                <p>Recipient Name: {invoiceDetails?.recipientName || 'N/A'}</p>
+                <p>Company Name: {invoiceDetails?.companyName || 'N/A'}</p>
+                <p>Recipient Address: {invoiceDetails?.recipientAddress || 'N/A'}</p>
+                <p>Recipient Postcode: {invoiceDetails?.recipientPostcode || 'N/A'}</p>
+                <p>Recipient City: {invoiceDetails?.recipientCity || 'N/A'}</p>
+                <p>Recipient Email: {invoiceDetails?.recipientEmail || 'N/A'}</p>
+                <p>Recipient Phone: {invoiceDetails?.recipientPhone || 'N/A'}</p>
+                <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
+                <button onClick={editInvoiceDetails} className="edit-button">Edit</button>
+            </div>
+            <div className="summary-section">
+                <OrderStatus status={status} setStatus={setStatus} />
+            </div>
+            <button onClick={saveOrder} className="submit-button" disabled={loading}>
+                {loading ? 'Saving...' : 'Save Order and Send Email'}
+            </button>
         </div>
     );
 };

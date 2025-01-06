@@ -1,4 +1,6 @@
-﻿.invoice-form {
+﻿/* Sekcja Invoice Details */
+.invoice-section {
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,30 +10,70 @@
     min-height: 100vh;
     padding: 0;
     text-align: center;
+    background-color: #106EBE; /* Ten sam niebieski kolor co w Job Details */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtelny cień */
 }
 
-    .invoice-form form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        margin-top: 50px;
+    /* Tytuł wewnątrz sekcji */
+    .invoice-section h2 {
+        font-size: 32px; /* Wielkość tekstu */
+        margin-bottom: 20px;
+        color: white; /* Biały kolor tekstu */
+        text-align: center;
     }
 
-    .invoice-form label {
+    /* Formularz w sekcji */
+    .invoice-section form {
+        width: 100%;
+    }
+
+    .invoice-section label {
+        display: block;
         text-align: left;
-        margin-bottom: -10px;
-        font-size: 0.9rem;
-        color: #ccc;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: white; /* Biały kolor etykiet */
     }
 
-    .invoice-form input {
+    .invoice-section input {
+        width: 100%; /* Pełna szerokość */
         padding: 10px;
-        border-radius: 5px;
         border: none;
-        font-size: 1rem;
-        outline: none;
+        border-radius: 5px; /* Zaokrąglone rogi */
+        font-size: 1rem; /* Rozmiar czcionki */
+        margin-bottom: 15px;
+        background-color: white; /* Białe tło pól */
+        color: black; /* Czarny kolor tekstu */
     }
 
-        .invoice-form input::placeholder {
-            color: #ccc;
+/* Responsywność */
+@media (max-width: 768px) {
+    .invoice-section {
+        padding: 15px; /* Mniejsze odstępy */
+    }
+
+        .invoice-section h2 {
+            font-size: 24px; /* Zmniejszenie rozmiaru tytułu */
         }
+
+        .invoice-section input {
+            font-size: 0.9rem; /* Mniejsze pola */
+            padding: 8px;
+        }
+}
+
+@media (max-width: 480px) {
+    .invoice-section {
+        max-width: 90%; /* Dopasowanie szerokości */
+    }
+
+        .invoice-section h2 {
+            font-size: 20px; /* Jeszcze mniejszy tytuł */
+        }
+
+        .invoice-section input {
+            font-size: 0.8rem; /* Dopasowanie do małych ekranów */
+            padding: 6px;
+        }
+}

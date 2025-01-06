@@ -19,7 +19,7 @@
     width: 100%;
     padding: 20px;
     text-align: center;
-    background-color: #2D5078; /* Dopasowany kolor */
+    background-color: #106EBE; /* Dopasowany kolor */
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
@@ -54,7 +54,7 @@
 
 .estimate-title {
     font-size: 32px;
-    color: #e63946; /* Kolor akcentowy */
+    color: white; /* Kolor akcentowy */
     margin-bottom: 20px;
 }
 
@@ -75,8 +75,8 @@
     border-radius: 5px;
     font-size: 1rem;
     resize: vertical;
-    background-color: #3A4E6A; /* Kolor tła pola */
-    color: white; /* Kolor tekstu */
+    background-color: white; /* Kolor tła pola */
+    color: black; /* Kolor tekstu */
 }
 
     .estimate-input::placeholder {
@@ -85,9 +85,9 @@
 
 /* Przyciski */
 .generate-button {
-    background-color: #e63946;
-    color: white;
-    padding: 10px 20px;
+    background-color: #0FFCB3;
+    color: black;
+    padding: 20px 150px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -96,14 +96,15 @@
 }
 
     .generate-button:hover {
-        background-color: #d62839;
+        background-color: black;
+        color: white;
         transform: scale(1.05); /* Subtelne powiększenie przy najechaniu */
     }
 
 .proceed-button {
-    background-color: #e63946;
-    color: white;
-    padding: 10px 20px;
+    background-color: #0FFCB3;
+    color: black;
+    padding: 20px 250px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -112,6 +113,7 @@
 }
 
     .proceed-button:hover {
-        background-color: #d62839;
+        background-color: black;
+        color: white;
         transform: scale(1.05);
     }

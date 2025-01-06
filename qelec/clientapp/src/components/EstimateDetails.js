@@ -1,5 +1,6 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useRef, useState, useContext } from 'react';
 import { getMultiplierForTimeSlot } from './CostCalculator';
+import { OrderContext } from '../context/OrderContext'; // Import context
 import './EstimateDetails.css';
 
 const HOURLY_RATE = 50;
@@ -7,37 +8,111 @@ const PAID_ON_STREET_EXTRA_COST_PER_HOUR = 5;
 const CONGESTION_CHARGE_COST = 15;
 
 const EstimateDetails = ({
-    input,
-    setInput,
-    generatedTime,
-    setGeneratedTime,
-    editable,
-    setEditable,
-    paidOnStreet,
-    congestionCharge,
-    postcode,
-    postcodeTierCost,
+    input: propInput,
+    setInput: propSetInput,
+    generatedTime: propGeneratedTime,
+    setGeneratedTime: propSetGeneratedTime,
+    bookedHours,
+    toBeConfirmedHours,
+    editable: propEditable,
+    setEditable: propSetEditable,
+    paidOnStreet: propPaidOnStreet,
+    congestionCharge: propCongestionCharge,
+    postcode: propPostcode,
+    postcodeTierCost: propPostcodeTierCost,
     timeslotCosts = [],
 }) => {
+    const { orderData, setOrderData } = useContext(OrderContext); // Access OrderContext
+    const estimateDetails = orderData.estimateDetails || {};
+    const jobAddress = orderData.jobAddress || {};
+
+    // Fallback to context values if props are not provided
+    const [input, setInput] = useState(propInput || estimateDetails.jobDescription || '');
+    const [generatedTime, setGeneratedTime] = useState(
+        propGeneratedTime || estimateDetails.generatedTime || 1
+    );
+    const [editable, setEditable] = useState(propEditable ?? true);
+    const paidOnStreet = propPaidOnStreet || jobAddress.paidOnStreet || false;
+    const congestionCharge = propCongestionCharge || jobAddress.congestionCharge || false;
+    const postcode = propPostcode || jobAddress.postcode || '';
+    const postcodeTierCost = propPostcodeTierCost || estimateDetails.costBreakdown?.commutingCost || 0;
+
     const [totalCost, setTotalCost] = useState(0);
-    const [tierDetails, setTierDetails] = useState({ multiplier: 1, name: 'Default' }); // Initialize with default values
+    const [tierDetails, setTierDetails] = useState({ multiplier: 1, name: 'Default' });
+    const textareaRef = useRef(null); // Declare ref for textarea
+
+    const updateContext = (updatedValues) => {
+        setOrderData((prevData) => {
+            const newEstimateDetails = {
+                ...prevData.estimateDetails,
+                ...updatedValues,
+                costBreakdown: {
+                    ...prevData.estimateDetails?.costBreakdown,
+                    ...updatedValues?.costBreakdown,
+                },
+            };
+
+            // Avoid unnecessary context updates
+            if (JSON.stringify(prevData.estimateDetails) === JSON.stringify(newEstimateDetails)) {
+                return prevData;
+            }
+
+            console.log('[EstimateDetails] Updating context with:', newEstimateDetails);
+            return {
+                ...prevData,
+                estimateDetails: newEstimateDetails,
+            };
+        });
+    };
 
     const handleTimeChange = (e) => {
         const newTime = Math.max(1, parseFloat(e.target.value));
-        setGeneratedTime(newTime);
+        setGeneratedTime((prev) => (prev !== newTime ? newTime : prev));
+    };
+
+    const adjustTextareaHeight = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto'; // Reset height
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Adjust height dynamically
+        }
     };
 
     useEffect(() => {
+        updateContext({ jobDescription: input });
+    }, [input]);
+
+
+    useEffect(() => {
+        adjustTextareaHeight(); // Adjust height when input changes
+    }, [input]);
+
+    useEffect(() => {
+        console.log('[EstimateDetails] Received timeslotCosts:', timeslotCosts);
         const firstSlot = timeslotCosts[0]?.startSlot;
+
+        // Log the received `timeslotCosts` and the extracted `firstSlot`
+        console.log('[EstimateDetails] Received timeslotCosts:', timeslotCosts);
+        console.log('[EstimateDetails] Extracted firstSlot:', firstSlot);
+
         const startTime = firstSlot?.startDate
             ? new Date(firstSlot.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            : '00:00';
+            : '16:00';
+
+        // Log the calculated `startTime`
+        console.log('[EstimateDetails] Calculated startTime:', startTime);
 
         const details = getMultiplierForTimeSlot(startTime) || { multiplier: 1, name: 'Default' };
 
-        setTierDetails((prev) =>
-            JSON.stringify(prev) === JSON.stringify(details) ? prev : details
-        );
+        // Log the details retrieved from `getMultiplierForTimeSlot`
+        console.log('[EstimateDetails] Multiplier details:', details);
+
+        if (JSON.stringify(tierDetails) !== JSON.stringify(details)) {
+            setTierDetails(details);
+        }
+
+        const maxBookableHours = 12;
+        const bookedHours = Math.min(generatedTime, maxBookableHours);
+        const toBeConfirmedHours = Math.max(0, generatedTime - maxBookableHours);
 
         const laborCost = generatedTime * HOURLY_RATE * details.multiplier;
         const parkingCost = paidOnStreet ? generatedTime * PAID_ON_STREET_EXTRA_COST_PER_HOUR : 0;
@@ -46,21 +121,42 @@ const EstimateDetails = ({
 
         const singleDayCost = laborCost + parkingCost + congestionChargeCost + commutingCost;
 
-        setTotalCost((prev) => (prev === singleDayCost ? prev : singleDayCost));
+        if (totalCost !== singleDayCost) {
+            setTotalCost(singleDayCost);
+        }
+
+        updateContext({
+            jobDescription: input,
+            generatedTime,
+            bookedHours,
+            toBeConfirmedHours,
+            calculatedCost: singleDayCost,
+            multiplierDetails: details,
+            costBreakdown: {
+                laborCost,
+                parkingCost,
+                totalCongestionCharge: congestionChargeCost,
+                commutingCost,
+                
+            },
+        });
     }, [generatedTime, paidOnStreet, congestionCharge, postcodeTierCost, timeslotCosts]);
+
 
     return (
         <div className="estimate-details">
             <h2>Estimate Details</h2>
             <div>
                 <label htmlFor="jobDescription">Job Description:</label>
-                <input
-                    type="text"
+                <textarea
                     id="jobDescription"
+                    ref={textareaRef} // Attach the reference
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     disabled={!editable}
                     className={editable ? 'editable' : ''}
+                    rows="1" // Minimum rows to start
+                    style={{ resize: 'none', overflow: 'hidden' }} // Disable manual resizing
                 />
             </div>
 
@@ -84,6 +180,12 @@ const EstimateDetails = ({
             <div className="cost-breakdown">
                 <p className="cost-breakdown-title">Cost Breakdown:</p>
                 <p>{generatedTime} x Labour Hour: £{(generatedTime * HOURLY_RATE).toFixed(2)}</p>
+                {generatedTime > 12 && (
+                    <>
+                        <p>Booked Hours: {bookedHours} hours</p>
+                        <p>To Be Confirmed: {toBeConfirmedHours} hours</p>
+                    </>
+                )}
                 <p>Multiplier: x{tierDetails?.multiplier || 1} (Tier: {tierDetails?.name || 'Default'})</p>
                 {paidOnStreet && (
                     <p>{generatedTime} x Paid on Street Parking: £{(generatedTime * PAID_ON_STREET_EXTRA_COST_PER_HOUR).toFixed(2)}</p>
@@ -94,6 +196,8 @@ const EstimateDetails = ({
                 {postcodeTierCost > 0 && (
                     <p>Commuting to {postcode || 'N/A'}: £{postcodeTierCost.toFixed(2)}</p>
                 )}
+
+             
             </div>
 
             <div>

@@ -1,5 +1,6 @@
-﻿/* Stylizacja dla formularza JobDetails */
-.job-details-form {
+﻿/* Sekcja Job Details */
+.job-details-section {
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,48 +10,79 @@
     min-height: 100vh;
     padding: 0;
     text-align: center;
+    background-color: #106EBE;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-h2 {
-    text-align: left;
-    color: white;
-    font-size: 24px;
-    margin: 0;
-}
+    /* Tytuł wewnątrz sekcji */
+    .job-details-section h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: white; /* Kolor tekstu */
+        text-align: center;
+    }
 
+/* Formularz w sekcji */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+    width: 100%;
 }
 
 label {
+    display: block;
     text-align: left;
-    margin-bottom: -10px;
-    font-size: 0.9rem;
-    color: #ccc; /* Kolor tekstu etykiety */
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white; /* Kolor etykiet */
 }
 
-input {
-    padding: 10px;
-    margin-bottom: 15px;
+input, textarea {
+    width: 100%; /* Pełna szerokość */
+    padding: 10px; /* Wewnętrzne odstępy */
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px; /* Zaokrąglenie */
+    font-size: 1rem; /* Rozmiar czcionki */
+    margin-bottom: 15px; /* Odstępy między polami */
+    background-color: white; /* Kolor tła pól */
+    color: black; /* Kolor tekstu */
 }
-
-    input::placeholder {
-        color: #aaa;
-    }
 
 textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: vertical;
+    resize: vertical; /* Możliwość zmiany rozmiaru tylko w pionie */
 }
 
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .job-details-section {
+        padding: 15px; /* Mniejsze odstępy na mniejszych ekranach */
+    }
+
+    .job-details-form h2 {
+        font-size: 24px; /* Zmniejszenie rozmiaru tytułu */
+    }
+
+    input, textarea {
+        font-size: 0.9rem; /* Dopasowanie rozmiaru czcionki */
+        padding: 8px; /* Mniejsze odstępy */
+    }
+
+    form {
+        gap: 10px; /* Mniejsze odstępy między polami formularza */
+    }
+}
+
+@media (max-width: 480px) {
+    .job-details-section {
+        max-width: 90%; /* Dopasowanie szerokości do małych ekranów */
+    }
+
+    .job-details-form h2 {
+        font-size: 20px; /* Jeszcze mniejszy tytuł na bardzo małych ekranach */
+    }
+
+    input, textarea {
+        font-size: 0.8rem; /* Zmniejszony tekst */
+        padding: 6px; /* Zredukowane odstępy wewnętrzne */
+    }
+}
