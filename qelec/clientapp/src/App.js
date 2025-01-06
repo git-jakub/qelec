@@ -25,6 +25,7 @@ import ResetPassword from './components/Auth/ResetPassword';
 import ManageUsers from './components/AdminPortal/ManageUsers';
 import GeneratePATCertificate from './services/GeneratePATCertificate';
 import AnalyticsReports from './components/AdminPortal/AnalyticsReports';
+import OrderSuccessful from './components/OrderSuccessful';
 import './App.css';
 
 
@@ -51,8 +52,9 @@ function App() {
                         <Route path="/estimates" element={<EstimatesGenerator />} />
                         <Route path="/testemail" element={<TestEmail />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/forgot-password" element={<ForgotPassword />} />"
-                        <Route path="/reset-password" element={<ResetPassword />} />"
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
+                        <Route path="/reset-password" element={<ResetPassword />} />
+                        <Route path="/order-successful" element={<OrderSuccessful />} />
                         {/* Protected Admin Routes */}
                         <Route
                             path="/adminportal"

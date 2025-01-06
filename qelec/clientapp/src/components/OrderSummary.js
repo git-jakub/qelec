@@ -133,47 +133,54 @@ const OrderSummary = () => {
             }
 
             // Notify admin via WhatsApp
-            const whatsappMessage = {
-                toPhoneNumber: "+447405376887", // Your admin number
-                body: `🔔 *New Order Received!*
+            // Admin phone numbers
+            const adminNumbers = ["+447405376887"/*, "+48724521232"*/];
 
-                *Order ID:* ${savedOrder.orderId || "Unknown"}
-                *Client Name:* ${validatedOrderData.jobDetails.clientName || "Not entered"}
-                *Client Mobile:* ${validatedOrderData.jobDetails.mobile || "Not entered"}
-                *Client Email:* ${validatedOrderData.jobDetails.clientEmail || "Not entered"}
+            // Message content
+            const messageBody = `🔔 *New Order Received!*
 
-                *Job Description:* ${validatedOrderData.estimateDetails.jobDescription || "Not entered"}
-                *Job Address:*
-                - ${validatedOrderData.jobAddress.street || "Not entered"}
-                - ${validatedOrderData.jobAddress.city || "Not entered"}
-                - ${validatedOrderData.jobAddress.postcode || "Not entered"}
+                    *Order ID:* ${savedOrder.orderId || "Unknown"}
+                    *Client Name:* ${validatedOrderData.jobDetails.clientName || "Not entered"}
+                    *Client Mobile:* ${validatedOrderData.jobDetails.mobile || "Not entered"}
+                    *Client Email:* ${validatedOrderData.jobDetails.clientEmail || "Not entered"}
 
-                *Total Cost:* £${validatedOrderData.estimateDetails.calculatedCost || 0}
-                *Date:* ${formattedDate}
-                *Time:* ${formattedTime}
+                    *Job Description:* ${validatedOrderData.estimateDetails.jobDescription || "Not entered"}
+                    *Job Address:*
+                    - ${validatedOrderData.jobAddress.street || "Not entered"}
+                    - ${validatedOrderData.jobAddress.city || "Not entered"}
+                    - ${validatedOrderData.jobAddress.postcode || "Not entered"}
 
-                Please review the order for further processing.`,
-            };
+                    *Total Cost:* £${validatedOrderData.estimateDetails.calculatedCost || 0}
+                    *Date:* ${formattedDate}
+                    *Time:* ${formattedTime}
 
-            try {
-                // Send the WhatsApp message
-                const whatsappResponse = await fetch(`${process.env.REACT_APP_API_URL}/WhatsApp/send`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(whatsappMessage),
-                });
+                    Please review the order for further processing.`;
 
-                if (!whatsappResponse.ok) {
-                    const whatsappErrorDetails = await whatsappResponse.text();
-                    console.error('Failed to send WhatsApp message to admin:', whatsappErrorDetails);
-                    alert('Order saved but admin notification could not be sent. Please check the logs.');
-                } else {
-                    console.log('Admin notified via WhatsApp successfully!');
+            // Send WhatsApp message to each admin number
+            for (const number of adminNumbers) {
+                const whatsappMessage = {
+                    toPhoneNumber: number,
+                    body: messageBody,
+                };
+
+                try {
+                    const whatsappResponse = await fetch(`${process.env.REACT_APP_API_URL}/WhatsApp/send`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(whatsappMessage),
+                    });
+
+                    if (!whatsappResponse.ok) {
+                        const whatsappErrorDetails = await whatsappResponse.text();
+                        console.error(`Failed to send WhatsApp message to ${number}:`, whatsappErrorDetails);
+                    } else {
+                        console.log(`WhatsApp message sent successfully to ${number}`);
+                    }
+                } catch (error) {
+                    console.error(`Error sending WhatsApp message to ${number}:`, error);
                 }
-            } catch (error) {
-                console.error('Error sending WhatsApp message to admin:', error);
-                alert('An unexpected error occurred while sending the WhatsApp notification.');
             }
+
 
 
 
@@ -182,12 +189,27 @@ const OrderSummary = () => {
             // Generate Purchase Order PDF
             generatePurchaseOrderPdf({
                 recipient_name: emailParams.recipient_name,
-                order_id: savedOrder.id,
+                order_id: savedOrder.orderId,
                 job_description: emailParams.job_description,
                 total_cost: emailParams.total_cost,
                 date: emailParams.date,
                 time_slot: emailParams.time_slot,
             });
+
+            navigate("/order-successful", {
+                state: {
+                    orderDetails: {
+                        id: savedOrder.orderId,
+                        clientName: validatedOrderData.jobDetails.clientName,
+                        jobDescription: validatedOrderData.estimateDetails.jobDescription,
+                        totalCost: validatedOrderData.estimateDetails.calculatedCost,
+                        date: formattedDate,
+                        time: formattedTime,
+                    },
+                },
+            });
+
+
         } catch (error) {
             console.error('Error during saveOrder:', error);
             alert(`An error occurred: ${error.message}`);
@@ -195,6 +217,8 @@ const OrderSummary = () => {
             setLoading(false);
         }
     };
+
+
 
     return (
         <div className="order-summary">
