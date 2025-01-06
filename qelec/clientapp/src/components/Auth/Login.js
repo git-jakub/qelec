@@ -36,28 +36,31 @@ const Login = () => {
                    
         <div className="login-container">
             <Navbar backPath="/" nextPath="/jobdetails" />
-            <h2>Login</h2>
-            {error && <p className="error">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <label>Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit">Login</button>
-            </form>
-            <p>
-                <a href="/forgot-password">Forgot your password?</a>
-            </p>
+            <div className="login-form">
+                <h2>Login</h2>
+                {error && <p className="error">{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <label>Password:</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <button type="submit">Login</button>
+                </form>
+                <p>
+                    <a href="/forgot-password">Forgot your password?</a>
+                </p>
+            </div>
+
 
         </div>
     );

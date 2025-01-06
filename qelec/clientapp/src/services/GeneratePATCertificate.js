@@ -1,7 +1,8 @@
 ﻿import React, { useState } from "react";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import "./GenerateInvoice.css"; // Use existing styles or modify as needed
+import "./GenerateInvoice.css";
+import Navbar from "../components/Navbar"; // Use existing styles or modify as needed
 
 // Initialize pdfMake fonts
 if (pdfFonts && pdfFonts.pdfMake) {
@@ -172,6 +173,7 @@ const GeneratePATCertificate = () => {
 
     return (
         <div className="generate-invoice">
+            <Navbar backPath="/"/>
             <h2>Generate PAT Certificate</h2>
             <div className="invoice-section">
                 <h3>Report Details</h3>

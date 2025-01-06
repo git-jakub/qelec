@@ -9,6 +9,7 @@ import {
     Legend,
 } from 'recharts';
 import Navbar from '../../components/Navbar';
+import './ManageUsers.css'
 
 const AnalyticsReports = () => {
     const [data, setData] = useState({
@@ -81,7 +82,7 @@ const AnalyticsReports = () => {
     };
 
     return (
-        <div className="analytics-reports">
+        <div className="manage_container">
             <Navbar backPath="/" />
             <h2>Analytics Reports</h2>
 
@@ -90,10 +91,10 @@ const AnalyticsReports = () => {
                 <h3>Turnover</h3>
                 <BarChart width={600} height={300} data={data.turnover}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
+                    <XAxis dataKey="month" stroke="white" color="white" />
+                    <YAxis stroke="white" color="white" />
+                    <Tooltip stroke="white" color="white"/>
+                    <Legend stroke="white" color="white"/>
                     <Bar dataKey="amount" fill="#8884d8" />
                 </BarChart>
             </div>
@@ -103,10 +104,10 @@ const AnalyticsReports = () => {
                 <h3>Number of Clients</h3>
                 <BarChart width={600} height={300} data={data.clients}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
+                    <XAxis dataKey="month" stroke="white" color="white" />
+                    <YAxis stroke="white" color="white" />
+                    <Tooltip stroke="white" color="white"/>
+                    <Legend stroke="white" color="white"/>
                     <Bar dataKey="count" fill="#82ca9d" />
                 </BarChart>
             </div>

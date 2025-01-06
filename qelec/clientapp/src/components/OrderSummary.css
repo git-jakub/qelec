@@ -35,6 +35,16 @@
     margin-right: auto;
     align-items: center;
     align-content: center;
+    text-align: center;
+}
+
+.order-status{
+    display: block;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
 }
 
 .summary-section button{

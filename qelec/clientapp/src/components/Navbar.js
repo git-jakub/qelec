@@ -28,12 +28,6 @@ const Navbar = ({ backPath, nextPath }) => {
             {/* Sekcja po lewej stronie */}
             <div className="navbar-left">
                 <button onClick={() => navigate(backPath)} className="back-button">Back</button>
-                <button onClick={() => navigate('/register')} className="register-button">Register</button>
-                <button onClick={() => userName ? handleLogout() : navigate('/login')} className="login-button">
-                   
-                    {userName ? 'Logout' : 'Login'}
-                </button>
-
 
                 {/* Wyświetl wiadomość i portal tylko jeśli użytkownik jest zalogowany */}
 
@@ -58,6 +52,8 @@ const Navbar = ({ backPath, nextPath }) => {
                 <button onClick={() => userName ? handleLogout() : navigate('/login')} className="login-button">
                     {userName ? 'Logout' : 'Login'}
                 </button>
+                <button onClick={() => navigate('/register')} className="register-button">Register</button>
+
             </div>
         </div>
     );

@@ -1,22 +1,45 @@
 ﻿/* src/components/AdminPortal/AdminPortal.css */
 
 .admin-portal {
-    padding: 20px;
+    background-color: #106EBE;
+    background-image: linear-gradient(135deg ,#1E3D65 , #106EBE);
+    text-align: center;
+    min-height: 100vh;
+    color: white;
+    justify-items: center;
 }
 
     .admin-portal h2 {
         font-size: 24px;
+        color: white;
     }
 
     .admin-portal nav ul {
         list-style: none;
         padding: 0;
+        color: white;
     }
 
         .admin-portal nav ul li {
             margin: 5px 0;
+            color: white;
         }
 
     .admin-portal .admin-content {
         margin-top: 20px;
     }
+
+    .admin-portal nav ul li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .admin-portal nav ul li a:visited {
+        color: white;
+
+    }
+
+.admin-portal nav ul li a:hover {
+    color: #0FFCB3;
+
+}

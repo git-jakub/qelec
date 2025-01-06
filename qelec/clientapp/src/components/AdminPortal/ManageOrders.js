@@ -2,6 +2,7 @@
 import { Table, Button, Modal, TextInput, Select, ScrollArea } from '@mantine/core';
 import Navbar from '../../components/Navbar';
 import { jwtDecode } from 'jwt-decode';
+import './ManageUsers.css';
 
 const isTokenValid = (token) => {
     try {
@@ -82,11 +83,11 @@ const ManageOrders = () => {
     };
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="manage_container">
             <Navbar backPath="/" />
             <h2>Manage Orders</h2>
             {error && <p className="error">{error}</p>}
-            <ScrollArea style={{ height: '80vh', width: '100%' }}>
+            <ScrollArea style={{ width: '100%' }} >
                 <Table withBorder withColumnBorders verticalSpacing="md" horizontalSpacing="md">
                     <thead>
                         <tr>

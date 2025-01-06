@@ -23,8 +23,16 @@
     background-color: #f7f7f7; /* Alternatywne tło dla parzystych wierszy */
 }
 
+.manage-your-orders h2{
+    margin-top: 40px;
+}
+
 .manage-your-orders {
     overflow-x: auto; /* Scroll w poziomie */
     overflow-y: auto; /* Scroll w pionie */
-    max-height: 80vh; /* Maksymalna wysokość */
+    background-color: #106EBE;
+    background-image: linear-gradient(135deg ,#1E3D65 , #106EBE);
+    text-align: center;
+    min-height: 100vh;
+    justify-items: center;
 }

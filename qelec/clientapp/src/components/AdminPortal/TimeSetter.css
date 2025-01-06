@@ -1,5 +1,19 @@
-﻿.time-setter {
-    padding: 20px;
+﻿.time-setter-container {
+    background-color: #106EBE;
+    background-image: linear-gradient(135deg ,#1E3D65 , #106EBE);
+    text-align: center;
+    min-height: 100vh;
+    color: white;
+    justify-items: center;
+}
+
+.time-setter-container h2{
+    color: white;
+    font-size: 24px;
+}
+
+.time-inputs{
+    margin-top: 10px;
 }
 
     .time-setter h2 {
@@ -16,5 +30,5 @@
         }
 
     .time-setter .timesetter-content {
-        margin-top: 20px;
+        margin-top: 10px;
     }

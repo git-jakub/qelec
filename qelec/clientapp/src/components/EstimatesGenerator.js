@@ -55,59 +55,68 @@ function EstimateGenerator() {
         <div className="estimate-generator-page">
             <Navbar backPath="/" nextPath="/timeplanner" />
 
-            <EstimateDetails
-                input={contextEstimateDetails.jobDescription}
-                setInput={(updatedInput) => {
-                    setOrderData((prev) => ({
-                        ...prev,
-                        estimateDetails: {
-                            ...prev.estimateDetails,
-                            jobDescription: updatedInput,
-                        },
-                    }));
-                }}
-                generatedTime={generatedTime}
-                setGeneratedTime={setGeneratedTime}
-                calculatedCost={calculatedCost}
-                paidOnStreet={paidOnStreet}
-                congestionCharge={congestionCharge}
-                postcode={postcode}
-                postcodeTierCost={postcodeTierCost || 0}
-            />
 
+            <div className="estimate-generator__container">
+                <div className="estimate-generator__left">
+                    <EstimateDetails
+                        input={contextEstimateDetails.jobDescription}
+                        setInput={(updatedInput) => {
+                            setOrderData((prev) => ({
+                                ...prev,
+                                estimateDetails: {
+                                    ...prev.estimateDetails,
+                                    jobDescription: updatedInput,
+                                },
+                            }));
+                        }}
+                        generatedTime={generatedTime}
+                        setGeneratedTime={setGeneratedTime}
+                        calculatedCost={calculatedCost}
+                        paidOnStreet={paidOnStreet}
+                        congestionCharge={congestionCharge}
+                        postcode={postcode}
+                        postcodeTierCost={postcodeTierCost || 0}
+                    />
+                </div>
+                <div className="estimate-generator__right">
+                    <JobAddress
+                        postcode={postcode}
+                        setPostcode={setPostcode}
+                        street={street}
+                        setStreet={setStreet}
+                        city={city}
+                        setCity={setCity}
+                        paidOnStreet={paidOnStreet}
+                        setPaidOnStreet={setPaidOnStreet}
+                        visitorPermit={visitorPermit}
+                        setVisitorPermit={setVisitorPermit}
+                        congestionCharge={congestionCharge}
+                        setCongestionCharge={setCongestionCharge}
+                    />
 
-            <JobAddress
-                postcode={postcode}
-                setPostcode={setPostcode}
-                street={street}
-                setStreet={setStreet}
-                city={city}
-                setCity={setCity}
-                paidOnStreet={paidOnStreet}
-                setPaidOnStreet={setPaidOnStreet}
-                visitorPermit={visitorPermit}
-                setVisitorPermit={setVisitorPermit}
-                congestionCharge={congestionCharge}
-                setCongestionCharge={setCongestionCharge}
-            />
+                    <div className="submit-section">
+                        <button className="proceed-button" onClick={navigateToTimePlanner}>
+                            Submit
+                        </button>
+                    </div>
 
-            <div className="submit-section">
-                <button className="proceed-button" onClick={navigateToTimePlanner}>
-                    Submit
-                </button>
+                    <CostCalculator
+                        generatedTime={generatedTime}
+                        postcode={postcode}
+                        paidOnStreet={paidOnStreet}
+                        congestionCharge={congestionCharge}
+                        setCalculatedCost={setCalculatedCost}
+                        setMultiplierDetails={setMultiplierDetails}
+                        setPostcodeTierCost={setPostcodeTierCost}
+                        calculatePostcodeCost
+                    />
+                </div>
+                </div>
             </div>
 
-            <CostCalculator
-                generatedTime={generatedTime}
-                postcode={postcode}
-                paidOnStreet={paidOnStreet}
-                congestionCharge={congestionCharge}
-                setCalculatedCost={setCalculatedCost}
-                setMultiplierDetails={setMultiplierDetails}
-                setPostcodeTierCost={setPostcodeTierCost}
-                calculatePostcodeCost
-            />
-        </div>
+
+
+
     );
 }
 

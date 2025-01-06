@@ -19,9 +19,8 @@
     width: 100%;
     padding: 20px;
     text-align: center;
-    background-color: #106EBE; /* Dopasowany kolor */
+    background-color: transparent; /* Dopasowany kolor */
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
 }
 

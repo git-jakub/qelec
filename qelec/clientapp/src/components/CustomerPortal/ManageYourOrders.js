@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Navbar from '../../components/Navbar';
 import { Table, Title, ScrollArea } from '@mantine/core'; // Mantine components
+import './ManageYourOrders.css';
 
 const ManageYourOrders = () => {
     const [orders, setOrders] = useState([]);

@@ -1,18 +1,20 @@
 ﻿/* Sekcja Job Details */
 .job-details-section {
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: white;
+    padding: 0;
+}
+
+.job-details-form{
+    display: flex;
+    flex-direction: column;
     background-color: #106EBE;
     background-image: linear-gradient(135deg ,#1E3D65 , #106EBE);
-    color: white;
     min-height: 100vh;
+    width: 100%;
     padding: 0;
-    text-align: center;
-    background-color: #106EBE;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
     /* Tytuł wewnątrz sekcji */
@@ -33,11 +35,12 @@ label {
     text-align: left;
     font-weight: bold;
     margin-bottom: 5px;
+    margin-left: 10px;
     color: white; /* Kolor etykiet */
 }
 
 input, textarea {
-    width: 100%; /* Pełna szerokość */
+    width: 80%; /* Pełna szerokość */
     padding: 10px; /* Wewnętrzne odstępy */
     border: none;
     border-radius: 5px; /* Zaokrąglenie */
@@ -45,6 +48,7 @@ input, textarea {
     margin-bottom: 15px; /* Odstępy między polami */
     background-color: white; /* Kolor tła pól */
     color: black; /* Kolor tekstu */
+    margin-left: 10px;
 }
 
 textarea {

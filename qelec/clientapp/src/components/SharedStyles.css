@@ -23,6 +23,7 @@
     display: flex; /* Ustawienie Flexbox dla prawej sekcji */
     justify-content: flex-end; /* Wyrównanie do prawej strony */
     align-items: center; /* Wyrównanie elementów w pionie */
+    gap: 10px;
 }
 
 /* Styl dla przycisku Login/Logout */

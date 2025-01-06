@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, TextInput, Select, Card, ScrollArea } from '@mantine/core';
 import Navbar from '../../components/Navbar';
+import './ManageUsers.css';
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
@@ -85,13 +86,13 @@ const ManageUsers = () => {
 
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="manage_container">
             {/* Navbar */}
             <Navbar backPath="/" />
 
             {/* Main Section */}
             <div style={{ maxWidth: '1200px', margin: '0 auto', marginTop: '20px' }}>
-                <h2 style={{ marginBottom: '20px', color: '#333', textAlign: 'center' }}>Manage Users</h2>
+                <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Manage Users</h2>
 
                 {/* Add User Button */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
@@ -104,7 +105,7 @@ const ManageUsers = () => {
                 <Card shadow="sm" padding="lg">
                     <ScrollArea>
                         <Table withBorder withColumnBorders verticalSpacing="md" horizontalSpacing="md">
-                            <thead style={{ backgroundColor: '#f5f5f5' }}>
+                            <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Username</th>

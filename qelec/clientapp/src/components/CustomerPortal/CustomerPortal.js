@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import { jwtDecode } from "jwt-decode"; // Named import
+import './CustomerPortal.css';
 
 const CustomerPortal = () => {
     return (

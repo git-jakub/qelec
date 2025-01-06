@@ -90,10 +90,11 @@ const TimeSetter = () => {
                     placeholder="End Time (HH:00)"
                     format="HH:mm" // Ensures time input in hour intervals
                 />
+                {/* Create Time Slots Button */}
+                <button onClick={handleCreateTimeSlotsForRange}>Add Time Slots for Range</button>
             </div>
 
-            {/* Create Time Slots Button */}
-            <button onClick={handleCreateTimeSlotsForRange}>Add Time Slots for Range</button>
+
         </div>
     );
 };

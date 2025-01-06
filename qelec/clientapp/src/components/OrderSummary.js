@@ -205,6 +205,7 @@ const OrderSummary = () => {
                     <p>Your Order ID: {orderId}</p>
                 </div>
             )}
+            <div className="order-summary__container">
             <div className="summary-section">
                 <h3>Time Slot</h3>
                 <p>Date: {formattedDate}</p>
@@ -262,12 +263,15 @@ const OrderSummary = () => {
                 <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
                 <button onClick={editInvoiceDetails} className="edit-button">Edit</button>
             </div>
-            <div className="summary-section">
-                <OrderStatus status={status} setStatus={setStatus} />
+                <div className="summary-section">
+                    <OrderStatus status={status} setStatus={setStatus}/>
+
+                    <button onClick={saveOrder} className="submit-button" disabled={loading}>
+                        {loading ? 'Saving...' : 'Save Order and Send Email'}
+                    </button>
+                </div>
+
             </div>
-            <button onClick={saveOrder} className="submit-button" disabled={loading}>
-                {loading ? 'Saving...' : 'Save Order and Send Email'}
-            </button>
         </div>
     );
 };

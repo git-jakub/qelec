@@ -1,2 +1,22 @@
-﻿body {
+﻿
+.register-container{
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #106EBE;
+    background-image: linear-gradient(135deg ,#1E3D65 , #106EBE);
+    min-height: 100vh;
+    color: white; /* Tekst w kolorze białym */
+    padding: 0;
+}
+
+.register-container h2{
+    color: white;
+}
+
+.register_form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

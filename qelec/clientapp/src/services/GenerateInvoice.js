@@ -2,6 +2,7 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import "./GenerateInvoice.css";
+import Navbar from "../components/Navbar";
 
 if (pdfFonts && pdfFonts.pdfMake) {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -295,6 +296,7 @@ const GenerateInvoice = ({ orderId }) => {
 
     return (
         <div className="generate-invoice">
+            <Navbar backPath="/" />
             <h2>Generate Invoice</h2>
             <div className="invoice-section">
                 <h3>Company Details</h3>
