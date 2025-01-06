@@ -2,10 +2,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1E3D65;
+    background-color: #106EBE;
+    background-image: linear-gradient(135deg ,#1E3D65 , #106EBE);
     color: white;
     min-height: 100vh;
-    padding: 20px;
+    padding: 0;
     text-align: center;
 }
 

@@ -146,59 +146,65 @@ const OrderSummary = () => {
                     <p>Your Order ID: {orderId}</p>
                 </div>
             )}
-            <div className="summary-section">
-                <h3>Time Slot</h3>
-                <p>Date: {formattedDate}</p>
-                <p>Time: {formattedTime}</p>
-                <button onClick={editTimeSlot} className="edit-button">Edit</button>
+            <div className="order-summary__container">
+                <div className="summary-section">
+                    <h3>Time Slot</h3>
+                    <p>Date: {formattedDate}</p>
+                    <p>Time: {formattedTime}</p>
+                    <button onClick={editTimeSlot} className="edit-button">Edit</button>
+                </div>
+                <div className="summary-section">
+                    <h3>Job Details</h3>
+                    <p>Name: {jobDetails?.clientName || 'N/A'}</p>
+                    <p>Site Access Info: {jobDetails?.siteAccessInfo || 'N/A'}</p>
+                    <p>Mobile: {jobDetails?.mobile || 'N/A'}</p>
+                    <p>Email: {jobDetails?.clientEmail || 'N/A'}</p>
+                    <p>Your Reference: {jobDetails?.yourReference || 'N/A'}</p>
+                    <p>Additional Information: {jobDetails?.additionalInfo || 'N/A'}</p>
+                    <button onClick={editJobDetails} className="edit-button">Edit</button>
+                </div>
+                <div className="summary-section">
+                    <h3>Job Address</h3>
+                    <p>Postcode: {jobAddress?.postcode || 'N/A'}</p>
+                    <p>Street: {jobAddress?.street || 'N/A'}</p>
+                    <p>City: {jobAddress?.city || 'N/A'}</p>
+                    <p>Paid On Street: {jobAddress?.paidOnStreet ? 'Yes' : 'No'}</p>
+                    <p>Visitor Permit: {jobAddress?.visitorPermit ? 'Yes' : 'No'}</p>
+                    <p>Congestion Charge: {jobAddress?.congestionCharge ? 'Yes' : 'No'}</p>
+                </div>
+                <div className="summary-section">
+                    <h3>Estimate Details</h3>
+                    <p>Job Description: {estimateDetails?.jobDescription || 'N/A'}</p>
+                    <p>Estimated Time: {estimateDetails?.generatedTime || 'N/A'} hours</p>
+                    <p>Total Cost: £{estimateDetails?.calculatedCost || 'N/A'}</p>
+                    <p>Labor Cost: £{estimateDetails?.costBreakdown?.laborCost || 'N/A'}</p>
+                    <p>Parking Cost: £{estimateDetails?.costBreakdown?.parkingCost || 'N/A'}</p>
+                    <p>Congestion Charge: £{estimateDetails?.costBreakdown?.totalCongestionCharge || 'N/A'}</p>
+                    <p>Commuting Cost: £{estimateDetails?.costBreakdown?.commutingCost || 'N/A'}</p>
+                </div>
+                <div className="summary-section">
+                    <h3>Invoice Details</h3>
+                    <p>Recipient Name: {invoiceDetails?.recipientName || 'N/A'}</p>
+                    <p>Company Name: {invoiceDetails?.companyName || 'N/A'}</p>
+                    <p>Recipient Address: {invoiceDetails?.recipientAddress || 'N/A'}</p>
+                    <p>Recipient Postcode: {invoiceDetails?.recipientPostcode || 'N/A'}</p>
+                    <p>Recipient City: {invoiceDetails?.recipientCity || 'N/A'}</p>
+                    <p>Recipient Email: {invoiceDetails?.recipientEmail || 'N/A'}</p>
+                    <p>Recipient Phone: {invoiceDetails?.recipientPhone || 'N/A'}</p>
+                    <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
+                    <button onClick={editInvoiceDetails} className="edit-button">Edit</button>
+                </div>
+                <div className="summary-section">
+
+                    <OrderStatus status={status} setStatus={setStatus}/>
+
+                    <button onClick={saveOrder} className="submit-button" disabled={loading}>
+                        {loading ? 'Saving...' : 'Save Order and Send Email'}
+                    </button>
+                </div>
+
             </div>
-            <div className="summary-section">
-                <h3>Job Details</h3>
-                <p>Name: {jobDetails?.clientName || 'N/A'}</p>
-                <p>Site Access Info: {jobDetails?.siteAccessInfo || 'N/A'}</p>
-                <p>Mobile: {jobDetails?.mobile || 'N/A'}</p>
-                <p>Email: {jobDetails?.clientEmail || 'N/A'}</p>
-                <p>Your Reference: {jobDetails?.yourReference || 'N/A'}</p>
-                <p>Additional Information: {jobDetails?.additionalInfo || 'N/A'}</p>
-                <button onClick={editJobDetails} className="edit-button">Edit</button>
-            </div>
-            <div className="summary-section">
-                <h3>Job Address</h3>
-                <p>Postcode: {jobAddress?.postcode || 'N/A'}</p>
-                <p>Street: {jobAddress?.street || 'N/A'}</p>
-                <p>City: {jobAddress?.city || 'N/A'}</p>
-                <p>Paid On Street: {jobAddress?.paidOnStreet ? 'Yes' : 'No'}</p>
-                <p>Visitor Permit: {jobAddress?.visitorPermit ? 'Yes' : 'No'}</p>
-                <p>Congestion Charge: {jobAddress?.congestionCharge ? 'Yes' : 'No'}</p>
-            </div>
-            <div className="summary-section">
-                <h3>Estimate Details</h3>
-                <p>Job Description: {estimateDetails?.jobDescription || 'N/A'}</p>
-                <p>Estimated Time: {estimateDetails?.generatedTime || 'N/A'} hours</p>
-                <p>Total Cost: £{estimateDetails?.calculatedCost || 'N/A'}</p>
-                <p>Labor Cost: £{estimateDetails?.costBreakdown?.laborCost || 'N/A'}</p>
-                <p>Parking Cost: £{estimateDetails?.costBreakdown?.parkingCost || 'N/A'}</p>
-                <p>Congestion Charge: £{estimateDetails?.costBreakdown?.totalCongestionCharge || 'N/A'}</p>
-                <p>Commuting Cost: £{estimateDetails?.costBreakdown?.commutingCost || 'N/A'}</p>
-            </div>
-            <div className="summary-section">
-                <h3>Invoice Details</h3>
-                <p>Recipient Name: {invoiceDetails?.recipientName || 'N/A'}</p>
-                <p>Company Name: {invoiceDetails?.companyName || 'N/A'}</p>
-                <p>Recipient Address: {invoiceDetails?.recipientAddress || 'N/A'}</p>
-                <p>Recipient Postcode: {invoiceDetails?.recipientPostcode || 'N/A'}</p>
-                <p>Recipient City: {invoiceDetails?.recipientCity || 'N/A'}</p>
-                <p>Recipient Email: {invoiceDetails?.recipientEmail || 'N/A'}</p>
-                <p>Recipient Phone: {invoiceDetails?.recipientPhone || 'N/A'}</p>
-                <p>Payment Status: {invoiceDetails?.paymentStatus || 'N/A'}</p>
-                <button onClick={editInvoiceDetails} className="edit-button">Edit</button>
-            </div>
-            <div className="summary-section">
-                <OrderStatus status={status} setStatus={setStatus} />
-            </div>
-            <button onClick={saveOrder} className="submit-button" disabled={loading}>
-                {loading ? 'Saving...' : 'Save Order and Send Email'}
-            </button>
+
         </div>
     );
 };

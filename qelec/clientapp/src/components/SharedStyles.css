@@ -2,10 +2,9 @@
     display: flex;
     justify-content: space-between; /* Sekcje są rozmieszczone na przeciwnych końcach */
     align-items: center; /* Wyrównanie elementów w pionie */
-    background-color: black;
+    background-color: #1E3D6588;
     padding: 10px 15px;
     color: white;
-    border-radius: 8px 8px 0 0;
     position: sticky;
     top: 0;
     width: 100%; /* Pełna szerokość okna przeglądarki */

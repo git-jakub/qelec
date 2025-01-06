@@ -102,73 +102,85 @@ function EstimateGenerator() {
         <div className="estimate-generator-page">
             <Navbar backPath="/" nextPath="/timeplanner" />
 
-            {/* Estimate Generator Section */}
-            <div className="estimate-generator">
-                <h1 className="estimate-title">Estimate Generator</h1>
-                <p className="estimate-instruction">Describe the job, and we will estimate the time required:</p>
+            <div className="estimate-generator__container">
 
-                <textarea
-                    className="estimate-input"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Enter job details..."
+
+                {/* Estimate Generator Section */}
+                <div className="estimate-generator__left">
+                    <div className="estimate-generator">
+                        <h1 className="estimate-title">Estimate Generator</h1>
+                        <p className="estimate-instruction">Describe the job, and we will estimate the time
+                            required:</p>
+
+                        <textarea
+                            className="estimate-input"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            placeholder="Enter job details..."
+                        />
+
+                        <button className="generate-button" onClick={handleGenerateEstimate}>
+                            Generate Estimate
+                        </button>
+                    </div>
+
+
+                    {/* Job Address Section */}
+                    <JobAddress
+                        postcode={postcode}
+                        setPostcode={setPostcode}
+                        street={street}
+                        setStreet={setStreet}
+                        city={city}
+                        setCity={setCity}
+                        paidOnStreet={paidOnStreet}
+                        setPaidOnStreet={setPaidOnStreet}
+                        visitorPermit={visitorPermit}
+                        setVisitorPermit={setVisitorPermit}
+                        congestionCharge={congestionCharge}
+                        setCongestionCharge={setCongestionCharge}
+                    />
+                </div>
+
+                <div className="estimate-generator__right">
+                    <EstimateDetails
+                        input={input}
+                        setInput={setInput}
+                        generatedTime={generatedTime}
+                        setGeneratedTime={setGeneratedTime}
+                        calculatedCost={calculatedCost}
+                        editable={editable}
+                        setEditable={setEditable}
+                        paidOnStreet={paidOnStreet}
+                        congestionCharge={congestionCharge}
+                        postcode={postcode}
+                        postcodeTierCost={postcodeTierCost || 0} // Default to 0
+                    />
+
+                    <div className="submit-section">
+                        <button className="proceed-button" onClick={navigateToTimePlanner}>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                {/* Estimate Details Section */}
+
+
+                {/* Submit Button */}
+
+
+                {/* Cost Calculator */}
+                <CostCalculator
+                    generatedTime={generatedTime}
+                    postcode={postcode}
+                    paidOnStreet={paidOnStreet}
+                    congestionCharge={congestionCharge}
+                    setCalculatedCost={setCalculatedCost}
+                    setMultiplierDetails={setMultiplierDetails}
+                    setPostcodeTierCost={setPostcodeTierCost}
+                    calculatePostcodeCost={true} // Enable postcode calculation
                 />
-
-                <button className="generate-button" onClick={handleGenerateEstimate}>
-                    Generate Estimate
-                </button>
             </div>
-
-            {/* Estimate Details Section */}
-            <EstimateDetails
-                input={input}
-                setInput={setInput}
-                generatedTime={generatedTime}
-                setGeneratedTime={setGeneratedTime}
-                calculatedCost={calculatedCost}
-                editable={editable}
-                setEditable={setEditable}
-                paidOnStreet={paidOnStreet}
-                congestionCharge={congestionCharge}
-                postcode={postcode}
-                postcodeTierCost={postcodeTierCost || 0} // Default to 0
-            />
-
-            {/* Job Address Section */}
-            <JobAddress
-                postcode={postcode}
-                setPostcode={setPostcode}
-                street={street}
-                setStreet={setStreet}
-                city={city}
-                setCity={setCity}
-                paidOnStreet={paidOnStreet}
-                setPaidOnStreet={setPaidOnStreet}
-                visitorPermit={visitorPermit}
-                setVisitorPermit={setVisitorPermit}
-                congestionCharge={congestionCharge}
-                setCongestionCharge={setCongestionCharge}
-            />
-
-            {/* Submit Button */}
-            <div className="submit-section">
-                <button className="proceed-button" onClick={navigateToTimePlanner}>
-                    Submit
-                </button>
-            </div>
-
-            {/* Cost Calculator */}
-            <CostCalculator
-                generatedTime={generatedTime}
-                postcode={postcode}
-                paidOnStreet={paidOnStreet}
-                congestionCharge={congestionCharge}
-                setCalculatedCost={setCalculatedCost}
-                setMultiplierDetails={setMultiplierDetails}
-                setPostcodeTierCost={setPostcodeTierCost}
-                calculatePostcodeCost={true} // Enable postcode calculation
-            />
-
         </div>
     );
 }

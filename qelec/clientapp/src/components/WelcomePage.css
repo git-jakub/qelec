@@ -3,9 +3,10 @@
     flex-direction: column;
     align-items: center;
     background-color: #106EBE;
+    background-image: linear-gradient(135deg ,#1E3D65 , #106EBE);
     color: white;
     min-height: 100vh;
-    padding: 20px;
+    padding: 0px;
     text-align: center;
     top: 0px;
     min-height: 100vh;
@@ -27,7 +28,7 @@
 }
 
 .service-option {
-    background-color: #106EBE; /* Brązowy kolor */
+    background-color: transparent; /* Brązowy kolor */
     color: white;
     display: flex;
     flex-direction: column; /* Układ pionowy dla ikony i tekstu */
@@ -54,7 +55,7 @@
     }
 
     .service-option:hover {
-        background-color: black; /* Zmiana koloru po najechaniu */
+        background-color: #1E3D65; /* Zmiana koloru po najechaniu */
     }
 
 .book-now-btn {
