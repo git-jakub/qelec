@@ -132,6 +132,51 @@ const OrderSummary = () => {
                 console.log('Email sent successfully!');
             }
 
+            // Notify admin via WhatsApp
+            const whatsappMessage = {
+                toPhoneNumber: "+447405376887", // Your admin number
+                body: `🔔 *New Order Received!*
+
+                *Order ID:* ${savedOrder.orderId || "Unknown"}
+                *Client Name:* ${validatedOrderData.jobDetails.clientName || "Not entered"}
+                *Client Mobile:* ${validatedOrderData.jobDetails.mobile || "Not entered"}
+                *Client Email:* ${validatedOrderData.jobDetails.clientEmail || "Not entered"}
+
+                *Job Description:* ${validatedOrderData.estimateDetails.jobDescription || "Not entered"}
+                *Job Address:*
+                - ${validatedOrderData.jobAddress.street || "Not entered"}
+                - ${validatedOrderData.jobAddress.city || "Not entered"}
+                - ${validatedOrderData.jobAddress.postcode || "Not entered"}
+
+                *Total Cost:* £${validatedOrderData.estimateDetails.calculatedCost || 0}
+                *Date:* ${formattedDate}
+                *Time:* ${formattedTime}
+
+                Please review the order for further processing.`,
+            };
+
+            try {
+                // Send the WhatsApp message
+                const whatsappResponse = await fetch(`${process.env.REACT_APP_API_URL}/WhatsApp/send`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(whatsappMessage),
+                });
+
+                if (!whatsappResponse.ok) {
+                    const whatsappErrorDetails = await whatsappResponse.text();
+                    console.error('Failed to send WhatsApp message to admin:', whatsappErrorDetails);
+                    alert('Order saved but admin notification could not be sent. Please check the logs.');
+                } else {
+                    console.log('Admin notified via WhatsApp successfully!');
+                }
+            } catch (error) {
+                console.error('Error sending WhatsApp message to admin:', error);
+                alert('An unexpected error occurred while sending the WhatsApp notification.');
+            }
+
+
+
 
 
             // Generate Purchase Order PDF

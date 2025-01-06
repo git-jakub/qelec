@@ -11,9 +11,10 @@ using qelec.Controllers;
 using FluentEmail.Core;
 using FluentEmail.Smtp;
 using System.Net.Mail;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System.Net;
+using Twilio;
+using Twilio.Clients;
+using Twilio.Rest.Api.V2010.Account;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,7 +58,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "https://localhost:3000", "http://qelectric.net", "https://qelectric.net", "http://www.qelectric.net", "https://www.qelectric.net")
+        policy.WithOrigins(
+                "http://localhost:3000",
+                "https://localhost:3000",
+                "http://qelectric.net",
+                "https://qelectric.net",
+                "http://www.qelectric.net",
+                "https://www.qelectric.net")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -72,22 +79,34 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<InvoiceService>();
 builder.Services.AddScoped<OpenAIService>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddSingleton<WhatsAppService>();
 
+// Configure Twilio WhatsApp Service
+builder.Services.AddSingleton<WhatsAppService>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var accountSid = configuration["Twilio:AccountSID"];
+    var authToken = configuration["Twilio:AuthToken"];
+    var fromNumber = configuration["Twilio:WhatsAppNumber"];
+    Console.WriteLine($"[DEBUG] Account SID: {accountSid}");
+    Console.WriteLine($"[DEBUG] Auth Token: {authToken?.Substring(0, 4)}... (masked)");
+    Console.WriteLine($"[DEBUG] Twilio Phone Number: {fromNumber}");
 
+    // Initialize Twilio Client
+    TwilioClient.Init(accountSid, authToken);
 
+    return new WhatsAppService(accountSid, authToken, fromNumber);
+});
 
-//// Pobierz ustawienia EmailSettings z konfiguracji
+// Configure FluentEmail for SMTP
 //builder.Services.AddFluentEmail("qelectriclimited@gmail.com")
-//    .AddRazorRenderer() // Renderowanie szablonów e-mail (opcjonalne)
+//    .AddRazorRenderer() // Optional: For rendering email templates
 //    .AddSmtpSender(new SmtpClient("smtp.gmail.com")
 //    {
 //        Port = 587,
-//        Credentials = new NetworkCredential("qelectriclimited@gmail.com", "viso rgvu otdw nxue"),
+//        Credentials = new NetworkCredential("qelectriclimited@gmail.com", "your-email-password"), // Replace with your credentials
 //        EnableSsl = true
 //    });
-
-
-
 
 // Enable Swagger for API documentation and testing
 builder.Services.AddEndpointsApiExplorer();
@@ -134,6 +153,7 @@ app.UseHttpsRedirection();
 // Apply CORS policy before authentication and authorization
 app.UseCors("AllowFrontend");
 
+// Middleware to log authenticated user claims
 app.Use(async (context, next) =>
 {
     if (context.User.Identity?.IsAuthenticated ?? false)
