@@ -1,7 +1,6 @@
 ﻿/* src/components/Navbar.css */
 .navbar{
     display: flex;
-    align-items: center;
     justify-content: space-between;
     background-color: #333;
     color: white;
@@ -22,3 +21,12 @@
     font-size: 16px;
 }
 
+
+@media (max-width: 480px) {
+    .welcome-message {
+        margin-right: 0;
+        margin-left: 0;
+        width: 0;
+        visibility: hidden;
+    }
+}

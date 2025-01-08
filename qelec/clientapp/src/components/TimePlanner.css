@@ -205,9 +205,6 @@
 
 /* Style dla ekranów o szerokości 768px i mniejszych */
 @media (max-width: 768px) {
-    .time-planner-form {
-        padding: 10px; /* Zmniejszenie odstępów */
-    }
 
     .day-slider {
         flex-wrap: wrap; /* Ustawienie elementów w wielu liniach */

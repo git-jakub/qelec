@@ -60,3 +60,21 @@
     .estimate-details textarea:disabled {
         background-color: #2D3A4E; /* Color for disabled field */
     }
+
+
+.estimate-details textarea{
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .estimate-details{
+        width: 80vw;
+    }
+
+    .estimate-details textarea{
+        width: 60%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+}

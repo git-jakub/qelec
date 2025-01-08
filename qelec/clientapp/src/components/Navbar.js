@@ -52,7 +52,10 @@ const Navbar = ({ backPath, nextPath }) => {
                 <button onClick={() => userName ? handleLogout() : navigate('/login')} className="login-button">
                     {userName ? 'Logout' : 'Login'}
                 </button>
+
+                {!userName && (
                 <button onClick={() => navigate('/register')} className="register-button">Register</button>
+                    )}
 
             </div>
         </div>

@@ -85,7 +85,11 @@
 /* Responsywność */
 @media (max-width: 768px) {
     .navbar {
+        display: flex;
+        flex-wrap: wrap;
         flex-direction: row; /* Nadal układ poziomy */
+        width: 100%;
+        align-items: normal;
     }
 
     .navbar-left {
@@ -101,5 +105,30 @@
 
     .login-button, .back-button, .portal-button, .next-button, .register-button {
         width: auto; /* Przycisk dostosowuje się do zawartości */
+    }
+}
+
+
+@media (max-width: 480px) {
+    .navbar-left {
+        justify-content: flex-start; /* Sekcja pozostaje wyrównana do lewej */
+        flex-wrap: wrap; /* Pozwala elementom zawijać się w razie potrzeby */
+        gap: 2px;
+    }
+
+    .navbar-right {
+        justify-content: flex-end; /* Sekcja pozostaje wyrównana do prawej */
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+
+    .portal-button{
+        margin-left: -2px;
+        margin-right: -5px;
+    }
+
+    .navbar-left button, .navbar-right button{
+        font-size: 0.80rem;
+        font-weight: bolder;
     }
 }

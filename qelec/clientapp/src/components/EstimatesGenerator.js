@@ -94,11 +94,9 @@ function EstimateGenerator() {
                         setCongestionCharge={setCongestionCharge}
                     />
 
-                    <div className="submit-section">
-                        <button className="proceed-button" onClick={navigateToTimePlanner}>
-                            Submit
-                        </button>
-                    </div>
+                    <button className="proceed-button" onClick={navigateToTimePlanner}>
+                        Submit
+                    </button>
 
                     <CostCalculator
                         generatedTime={generatedTime}

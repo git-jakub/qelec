@@ -27,7 +27,7 @@
 .estimate-generator__left{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 50vw;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
@@ -36,7 +36,7 @@
 .estimate-generator__right{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 50vw;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
@@ -46,7 +46,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
+    width: 100vw;
     margin-top: 20px;
     justify-items: center;
 }
@@ -116,3 +116,42 @@
         color: white;
         transform: scale(1.05);
     }
+
+
+@media (max-width: 768px) {
+    .estimate-generator{
+        width: 80vw;
+    }
+    .generate-button{
+        width: 85vw;
+        margin-left: 10px;
+    }
+
+    .estimate-generator__left{
+        width: 80vw;
+    }
+
+    .estimate-generator__left textarea{
+        width: 60%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .estimate-generator__right{
+        width: 80vw;
+    }
+
+    .estimate-generator__right input{
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 90%;
+    }
+
+    .proceed-button{
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        padding: 20px 20px;
+        width: 90vw;
+    }
+}

@@ -70,10 +70,6 @@ p {
         min-width: 405px;
     }
 
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-    }
 
     .summary-section {
 

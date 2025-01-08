@@ -18,5 +18,36 @@
 .register_form{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100vw;
+}
+
+
+@media (max-width: 768px) {
+    .register_form input {
+        width: auto;
+        margin:0;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .register-container{
+        margin:0 auto ;
+    }
+
+    .register_form form{
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .register_form{
+        max-width: 96vw;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .register_form button{
+        margin: 0;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
 }
